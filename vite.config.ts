@@ -3,6 +3,9 @@ import { defineConfig } from 'vitest/config';
 import { sveltekit } from '@sveltejs/kit/vite';
 
 export default defineConfig({
+	server: {
+		port: 6969
+	},
 	plugins: [
 		sveltekit(),
 		paraglide({
