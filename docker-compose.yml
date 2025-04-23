@@ -5,6 +5,6 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: pansamochodzik123
       POSTGRES_DB: local
