@@ -49,6 +49,7 @@
 			| 'hidden'
 			| 'image'
 			| 'month'
+			| 'number'
 			| 'password'
 			| 'reset'
 			| 'search'
@@ -60,9 +61,6 @@
 
 		/** stylistic variant of the input */
 		variant?: keyof typeof variants;
-
-
-		some_addition: string;
 
 		inputInstance?: HTMLInputElement | null;
 		labelInstance?: HTMLLabelElement | null;

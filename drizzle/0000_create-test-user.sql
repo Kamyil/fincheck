@@ -1,7 +1,7 @@
 CREATE TABLE "sessions" (
 	"id" text PRIMARY KEY NOT NULL,
 	"user_id" text NOT NULL,
-	"expires_at" timestamp with time zone NOT NULL
+	"expires_at" timestamp WITH time zone NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "users" (

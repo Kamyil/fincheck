@@ -13,7 +13,7 @@
 <main class="grid h-screen place-items-center">
 	<h1>Zaloguj się</h1>
 
-	<form method="post" use:enhance class="grid place-items-center">
+	<form method="post" class="grid place-items-center">
 		<label>
 			Login
 			<Input name="username" />
