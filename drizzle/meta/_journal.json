@@ -1,13 +1,27 @@
 {
-  "version": "7",
-  "dialect": "postgresql",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "7",
-      "when": 1736312419995,
-      "tag": "0000_create-test-user",
-      "breakpoints": true
-    }
-  ]
+	"version": "7",
+	"dialect": "postgresql",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "7",
+			"when": 1736312419995,
+			"tag": "0000_create-test-user",
+			"breakpoints": true
+		},
+		{
+			"idx": 1,
+			"version": "7",
+			"when": 1736312420000,
+			"tag": "0001_add_test_user",
+			"breakpoints": true
+		},
+		{
+			"idx": 2,
+			"version": "7",
+			"when": 1736312420005,
+			"tag": "0002_add_demo_user",
+			"breakpoints": true
+		}
+	]
 }

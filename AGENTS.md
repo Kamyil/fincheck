@@ -41,5 +41,146 @@
 ## Error Handling
 
 - Use proper TypeScript types
-- Handle form validation with SuperForms
+- Handle form validation with SvelteKit's native form validation or SuperForms when needed
 - Always validate user input on the server
+
+## Data Handling with Remote Functions
+
+The application uses SvelteKit's experimental remote functions for data handling, which provides type-safe client-server communication without manually creating API endpoints.
+
+### Remote Function Types
+
+1. **Query Functions** - For fetching data from the server:
+
+   ```typescript
+   import { query } from '$app/server';
+
+   export const getData = query(async () => {
+   	// Server-side code to fetch data
+   	return {
+   		/* your data */
+   	};
+   });
+   ```
+
+2. **Form Functions** - For handling form submissions:
+
+   ```typescript
+   import { form } from '$app/server';
+
+   export const submitForm = form(async (formData) => {
+   	// Process form data
+   	return { success: true };
+   });
+   ```
+
+3. **Command Functions** - For immediate actions:
+
+   ```typescript
+   import { command } from '$app/server';
+
+   export const performAction = command(async () => {
+   	// Execute action
+   	return { success: true };
+   });
+   ```
+
+4. **Prerender Functions** - For static data that changes infrequently:
+
+   ```typescript
+   import { prerender } from '$app/server';
+
+   export const getStaticData = prerender(async () => {
+   	// Get static data
+   	return {
+   		/* your static data */
+   	};
+   });
+   ```
+
+### File Structure
+
+- Remote functions should be placed in files with `.remote.ts` or `.remote.js` extension
+- Group related functions in domain-specific remote files
+- Example path: `src/lib/user/data.remote.ts`
+
+### Usage in Components
+
+```svelte
+<script>
+	// Import remote functions
+	import { getData, submitForm } from '$lib/data.remote';
+</script>
+
+<!-- Query usage with async -->
+<svelte:boundary>
+	<div>
+		{#key getData().current}
+			{@const data = await getData()}
+			<p>{data.value}</p>
+		{/key}
+	</div>
+
+	{#snippet pending()}
+		<p>Loading...</p>
+	{/snippet}
+</svelte:boundary>
+
+<!-- Form usage -->
+<form {...submitForm}>
+	<input name="field" />
+	<button type="submit">Submit</button>
+</form>
+
+<!-- Access form result -->
+{#if submitForm.result?.success}
+	<p>Form submitted successfully!</p>
+{/if}
+```
+
+## Async Svelte
+
+The application uses Svelte's experimental async feature, which allows using `await` directly in:
+
+- The top level of a component's `<script>` tag
+- Inside `$derived(...)` declarations
+- Inside component markup
+
+### Usage Guidelines
+
+1. Always wrap components that use `await` in markup with a `<svelte:boundary>` element:
+
+   ```svelte
+   <svelte:boundary>
+   	<p>{await getData()}</p>
+
+   	{#snippet pending()}
+   		<p>Loading...</p>
+   	{/snippet}
+   </svelte:boundary>
+   ```
+
+2. For derived state:
+
+   ```svelte
+   <script>
+   	import { getData } from './data.remote';
+
+   	let result = $derived(await getData());
+   </script>
+   ```
+
+3. To refresh data:
+
+   ```typescript
+   // Client-side refresh
+   getData().refresh();
+
+   // Server-side refresh in a form or command
+   await getData().refresh();
+   ```
+
+4. For optimistic updates:
+   ```typescript
+   await addItem(id).updates(getItems().withOverride((items) => [...items, newItem]));
+   ```

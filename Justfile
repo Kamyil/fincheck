@@ -22,6 +22,9 @@ start:
     
     @echo "📦 Running DB migrations..."
     just db-migrate
+
+    @echo "💾 Running Drizzle Studio to manage your database:"
+    just db-studio
     
     @echo "🚀 Application is running!"
     @echo "  - http://pan-samochodzik.test (with DNS resolution via dnsmasq)"
@@ -29,6 +32,7 @@ start:
     @echo "  - http://localhost (works everywhere)"
     @echo "📊 Traefik dashboard is available at http://localhost:8080"
     @echo "💾 Database is accessible at localhost:5432"
+    @echo "💾 Drizzle studio is accessible at https://local.drizzle.studio/"
     @echo ""
     @echo "Use 'just logs' to view application logs"
     @echo "Use 'just logs-app' to view only app logs"
