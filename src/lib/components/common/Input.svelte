@@ -1,12 +1,11 @@
-<script lang="ts" module>
-	export let variants = {
+<script lang="ts">
+	import { twMerge } from 'tailwind-merge';
+
+	// Variants can be defined as constants
+	const variants = {
 		'with-shadow': 'shadow-md',
 		'with-border': 'border-stone-200'
 	} as const;
-</script>
-
-<script lang="ts">
-	import { twMerge } from 'tailwind-merge';
 
 	type Props = {
 		/**
@@ -69,9 +68,11 @@
 		hint?: string;
 
 		onchange?: HTMLInputElement['onchange'];
+		onblur?: HTMLInputElement['onblur'];
 		oninput?: HTMLInputElement['oninput'];
 		onkeyup?: HTMLInputElement['onkeyup'];
 	};
+
 	let {
 		classes = '',
 		error = false,
@@ -88,7 +89,6 @@
 		labelInstance = null,
 		hint = '',
 		onchange,
-		onblur,
 		oninput,
 		onkeyup
 	}: Props = $props();
@@ -120,7 +120,6 @@
 	{placeholder}
 	{...{ type }}
 	{onchange}
-	{onblur}
 	{oninput}
 	{onkeyup}
 />

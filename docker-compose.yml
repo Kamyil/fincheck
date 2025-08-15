@@ -1,10 +1,80 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: ${DOCKER_DEFAULT_PLATFORM}
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://admin:pansamochodzik123@db:5432/local
+      - HOST=0.0.0.0
+    volumes:
+      - .:/app:cached
+      - app_node_modules:/app/node_modules
+    depends_on:
+      - db
+    networks:
+      - pan-samochodzik-network
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.app.rule=Host(`pan-samochodzik.test`) || Host(`pan-samochodzik.local`)'
+      - 'traefik.http.services.app.loadbalancer.server.port=6969'
+      - 'traefik.http.routers.app.entrypoints=web'
+
   db:
-    image: postgres
-    restart: always
+    image: postgres:16-alpine
+    platform: ${DOCKER_DEFAULT_PLATFORM}
+    restart: unless-stopped
     ports:
       - 5432:5432
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: pansamochodzik123
       POSTGRES_DB: local
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pan-samochodzik-network
+
+  traefik:
+    image: traefik:v2.10
+    platform: ${DOCKER_DEFAULT_PLATFORM}
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '8080:8080'
+    command:
+      - '--api.insecure=true'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entrypoints.web.address=:80'
+      - '--log.level=DEBUG'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    networks:
+      - pan-samochodzik-network
+    depends_on:
+      - dnsmasq
+
+  dnsmasq:
+    image: strm/dnsmasq
+    platform: ${DOCKER_DEFAULT_PLATFORM}
+    restart: unless-stopped
+    volumes:
+      - ./dnsmasq.conf:/etc/dnsmasq.conf:ro
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - pan-samochodzik-network
+    ports:
+      - '53:53/udp'
+
+volumes:
+  postgres_data:
+  app_node_modules:
+
+networks:
+  pan-samochodzik-network:
+    driver: bridge

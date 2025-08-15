@@ -20,7 +20,7 @@ ALTER TABLE "sessions" ADD CONSTRAINT "sessions_user_id_users_id_fk" FOREIGN KEY
 
 --> statement-breakpoint
 INSERT INTO "users" ("id", "age", "login", "email", "password_hash", "created_at", "updated_at")
-VALUES ('test_id', 99, 'admin', 'admin@example.com', '$argon2id$v=19$m=19456,t=2,p=1$I4Frns73f+Rrk72Fcl71tw$pQBxL+ScclldUTClpynU/NjeLiT+rKpLz9llWKk+hDE', NOW(), NOW());
+VALUES ('test_id', 99, 'testuser', 'testuser@example.com', '$argon2id$v=19$m=19456,t=2,p=1$aN83U8OKeJkc5QGiCbD/Dw$8ZXP6fdO65IHT+eTYwJnG+DwhGgakKj7hU1Xwpf6dvM', NOW(), NOW());
 
 --> statement-breakpoint
 -- remove the leftover table that was generated with starter-kit (and didn't make sense to be named in a singular form)
