@@ -1,38 +1,43 @@
 <script lang="ts">
-	import Button from '$lib/components/common/Button.svelte';
-	import Input from '$lib/components/common/Input.svelte';
-	import Link from '$lib/components/common/Link.svelte';
-	import type { PageData } from './$types';
-	import { superForm } from 'sveltekit-superforms';
+	import { enhance } from '$app/forms';
 
-	let { data }: { data: PageData } = $props();
-
-	let { form, enhance, errors, message } = superForm(data.form);
+	let { form } = $props();
 </script>
 
-<main class="grid h-screen place-items-center">
-	<h1>Zaloguj się</h1>
-
-	<form method="post" class="grid place-items-center">
-		<label>
-			Login
-			<Input name="username" />
-		</label>
-		<label>
-			Hasło
-			<Input type="password" name="password" />
-		</label>
-
-		<div class="mt-4 flex flex-col gap-y-2">
-			<Button type="submit" formaction="?/login">Zaloguj się</Button>
-			<Button type="submit" formaction="?/register">Zarejestruj się</Button>
+<div class="container mx-auto p-8">
+	<h1 class="mb-6 text-2xl font-bold">Login</h1>
+	<form method="post" action="?/login" use:enhance>
+		<div class="mb-4">
+			<label class="mb-1 block">
+				Username
+				<input
+					name="username"
+					class="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+				/>
+			</label>
+		</div>
+		<div class="mb-6">
+			<label class="mb-1 block">
+				Password
+				<input
+					type="password"
+					name="password"
+					class="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+				/>
+			</label>
+		</div>
+		<div class="flex gap-4">
+			<button class="rounded-md bg-blue-600 px-6 py-2 text-white transition hover:bg-blue-700"
+				>Login</button
+			>
+			<button
+				formaction="?/register"
+				class="rounded-md bg-blue-600 px-6 py-2 text-white transition hover:bg-blue-700"
+				>Register</button
+			>
 		</div>
 	</form>
-
-	<p style="color: red">{$message ?? ''}</p>
-</main>
-
-<!-- <div class="flex h-screen w-screen flex-col items-center justify-center gap-y-8"> -->
-<!-- 	<Link href="/login">Zaloguj się</Link> -->
-<!-- 	<Link href="/register">Zarejestruj się</Link> -->
-<!-- </div> -->
+	{#if form?.message}
+		<p class="mt-4 text-red-600">{form.message}</p>
+	{/if}
+</div>

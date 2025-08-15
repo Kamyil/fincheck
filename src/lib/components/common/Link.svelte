@@ -1,24 +1,22 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-	import { twMerge } from 'tailwind-merge';
+    import { twMerge } from "tailwind-merge";
 
-	let variants = {
-		primary: 'text-primary',
-		secondary: 'text-secondary',
-		neutral: 'text-zinc-500'
-	} as const;
+    interface Props {
+        href: string | undefined;
+        classes?: string;
+        target: HTMLAnchorElement["target"];
+        children?: import("svelte").Snippet;
+        variant?: keyof typeof variants;
+    }
 
-	type Props = {
-		href: string;
-		variant?: keyof typeof variants;
-		classes?: string;
-		children?: Snippet;
-	};
-	let { variant = 'primary', children, href, classes }: Props = $props();
+    let variants = {
+        primary: "text-primary hover:text-primary_darker",
+        neutral: "",
+    } as const;
+
+    let { href, classes = "", target, children, variant = "primary" }: Props = $props();
 </script>
 
-<a {href} class="{variants[variant]} {twMerge('', classes)}">
-	{#if children}
-		{@render children()}
-	{/if}
+<a class={twMerge("block text-primary_darker underline", variants[variant], classes)} {href} {target}>
+    {@render children?.()}
 </a>

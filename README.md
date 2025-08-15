@@ -25,9 +25,8 @@ just start
 This command:
 
 1. Builds and starts all containers (app, database, Traefik, and dnsmasq for DNS resolution)
-2. Runs database migrations
-3. Creates a test user
-4. Starts streaming logs
+2. Runs database migrations (which includes creating test and demo users)
+3. Starts streaming logs
 
 ### Custom Domain Resolution
 
@@ -47,11 +46,19 @@ The application automatically sets up local domain resolution using:
 
 ### Test User Credentials
 
-Once the application is running, you can log in with:
+Once the application is running, you can log in with either of these accounts:
+
+#### Test User
 
 - **Username:** testuser
 - **Email:** testuser@example.com
 - **Password:** testuser123
+
+#### Demo User
+
+- **Username:** demo
+- **Email:** demo@pan-samochodzik.local
+- **Password:** pansamochodzik
 
 ### Common Development Commands
 
@@ -133,9 +140,8 @@ If you prefer to run the application directly on your host machine instead of in
 
 1. Install dependencies: `bun install`
 2. Start just the database: `just docker compose up -d db`
-3. Run migrations: `bun run db:push`
-4. Create test user: `bun run db:create-test-user`
-5. Start the dev server: `bun run dev`
+3. Run migrations: `bun run db:push` (this will also create test and demo users)
+4. Start the dev server: `bun run dev`
 
 ## Dependency Management
 

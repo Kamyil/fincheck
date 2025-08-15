@@ -23,9 +23,6 @@ start:
     @echo "📦 Running DB migrations..."
     just db-migrate
     
-    @echo "👤 Creating test user..."
-    just create-test-user
-    
     @echo "🚀 Application is running!"
     @echo "  - http://pan-samochodzik.test (with DNS resolution via dnsmasq)"
     @echo "  - http://pan-samochodzik.local (automatic on macOS/Linux with mDNS)"
@@ -80,11 +77,7 @@ db-studio:
 db-generate-migration:
     docker compose exec app bun run db:generate:migration
 
-# Create test user
-create-test-user:
-    @echo "👤 Creating test user..."
-    docker compose exec app node -e "const { hash } = require('@node-rs/argon2'); const { db } = require('./src/lib/server/db'); const { users } = require('./src/lib/server/db/schema/users'); const { eq } = require('drizzle-orm'); (async () => { try { const passwordHash = await hash('testuser123', { memoryCost: 19456, timeCost: 2, outputLen: 32, parallelism: 1 }); await db.delete(users).where(eq(users.id, 'test_id')).execute(); await db.insert(users).values({ id: 'test_id', age: 99, username: 'testuser', email: 'testuser@example.com', password_hash: passwordHash, created_at: new Date(), updated_at: new Date() }).execute(); console.log('Test user created successfully'); } catch (error) { console.error('Failed to create test user:', error); } })()"
-    @echo "✅ Test user created with username: testuser, password: testuser123"
+# This functionality has been moved to database migrations
 
 # Show logs
 logs:
@@ -117,3 +110,11 @@ test-e2e:
 
 test-unit:
     docker compose exec app bun run test:unit
+
+revamp:
+    @echo "🔄 Revamping application..."
+    just down
+    just cleanup
+    just rebuild
+    just start
+    @echo "✅ Application revamped successfully!"

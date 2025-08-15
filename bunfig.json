@@ -1,9 +1,0 @@
-{
-	"install": {
-		"resolution": "highest",
-		"override": {
-			"@sveltejs/kit": "^2.29.1",
-			"svelte": "^5.38.1"
-		}
-	}
-}

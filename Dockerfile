@@ -3,8 +3,8 @@ FROM oven/bun:latest
 WORKDIR /app
 
 # Copy only the files needed for installation
-COPY package.json bunfig.json ./
-COPY bun.lockb ./bun.lockb
+COPY package.json ./
+# COPY bun.lockb ./bun.lockb
 
 # Install dependencies
 RUN bun install
@@ -16,4 +16,4 @@ COPY --chown=bun:bun . .
 EXPOSE 6969
 
 # Start the application in development mode
-CMD ["bun", "run", "dev", "--", "--host", "0.0.0.0"]
+CMD ["bun", "run", "dev"]
