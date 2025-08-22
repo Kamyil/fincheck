@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from '$lib/components/common/Button.svelte';
 	import { getTodos, addTodo, toggleTodo, removeTodo } from '$lib/todos/data.remote';
 </script>
 
@@ -28,46 +29,31 @@
 		<!-- Todo List -->
 		<div class="rounded-lg bg-white p-4 shadow">
 			<h2 class="mb-4 text-xl font-semibold">Tasks</h2>
+			<ul class="divide-y">
+				{#each await getTodos() as todo}
+					<li class="flex items-center justify-between py-3">
+						<div class="flex items-center">
+							<form {...toggleTodo} class="mr-3">
+								<input type="hidden" name="id" value={todo.id} />
+								<input
+									type="checkbox"
+									checked={todo.completed}
+									class="h-5 w-5 cursor-pointer accent-blue-600"
+								/>
+							</form>
 
-			{#key getTodos().current}
-				{@const todos = await getTodos()}
+							<span class={todo.completed ? 'text-gray-500 line-through' : ''}>
+								{todo.text}
+							</span>
+						</div>
 
-				{#if todos.length === 0}
-					<p class="text-gray-500 italic">No tasks yet. Add one above!</p>
-				{:else}
-					<ul class="divide-y">
-						{#each todos as todo}
-							<li class="flex items-center justify-between py-3">
-								<div class="flex items-center">
-									<form {...toggleTodo} class="mr-3">
-										<input type="hidden" name="id" value={todo.id} />
-										<input
-											type="checkbox"
-											checked={todo.completed}
-											class="h-5 w-5 cursor-pointer accent-blue-600"
-										/>
-									</form>
-
-									<span class={todo.completed ? 'text-gray-500 line-through' : ''}>
-										{todo.text}
-									</span>
-								</div>
-
-								<form {...removeTodo}>
-									<input type="hidden" name="id" value={todo.id} />
-									<button
-										type="submit"
-										class="text-red-600 hover:text-red-800"
-										aria-label="Delete todo"
-									>
-										Delete
-									</button>
-								</form>
-							</li>
-						{/each}
-					</ul>
-				{/if}
-			{/key}
+						<form {...removeTodo}>
+							<input type="hidden" name="id" value={todo.id} />
+							<Button type="submit" class="text-red-600 hover:text-red-800">Delete</Button>
+						</form>
+					</li>
+				{/each}
+			</ul>
 		</div>
 	</div>
 
