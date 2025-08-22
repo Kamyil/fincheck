@@ -1,125 +1,73 @@
-# Claude Code Project Context - Pan Samochodzik
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-**Pan Samochodzik** is a comprehensive Polish automotive platform - a "Digital Automotive Assistant" that connects car owners with mechanics and provides automotive services.
-
-## Tech Stack
-- **Frontend**: SvelteKit 2.0 with Svelte 5 (latest versions)
-- **Language**: TypeScript with strict mode
-- **Styling**: TailwindCSS 4.0
-- **Database**: PostgreSQL with Drizzle ORM
-- **Authentication**: Custom auth with Argon2 password hashing
-- **Package Manager**: Bun (preferred for faster installs)
-- **Development**: Fully containerized with Docker Compose + Traefik
-- **Architecture**: Multi-architecture Docker support (ARM64/AMD64)
-
-## Key Features
-- 🔧 **Mechanic Finder** - Find trusted mechanics with reviews
-- 📋 **Car Health Book** - Track service history and vehicle status  
-- ⚙️ **Parts Ordering** - Direct parts ordering through the app
-- 👥 **Community** - Connect mechanics and car owners
-
-## Architecture Highlights
-- **Remote Functions**: Uses SvelteKit's experimental remote functions for type-safe client-server communication
-- **Async Svelte**: Leverages Svelte 5's async features with `<svelte:boundary>`
-- **Domain Resolution**: Custom DNS setup with dnsmasq for `.test` domains
-
-## Project Structure
-```
-src/
-├── lib/
-│   ├── components/         # Reusable Svelte components
-│   ├── server/            # Server-only code (auth, db)
-│   ├── todos/             # Todo feature with remote functions
-│   ├── user/              # User-related functionality
-│   └── utils/             # Utility functions
-├── routes/                # SvelteKit routes
-│   ├── login/logout/      # Authentication pages
-│   ├── todos/             # Todo demo page
-│   └── +page.svelte       # Landing page
-drizzle/                   # Database migrations
-docs/                      # Empty directory
-```
-
-## Code Style & Conventions
-- **Indentation**: Tabs (not spaces)
-- **Quotes**: Single quotes for strings
-- **Line width**: 100 characters
-- **No trailing commas**
-- **Variable declarations**: Prefer `let` over `const` - use `const` only for ACTUAL constants (not arrays/objects that can be mutated)
-- **Component naming**: PascalCase for components
-- **File extensions**: `.svelte` for components, `.ts` for TypeScript
+**Pan Samochodzik** is a Polish automotive platform - a "Digital Automotive Assistant" connecting car owners with mechanics. Built with SvelteKit 2.0 + Svelte 5, showcasing experimental remote functions and async features.
 
 ## Development Commands
+
+### Container Management (Preferred)
 ```bash
-# Container management
-just start          # Full containerized startup
+just start          # Full containerized startup with migrations
 just stop           # Stop containers
 just down           # Stop and remove containers
 just clean          # Complete cleanup with volumes
+just logs           # View application logs
+just restart-app    # Restart just the app container
+```
 
-# Local development
+### Local Development
+```bash
 npm run dev         # Development server
 npm run build       # Production build
-npm run lint        # Code linting
+npm run lint        # Code linting (Prettier)
 npm run format      # Code formatting
-npm run check       # TypeScript checking
-
-# Database
-npm run db:push     # Push schema changes
-npm run db:migrate  # Run migrations
-npm run db:studio   # Open Drizzle Studio
-
-# Testing
-npm run test        # All tests
-npm run test:unit   # Unit tests with Vitest
-npm run test:e2e    # E2E tests with Playwright
+npm run check       # TypeScript + Svelte checking
 ```
 
-## Current Status
-- ✅ Working authentication system (login/logout)
-- ✅ Containerized development environment
-- ✅ Todo functionality with remote functions
-- ✅ Landing page with Polish content
-- ✅ Database setup with test users
-
-## Test Users
-```
-Username: testuser
-Email: testuser@example.com
-Password: testuser123
-
-Username: demo  
-Email: demo@pan-samochodzik.local
-Password: pansamochodzik
+### Database Operations
+```bash
+npm run db:push     # Push schema changes to database
+npm run db:migrate  # Run pending migrations
+npm run db:studio   # Open Drizzle Studio GUI
+just db-migrate     # Container version
 ```
 
-## Access URLs
-- `http://pan-samochodzik.test` (with dnsmasq)
-- `http://pan-samochodzik.local` (mDNS)
-- `http://localhost` (standard)
+### Testing
+```bash
+npm run test:unit            # Vitest unit tests
+npm run test:e2e            # Playwright E2E tests
+npm run test:unit -- <file> # Run specific test file
+npm run test               # All tests
+```
 
-## Remote Functions Pattern
-The project uses SvelteKit's experimental remote functions for type-safe server communication:
+## Architecture
+
+### Authentication System
+- **Custom session-based auth** (not Auth.js) with Argon2 password hashing
+- **30-day sessions** with auto-renewal, SHA-256 hashed tokens in database
+- **Universal auth hook** in `hooks.server.ts` validates every request
+- Auth state available as `event.locals.user` and `event.locals.session`
+- Login/register combined in single endpoint with comprehensive validation
+
+### Remote Functions Pattern (Experimental SvelteKit Feature)
+Revolutionary client-server communication pattern:
 
 ```typescript
 // In .remote.ts files
 import { query, form, command } from '$app/server';
 
-export const getData = query(async () => {
-  // Server-side data fetching
-});
-
-export const submitForm = form(async (formData) => {
-  // Form handling
-});
+export const getData = query(async () => { /* server logic */ });
+export const addItem = form(async (formData) => { /* mutation */ });
+export const doAction = command(async () => { /* immediate action */ });
 ```
 
 ```svelte
-<!-- In components -->
+<!-- In components - automatic state management -->
 <svelte:boundary>
   {#each await getData() as item}
-    <!-- Render data -->
+    <form {...addItem}><!-- Automatic form handling --></form>
   {/each}
   
   {#snippet pending()}
@@ -128,14 +76,99 @@ export const submitForm = form(async (formData) => {
 </svelte:boundary>
 ```
 
-## Recent Changes (Git Status)
-- Modified: `src/app.css`, `src/routes/+page.svelte`, `src/routes/todos/+page.svelte`
-- Untracked: `src/lib/httpStatusCodes.ts`
-- Recent commits: Working login/logout, containerization, migrations setup
+**Key Benefits:**
+- Automatic form spreading with `{...formFunction}`
+- Built-in caching and reactivity for queries
+- Type-safe client-server boundary
+- Automatic state refresh after mutations
 
-## Notes
-- Project uses Polish language for UI content
-- Comprehensive HTTP status codes enum available
-- Docker setup includes Traefik for reverse proxy
-- Custom DNS resolution for local development
-- Bun is preferred package manager for better dependency resolution
+### Database Schema (Drizzle + PostgreSQL)
+```typescript
+// Key schema pattern: username maps to "login" column in DB
+export const user = pgTable('users', {
+  id: text('id').primaryKey(),
+  username: text('login').notNull().unique(), // Note: column is "login"
+  email: varchar('email', { length: 255 }).notNull().unique(),
+  passwordHash: text('password_hash').notNull(),
+  // ... timestamps
+});
+```
+
+### Component Architecture
+- **Atomic design**: `components/common/` for reusable UI primitives
+- **Feature components**: Organized by domain (Filter/, Charts/, icons/)
+- **Table system**: Composable parts (TableBody, TableCell, etc.)
+- **Form integration**: Components work seamlessly with remote functions
+
+## Code Style & Conventions
+- **Indentation**: Tabs (not spaces)
+- **Quotes**: Single quotes for strings
+- **Line width**: 100 characters
+- **No trailing commas**
+- **Variables**: Prefer `let` over `const` - use `const` only for true constants
+- **Components**: PascalCase naming, `.svelte` extension
+
+## Key Architectural Patterns
+
+### 1. Session Management Flow
+1. `hooks.server.ts` validates session on every request
+2. Session token stored as HTTP-only cookie
+3. User/session objects attached to `event.locals`
+4. 15-day auto-renewal before expiry
+5. Automatic cleanup of expired sessions
+
+### 2. Remote Functions Data Flow
+1. `query()` functions provide cached, reactive data
+2. `form()` functions handle mutations with automatic validation
+3. `command()` functions for immediate actions
+4. Queries auto-refresh after successful mutations
+5. Built-in error states and form validation feedback
+
+### 3. Database Migration Strategy
+- Drizzle Kit with timestamp-prefixed migrations
+- Environment-based connection via `DATABASE_URL`
+- Schema files organized in `src/lib/server/db/schema/`
+- Development uses Docker PostgreSQL 16 Alpine
+
+### 4. Containerization Architecture
+- **Full Docker Compose stack** with Traefik reverse proxy
+- **Multi-domain routing**: `.test` (dnsmasq), `.local` (mDNS), `localhost`
+- **Hot reloading** via volume mounts in development
+- **Service isolation** with dedicated Docker network
+
+## Test Users
+```
+Username: testuser / Email: testuser@example.com / Password: testuser123
+Username: demo / Email: demo@pan-samochodzik.local / Password: pansamochodzik
+```
+
+## Access URLs
+- `http://pan-samochodzik.test` (dnsmasq DNS)
+- `http://pan-samochodzik.local` (mDNS)
+- `http://localhost` (standard port mapping)
+
+## Critical Implementation Notes
+
+### Remote Functions Best Practices
+- Always use `<svelte:boundary>` with async markup
+- Call `queryFunction().refresh()` to manually refresh data
+- Form actions automatically refresh related queries
+- Handle loading states with `{#snippet pending()}`
+
+### Authentication Extensions
+- User roles can be added to user schema
+- Session metadata extensible in session table
+- Generic error messages prevent user enumeration
+- OAuth integration possible alongside current system
+
+### Database Schema Evolution
+- Column name mapping documented in schema comments
+- Foreign key constraints should be added for data integrity
+- No indexes defined yet - consider for production
+- Connection pooling not implemented (single connection per request)
+
+### Development Workflow
+- Prefer containerized development with `just start`
+- Database migrations auto-run on container startup
+- Hot reloading works in both container and local modes
+- Use Drizzle Studio for database inspection
