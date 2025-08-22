@@ -1,11 +1,10 @@
 @import 'tailwindcss';
-@import 'tailwindcss/preflight';
-@import 'tailwindcss/utilities';
 
-/* Core utilities we want to include */
-@layer utilities {
-	@utilities spacing; /* This enables margin, padding, gap utilities */
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+@plugin '@tailwindcss/container-queries';
+
+
+@theme {
+	--color-primary: #dc2626;
 }
-
-/* @plugin '@tailwindcss/forms'; */
-/* @plugin '@tailwindcss/typography'; */

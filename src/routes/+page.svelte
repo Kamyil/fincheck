@@ -59,14 +59,14 @@
 				<span class="text-2xl font-bold text-gray-800">Pan Samochodzik</span>
 			</div>
 
-			<div class="hidden items-center md:flex">
-				<a href="#features" class="font-medium text-gray-600 transition-colors hover:text-red-600"
+			<div class="space-x-2 flex items-center">
+				<a href="#features" class="font-medium block text-gray-600 transition-colors hover:text-red-600"
 					>Funkcje</a
 				>
-				<a href="#about" class="font-medium text-gray-600 transition-colors hover:text-red-600"
+				<a href="#about" class="font-medium block text-gray-600 transition-colors hover:text-red-600"
 					>O nas</a
 				>
-				<a href="#contact" class="font-medium text-gray-600 transition-colors hover:text-red-600"
+				<a href="#contact" class="font-medium p text-gray-600 transition-colors hover:text-red-600"
 					>Kontakt</a
 				>
 				<a href="#contact" class="font-medium text-gray-600 transition-colors hover:text-red-600"

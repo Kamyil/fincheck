@@ -10,3 +10,7 @@
 </svelte:head>
 
 {@render children?.()}
+
+<style lang="postcss">
+  @reference "tailwindcss";
+</style>
