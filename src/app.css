@@ -1,10 +1,9 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
-@plugin '@tailwindcss/container-queries';
-
-
-@theme {
-	--color-primary: #dc2626;
+@layer base {
+	:root {
+		--color-primary: #dc2626;
+	}
 }

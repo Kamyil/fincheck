@@ -1,2 +1,6 @@
 [*]
 indent-size=4
+tab-width=4
+indent-style=tabs
+insert-final-newline=true
+trim-trailing-whitespace=true
