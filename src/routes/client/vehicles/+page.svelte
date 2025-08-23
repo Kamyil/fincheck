@@ -1,12 +1,7 @@
 <script lang="ts">
 	import Car from 'lucide-svelte/icons/car';
 	import Button from '$lib/components/common/Button.svelte';
-	import Table from '$lib/components/common/Table/Table.svelte';
-	import TableHeader from '$lib/components/common/Table/TableHeader.svelte';
-	import TableBody from '$lib/components/common/Table/TableBody.svelte';
-	import TableRow from '$lib/components/common/Table/TableRow.svelte';
-	import TableCell from '$lib/components/common/Table/TableCell.svelte';
-	import TableHeading from '$lib/components/common/Table/TableHeading.svelte';
+	import VehicleCard from '$lib/components/VehicleCard.svelte';
 	import AddVehicleModal from './components/AddVehicleModal.svelte';
 	import EditVehicleModal from './components/EditVehicleModal.svelte';
 	import DeleteVehicleModal from './components/DeleteVehicleModal.svelte';
@@ -115,49 +110,15 @@
 
 				{#key await getUserVehicles().current}
 					{#if await getUserVehicles()}
-						<div
-							class="rounded-2xl border border-gray-700 bg-gray-900/50 shadow-2xl shadow-red-600/10"
-						>
-							<Table>
-								<TableHeader>
-									<TableRow>
-										<TableHeading>Marka</TableHeading>
-										<TableHeading>Model</TableHeading>
-										<TableHeading>Rocznik</TableHeading>
-										<TableHeading>Rejestracja</TableHeading>
-										<TableHeading>VIN</TableHeading>
-										<TableHeading>Akcje</TableHeading>
-									</TableRow>
-								</TableHeader>
-								<TableBody>
-									{#each await getUserVehicles() as vehicle}
-										<TableRow
-											classes="cursor-pointer transition-colors hover:bg-gray-800/50"
-											onClick={() => viewVehicleDetails(vehicle)}
-										>
-											<TableCell>{vehicle.make}</TableCell>
-											<TableCell>{vehicle.model}</TableCell>
-											<TableCell>{vehicle.year}</TableCell>
-											<TableCell>{vehicle.registration || '-'}</TableCell>
-											<TableCell>{vehicle.vin || '-'}</TableCell>
-											<TableCell>
-												<div class="flex space-x-2" onclick={(e) => e.stopPropagation()}>
-													<Button variant="blue" size="tiny" onClick={() => openEditModal(vehicle)}>
-														Edytuj
-													</Button>
-													<Button
-														variant="red"
-														size="tiny"
-														onClick={() => openDeleteModal(vehicle)}
-													>
-														Usuń
-													</Button>
-												</div>
-											</TableCell>
-										</TableRow>
-									{/each}
-								</TableBody>
-							</Table>
+						<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+							{#each await getUserVehicles() as vehicle}
+								<VehicleCard
+									{vehicle}
+									onView={viewVehicleDetails}
+									onEdit={openEditModal}
+									onDelete={openDeleteModal}
+								/>
+							{/each}
 						</div>
 					{:else}
 						<div

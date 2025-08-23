@@ -1,49 +1,8 @@
 <script lang="ts">
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import { navigating } from '$app/stores';
-	import { onMount } from 'svelte';
 
 	let { children } = $props();
-	let pageElement: HTMLElement;
-	let isNavigating = $state(false);
-
-	$effect(() => {
-		if ($navigating && !isNavigating) {
-			// Start navigation - fade out current page
-			isNavigating = true;
-			if (pageElement) {
-				pageElement.classList.remove('page-transition-ready');
-				pageElement.classList.add('page-transition-out');
-			}
-		} else if (!$navigating && isNavigating) {
-			// Navigation complete - wait for fade-out to complete before fading in
-			isNavigating = false;
-			if (pageElement) {
-				// Small delay to let the previous page fully fade out
-				setTimeout(() => {
-					pageElement?.classList.remove('page-transition-out');
-					pageElement?.classList.add('page-transition-in');
-					// Fade in the new content
-					setTimeout(() => {
-						pageElement?.classList.remove('page-transition-in');
-						pageElement?.classList.add('page-transition-ready');
-					}, 150);
-				}, 50);
-			}
-		}
-	});
-
-	onMount(() => {
-		// Initial page load animation - remove hidden state and fade in
-		if (pageElement) {
-			// Immediately start the fade-in
-			setTimeout(() => {
-				pageElement?.classList.remove('page-transition-in');
-				pageElement?.classList.add('page-transition-ready');
-			}, 150);
-		}
-	});
 </script>
 
 <svelte:head>
@@ -65,6 +24,6 @@
 	</div>
 </div>
 
-<main bind:this={pageElement} class="page-transition page-transition-in">
+<main class="relative z-10 min-h-screen">
 	{@render children?.()}
 </main>
