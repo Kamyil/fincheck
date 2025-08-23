@@ -61,10 +61,16 @@
 
 ### File Organization Preferences
 
-- **Route-specific components**: Keep components that are only used by a specific route in a `components/` folder next to the route page (e.g., `src/routes/vehicles/components/AddVehicleModal.svelte`) rather than in `$lib/components/`
+- **Route-specific components**: Keep components that are only used by a specific route in a `components/` folder next to the route page (e.g., `src/routes/client/vehicles/components/AddVehicleModal.svelte`) rather than in `$lib/components/`
 - **HTTP Status Codes**: Use `$lib/httpStatusCodes.ts` enum instead of hardcoding status code numbers
 - **File Access**: Prefer accessing files directly inside Docker container over network requests (unless debugging network issues)
 - **Database Operations**: Always use conditional creation patterns like `CREATE TABLE IF NOT EXISTS`, `CREATE TYPE IF NOT EXISTS`, and wrap `ALTER TABLE` statements in `DO $$ BEGIN ... END $$` blocks with existence checks to make all database operations idempotent and safe to re-run
+
+## User Testing & Feedback
+
+- **Ask users to test**: When implementing UI features, authentication flows, or user-facing functionality, ask the user to test the changes in their browser rather than trying to verify through curl or logs
+- **Delegate browser testing**: Users can quickly verify if features work as expected, saving time on complex debugging
+- **Request specific feedback**: Ask users to perform specific actions (e.g., "Can you login as client_example and check if the vehicle shows up?") for targeted validation
 
 ## Error Handling
 
