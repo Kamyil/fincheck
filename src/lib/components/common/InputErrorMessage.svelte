@@ -11,7 +11,7 @@
 </script>
 
 {#if visibleWhen === true}
-	<span class={twMerge('text-red-600 text-sm mt-2', classes)}>
+	<span class={twMerge('mt-2 text-sm text-red-600', classes)}>
 		{@render children?.()}
 	</span>
 {/if}

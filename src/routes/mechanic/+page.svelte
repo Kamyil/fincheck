@@ -6,6 +6,7 @@
 	import Settings from 'lucide-svelte/icons/settings';
 	import DollarSign from 'lucide-svelte/icons/dollar-sign';
 	import BarChart from 'lucide-svelte/icons/bar-chart';
+	import Button from '$lib/components/common/Button.svelte';
 
 	let { data } = $props();
 </script>
@@ -31,12 +32,7 @@
 					>
 					<span class="text-gray-300">Witaj, {data.user.username}</span>
 					<form method="post" action="/logout" use:enhance>
-						<button
-							type="submit"
-							class="rounded-md border border-gray-600 px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white"
-						>
-							Wyloguj
-						</button>
+						<Button type="submit" variant="gray_outline" size="small">Wyloguj</Button>
 					</form>
 				</div>
 			</div>
@@ -114,9 +110,7 @@
 						<p class="text-gray-400">Zobacz i zarządzaj swoimi klientami</p>
 					</div>
 				</div>
-				<button class="mt-4 w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
-					Pokaż Klientów
-				</button>
+				<Button variant="blue" size="full_width" classes="mt-4">Pokaż Klientów</Button>
 			</div>
 
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
@@ -129,9 +123,7 @@
 						<p class="text-gray-400">Zarządzaj terminami wizyt</p>
 					</div>
 				</div>
-				<button class="mt-4 w-full rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700">
-					Kalendarz
-				</button>
+				<Button variant="green" size="full_width" classes="mt-4">Kalendarz</Button>
 			</div>
 
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
@@ -144,11 +136,7 @@
 						<p class="text-gray-400">Skonfiguruj profil warsztatu</p>
 					</div>
 				</div>
-				<button
-					class="mt-4 w-full rounded-md bg-orange-600 px-4 py-2 text-white hover:bg-orange-700"
-				>
-					Ustawienia
-				</button>
+				<Button variant="orange" size="full_width" classes="mt-4">Ustawienia</Button>
 			</div>
 		</div>
 

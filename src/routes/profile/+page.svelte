@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getUserProfile, updateUserProfile, logoutUser } from '$lib/user/data.remote';
+	import Button from '$lib/components/common/Button.svelte';
 </script>
 
 <svelte:boundary>
@@ -34,17 +35,9 @@
 				</div>
 
 				<div class="flex gap-4">
-					<button class="rounded bg-blue-600 px-6 py-2 text-white hover:bg-blue-700" type="submit">
-						Save Profile
-					</button>
+					<Button variant="blue" type="submit">Save Profile</Button>
 
-					<button
-						type="button"
-						class="rounded bg-red-600 px-6 py-2 text-white hover:bg-red-700"
-						onclick={() => logoutUser()}
-					>
-						Logout
-					</button>
+					<Button type="button" variant="red" onClick={() => logoutUser()}>Logout</Button>
 				</div>
 			</form>
 

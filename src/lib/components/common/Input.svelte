@@ -1,125 +1,142 @@
 <script lang="ts" module>
-    export let variants = {
-        "with-shadow": "shadow-md",
-        "with-border": "border-stone-200",
-    } as const;
+	export let variants = {
+		'with-shadow': 'shadow-md',
+		'with-border': 'border-stone-200'
+	} as const;
 </script>
 
 <script lang="ts">
-    import { createBubbler } from "svelte/legacy";
+	import { createBubbler } from 'svelte/legacy';
 
-    const bubble = createBubbler();
-    import { twMerge } from "tailwind-merge";
+	const bubble = createBubbler();
+	import { twMerge } from 'tailwind-merge';
 
-    interface Props {
-        /**
-         * Standard prop for modyfing component's look using Tailwind classes
-         */
-        classes?: string;
-        /**
-         * if true, then marks whole input (and potentially label) with red color.
-         */
-        error?: boolean;
-        /** normal HTML input's placeholder  */
-        placeholder?: string;
-        /** value on init. Can be binded */
-        value?: string | number | null | undefined;
-        // ^  TODO: Determine value type automatically based on passed input['type']
+	interface Props {
+		/**
+		 * Standard prop for modyfing component's look using Tailwind classes
+		 */
+		classes?: string;
+		/**
+		 * if true, then marks whole input (and potentially label) with red color.
+		 */
+		error?: boolean;
+		/** normal HTML input's placeholder  */
+		placeholder?: string;
+		/** value on init. Can be binded */
+		value?: string | number | null | undefined;
+		// ^  TODO: Determine value type automatically based on passed input['type']
 
-        /** Optional label that will be attached on top of the input */
-        label?: string;
-        id?: string | null;
-        /** Name of form element. If not set, defaults to value of id */
-        name?: string | null;
-        autocomplete?: HTMLInputElement["autocomplete"] | undefined;
-        /**
-         * When true, it will disable user's ability to type anything into that input
-         * This prop is useful in rare cases like Colorpicker where we want user to select
-         * something via dropdown that is triggered on Input click, but in the same time
-         * user should not be able to type anything into input
-         */
-        readonly?: boolean;
-        /** text-based type of the input */
-        type?: "email" | "hidden" | "image" | "month" | "number" | "password" | "reset" | "search" | "tel" | "text" | "time" | "url" | "week";
-        /** stylistic variant of the input */
-        variant?: keyof typeof variants;
-        /** minimum amount of value
-         * @default 0
-         */
-        min?: number;
-        inputInstance?: HTMLInputElement | null;
-        labelInstance?: HTMLLabelElement | null;
-        /** Optional hint that will be attached on bottom of the input */
-        hint?: string;
-        onChange?: () => void
-    }
+		/** Optional label that will be attached on top of the input */
+		label?: string;
+		id?: string | null;
+		/** Name of form element. If not set, defaults to value of id */
+		name?: string | null;
+		autocomplete?: HTMLInputElement['autocomplete'] | undefined;
+		/**
+		 * When true, it will disable user's ability to type anything into that input
+		 * This prop is useful in rare cases like Colorpicker where we want user to select
+		 * something via dropdown that is triggered on Input click, but in the same time
+		 * user should not be able to type anything into input
+		 */
+		readonly?: boolean;
+		/** text-based type of the input */
+		type?:
+			| 'email'
+			| 'hidden'
+			| 'image'
+			| 'month'
+			| 'number'
+			| 'password'
+			| 'reset'
+			| 'search'
+			| 'tel'
+			| 'text'
+			| 'time'
+			| 'url'
+			| 'week';
+		/** stylistic variant of the input */
+		variant?: keyof typeof variants;
+		/** minimum amount of value
+		 * @default 0
+		 */
+		min?: number;
+		inputInstance?: HTMLInputElement | null;
+		labelInstance?: HTMLLabelElement | null;
+		/** Optional hint that will be attached on bottom of the input */
+		hint?: string;
+		onChange?: () => void;
+	}
 
-    let {
-        classes = "",
-        error = false,
-        placeholder = "",
-        value = $bindable(""),
-        label = "",
-        id = null,
-        name = id,
-        autocomplete = undefined,
-        readonly = false,
-        type = "text",
-        variant = "with-border",
-        min = 0,
-        inputInstance = $bindable(),
-        labelInstance = $bindable(),
-        hint = "",
-        onChange = () => {}
-    }: Props = $props();
+	let {
+		classes = '',
+		error = false,
+		placeholder = '',
+		value = $bindable(''),
+		label = '',
+		id = null,
+		name = id,
+		autocomplete = undefined,
+		readonly = false,
+		type = 'text',
+		variant = 'with-border',
+		min = 0,
+		inputInstance = $bindable(),
+		labelInstance = $bindable(),
+		hint = '',
+		onChange = () => {}
+	}: Props = $props();
 </script>
 
 {#if label}
-    <label for={id} class="mt-2 mb-1 block text-xs font-medium text-zinc-500" bind:this={labelInstance}>
-        {label}
-    </label>
+	<label
+		for={id}
+		class="mt-2 mb-1 block text-xs font-medium text-zinc-500"
+		bind:this={labelInstance}
+	>
+		{label}
+	</label>
 {/if}
 
 <input
-    bind:this={inputInstance}
-    bind:value
-    class={twMerge(
-        "relative w-full rounded-md p-4 text-gray-900 transition-all duration-150 md:text-md sm:text-sm border-1 border-transparent read-only:bg-stone-100 read-only:cursor-not-allowed",
-        variants[variant],
-        classes,
-    )}
-    class:readonly
-    class:error
-    {id}
-    {name}
-    {autocomplete}
-    {readonly}
-    {placeholder}
-    {min}
-    {...{ type }}
-    onchange={onChange}
-    onblur={bubble("blur")}
-    oninput={bubble("input")}
-    onkeyup={bubble("keyup")}
+	bind:this={inputInstance}
+	bind:value
+	class={twMerge(
+		'md:text-md relative w-full rounded-md border-1 border-transparent p-4 text-gray-900 transition-all duration-150 read-only:cursor-not-allowed read-only:bg-stone-100 sm:text-sm',
+		variants[variant],
+		classes
+	)}
+	class:readonly
+	class:error
+	{id}
+	{name}
+	{autocomplete}
+	{readonly}
+	{placeholder}
+	{min}
+	{...{ type }}
+	onchange={onChange}
+	onblur={bubble('blur')}
+	oninput={bubble('input')}
+	onkeyup={bubble('keyup')}
 />
 
 {#if hint}
-    <span class="mt-1 mb-2 ml-2 block text-sm text-green-800">
-        {hint}
-    </span>
+	<span class="mt-1 mb-2 ml-2 block text-sm text-green-800">
+		{hint}
+	</span>
 {/if}
 
 <style lang="postcss">
-    @reference "tailwindcss";
+	@reference "tailwindcss";
 
-    /*  BUG: Disable arrows on input number on Firefox */
-    input[type="number"].disabled,
-    input[type="number"].readonly {
-        outline: transparent;
-        -moz-appearance: textfield;
-    }
+	/*  BUG: Disable arrows on input number on Firefox */
+	input[type='number'].disabled,
+	input[type='number'].readonly {
+		outline: transparent;
+		-moz-appearance: textfield;
+	}
 
-    .error {
-        @apply border-red-600;
-    }
+	.error {
+		@apply border-red-600;
+	}
 </style>

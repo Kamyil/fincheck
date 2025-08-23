@@ -1,21 +1,23 @@
 <script lang="ts">
-    interface Props {
-        onClose?: () => void;
-        children?: import("svelte").Snippet;
-    }
+	import Button from './Button.svelte';
 
-    let { onClose = () => history.back(), children }: Props = $props();
+	interface Props {
+		onClose?: () => void;
+		children?: import('svelte').Snippet;
+	}
 
-    const handleClose = () => {
-        onClose();
-    };
+	let { onClose = () => history.back(), children }: Props = $props();
+
+	const handleClose = () => {
+		onClose();
+	};
 </script>
 
-<div class="flex p-4 items-center">
-    <h2 class="text-lg font-bold self-center">
-        {@render children?.()}
-    </h2>
-    <button onclick={handleClose} class="text-gray-500 ml-auto">
-        <span class="text-2xl">&times;</span>
-    </button>
+<div class="flex items-center p-4">
+	<h2 class="self-center text-lg font-bold">
+		{@render children?.()}
+	</h2>
+	<Button onClick={handleClose} variant="close" classes="ml-auto">
+		<span class="text-2xl">&times;</span>
+	</Button>
 </div>

@@ -1,23 +1,23 @@
 <script lang="ts">
-    interface Props {
-        xMarkClasses?: string;
-        circleClasses?: string;
-    }
+	interface Props {
+		xMarkClasses?: string;
+		circleClasses?: string;
+	}
 
-    let { xMarkClasses = "", circleClasses = "" }: Props = $props();
+	let { xMarkClasses = '', circleClasses = '' }: Props = $props();
 </script>
 
 <div
-    class="flex h-6 w-6 items-center justify-center rounded-full bg-red-700 shadow-md {circleClasses}"
+	class="flex h-6 w-6 items-center justify-center rounded-full bg-red-700 shadow-md {circleClasses}"
 >
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="1em"
-        height="1em"
-        viewBox="0 0 512 512"
-        class="fill-white {xMarkClasses}"
-        ><path
-            d="m427.314 107.313l-22.628-22.626L256 233.373L107.314 84.687l-22.628 22.626L233.373 256L84.686 404.687l22.628 22.626L256 278.627l148.686 148.686l22.628-22.626L278.627 256l148.687-148.687z"
-        /></svg
-    >
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="1em"
+		height="1em"
+		viewBox="0 0 512 512"
+		class="fill-white {xMarkClasses}"
+		><path
+			d="m427.314 107.313l-22.628-22.626L256 233.373L107.314 84.687l-22.628 22.626L233.373 256L84.686 404.687l22.628 22.626L256 278.627l148.686 148.686l22.628-22.626L278.627 256l148.687-148.687z"
+		/></svg
+	>
 </div>

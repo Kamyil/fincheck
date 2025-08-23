@@ -12,17 +12,12 @@
 		children?: import('svelte').Snippet;
 	}
 
-	let {
-		classes = '',
-		targetElement,
-		visible = $bindable(false),
-		children
-	}: Props = $props();
+	let { classes = '', targetElement, visible = $bindable(false), children }: Props = $props();
 
 	function handleClickOutside(
 		event: globalThis.MouseEvent & {
 			currentTarget: EventTarget & Window;
-		},
+		}
 	) {
 		if (element && !element.contains(event.target as Node)) {
 			visible = false;
@@ -40,7 +35,7 @@
 	<div
 		bind:this={element}
 		transition:slide={{ duration: TRANSITION_DURATION }}
-		class="z-10 bg-white absolute transition-all duration-150 shadow-xl rounded-md p-5 mt-1 {classes}"
+		class="absolute z-10 mt-1 rounded-md bg-white p-5 shadow-xl transition-all duration-150 {classes}"
 	>
 		{@render children?.()}
 	</div>

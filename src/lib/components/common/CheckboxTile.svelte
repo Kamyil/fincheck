@@ -11,7 +11,7 @@
 	<label class="checkbox-wrapper">
 		<input
 			type="checkbox"
-			class="checkbox-input h-px overflow-hidden absolute whitespace-no-wrap w-px"
+			class="checkbox-input whitespace-no-wrap absolute h-px w-px overflow-hidden"
 		/>
 		<span class="checkbox-tile">
 			<span class="checkbox-icon">

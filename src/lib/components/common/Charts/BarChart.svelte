@@ -3,47 +3,42 @@
 <!-- ^ comment, it's now actually easier to abstract charts by ourselves rather than depending on another wrapper library -->
 <!-- so this componenet is doing exactly that :) -->
 <script lang="ts">
-  import {
-    Chart,
-    Tooltip,
-    type ChartData,
-    type ChartOptions,
-  } from 'chart.js';
-  import type { HTMLCanvasAttributes } from 'svelte/elements';
+	import { Chart, Tooltip, type ChartData, type ChartOptions } from 'chart.js';
+	import type { HTMLCanvasAttributes } from 'svelte/elements';
 
-  import 'chart.js/auto';
-  import 'chartjs-adapter-date-fns';
+	import 'chart.js/auto';
+	import 'chartjs-adapter-date-fns';
 
-  interface Props extends HTMLCanvasAttributes {
-    data: ChartData<'bar', number[], string>;
-    options: ChartOptions<'bar'>;
-  }
+	interface Props extends HTMLCanvasAttributes {
+		data: ChartData<'bar', number[], string>;
+		options: ChartOptions<'bar'>;
+	}
 
-  const { data, options, ...rest }: Props = $props();
+	const { data, options, ...rest }: Props = $props();
 
-  Chart.register(Tooltip);
+	Chart.register(Tooltip);
 
-  let canvasElem: HTMLCanvasElement;
-  let chart: Chart;
+	let canvasElem: HTMLCanvasElement;
+	let chart: Chart;
 
-  $effect(() => {
-    chart = new Chart(canvasElem, {
-      type: 'bar',
-      data,
-      options,
-    });
+	$effect(() => {
+		chart = new Chart(canvasElem, {
+			type: 'bar',
+			data,
+			options
+		});
 
-    return () => {
-      chart.destroy();
-    };
-  });
+		return () => {
+			chart.destroy();
+		};
+	});
 
-  $effect(() => {
-    if (chart) {
-      chart.data = data;
-      chart.update();
-    }
-  });
+	$effect(() => {
+		if (chart) {
+			chart.data = data;
+			chart.update();
+		}
+	});
 </script>
 
 <canvas bind:this={canvasElem} {...rest}></canvas>

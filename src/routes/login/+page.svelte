@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import Car from 'lucide-svelte/icons/car';
+	import Button from '$lib/components/common/Button.svelte';
 
 	let { form } = $props();
 	let isRegistering = $state(false);
@@ -108,20 +109,24 @@
 					{/if}
 
 					<div class="space-y-4">
-						<button
+						<Button
 							type="submit"
-							class="w-full transform rounded-xl bg-red-600 px-6 py-3 font-semibold text-white shadow-lg shadow-red-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-xl hover:shadow-red-700/25"
+							variant="red"
+							size="full_width"
+							classes="transform shadow-lg shadow-red-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-red-700/25"
 						>
 							{isRegistering ? 'Załóż konto' : 'Zaloguj się'}
-						</button>
+						</Button>
 
-						<button
+						<Button
 							type="button"
-							onclick={() => (isRegistering = !isRegistering)}
-							class="w-full rounded-xl border-2 border-red-600 px-6 py-3 font-semibold text-red-400 transition-all duration-300 hover:bg-red-600 hover:text-white"
+							onClick={() => (isRegistering = !isRegistering)}
+							variant="red_secondary"
+							size="full_width"
+							classes="font-semibold transition-all duration-300"
 						>
 							{isRegistering ? 'Mam już konto - Zaloguj' : 'Załóż nowe konto'}
-						</button>
+						</Button>
 					</div>
 				</form>
 

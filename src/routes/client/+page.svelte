@@ -4,6 +4,7 @@
 	import Wrench from 'lucide-svelte/icons/wrench';
 	import Calendar from 'lucide-svelte/icons/calendar';
 	import MapPin from 'lucide-svelte/icons/map-pin';
+	import Button from '$lib/components/common/Button.svelte';
 
 	let { data } = $props();
 </script>
@@ -30,12 +31,7 @@
 				<div class="flex items-center space-x-4">
 					<span class="text-gray-300">Witaj, {data.user.username}</span>
 					<form method="post" action="/logout" use:enhance>
-						<button
-							type="submit"
-							class="rounded-md border border-gray-600 px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white"
-						>
-							Wyloguj
-						</button>
+						<Button type="submit" variant="gray_outline" size="small">Wyloguj</Button>
 					</form>
 				</div>
 			</div>
@@ -62,9 +58,7 @@
 						<p class="text-gray-400">Wyszukaj mechaników w okolicy</p>
 					</div>
 				</div>
-				<button class="mt-4 w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
-					Wyszukaj
-				</button>
+				<Button variant="blue" size="full_width" classes="mt-4">Wyszukaj</Button>
 			</div>
 
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
@@ -77,9 +71,7 @@
 						<p class="text-gray-400">Zarezerwuj termin serwisu</p>
 					</div>
 				</div>
-				<button class="mt-4 w-full rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700">
-					Umów
-				</button>
+				<Button variant="green" size="full_width" classes="mt-4">Umów</Button>
 			</div>
 
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
@@ -92,11 +84,7 @@
 						<p class="text-gray-400">Zaktualizuj lokalizację</p>
 					</div>
 				</div>
-				<button
-					class="mt-4 w-full rounded-md bg-purple-600 px-4 py-2 text-white hover:bg-purple-700"
-				>
-					Aktualizuj
-				</button>
+				<Button variant="purple" size="full_width" classes="mt-4">Aktualizuj</Button>
 			</div>
 		</div>
 

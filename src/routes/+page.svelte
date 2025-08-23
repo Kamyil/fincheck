@@ -19,6 +19,7 @@
 	import Wrench from 'lucide-svelte/icons/wrench';
 	import Smartphone from 'lucide-svelte/icons/smartphone';
 	import PartyPopper from 'lucide-svelte/icons/party-popper';
+	import Button from '$lib/components/common/Button.svelte';
 
 	let isVisible = false;
 	let activeFeature = 0;
@@ -136,11 +137,12 @@
 				<a href="/login" class="font-medium text-gray-300 transition-colors hover:text-red-400"
 					>Zaloguj się</a
 				>
-				<button
-					class="transform rounded-xl bg-red-600 px-6 py-3 font-medium text-white shadow-lg shadow-red-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-xl hover:shadow-red-700/25"
+				<Button
+					variant="red"
+					classes="transform shadow-lg shadow-red-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-red-700/25"
 				>
 					Dołącz teraz
-				</button>
+				</Button>
 			</div>
 		</div>
 	</nav>
@@ -441,9 +443,7 @@
 								class="flex-1 rounded-full border px-4 py-2 text-sm"
 								placeholder="Napisz wiadomość..."
 							/>
-							<button class="rounded-full bg-red-600 p-2 text-white">
-								<Send class="h-4 w-4" />
-							</button>
+							<Button variant="red" size="icon_small" icon={Send} />
 						</div>
 					</div>
 				</div>
@@ -586,9 +586,7 @@
 								<div class="text-sm text-gray-600">23 odpowiedzi • Dodano wczoraj</div>
 							</div>
 						</div>
-						<button class="w-full rounded-lg bg-orange-600 py-2 text-white hover:bg-orange-700">
-							Zadaj pytanie
-						</button>
+						<Button variant="orange" size="full_width">Zadaj pytanie</Button>
 					</div>
 				</div>
 				<div class="order-1 space-y-6 lg:order-2">
@@ -719,9 +717,7 @@
 								<span>Razem:</span>
 								<span class="text-red-600">184 zł</span>
 							</div>
-							<button class="mt-3 w-full rounded-lg bg-red-600 py-3 text-white hover:bg-red-700">
-								Zamów teraz
-							</button>
+							<Button variant="red" size="full_width" classes="mt-3">Zamów teraz</Button>
 						</div>
 					</div>
 				</div>
