@@ -60,12 +60,15 @@
 		 * @default 0
 		 */
 		min?: number;
+		max?: number;
+		minlength?: number | undefined;
+		maxlength?: number | undefined;
 		inputInstance?: HTMLInputElement | null;
 		labelInstance?: HTMLLabelElement | null;
 		/** Optional hint that will be attached on bottom of the input */
 		hint?: string;
 		onChange?: () => void;
-		required: boolean;
+		required?: boolean;
 	}
 
 	let {
@@ -81,6 +84,9 @@
 		type = 'text',
 		variant = 'with-border',
 		min = 0,
+		max = 0,
+		minlength = undefined,
+		maxlength = undefined,
 		inputInstance = $bindable(),
 		labelInstance = $bindable(),
 		hint = '',
@@ -115,7 +121,10 @@
 	{readonly}
 	{placeholder}
 	{min}
+	{max}
 	{required}
+	{minlength}
+	{maxlength}
 	{...{ type }}
 	onchange={onChange}
 	onblur={bubble('blur')}

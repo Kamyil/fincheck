@@ -111,17 +111,17 @@
 	{open}
 	bind:this={dialogElement}
 	class={twMerge(
-		'fixed top-1/2 left-1/2 z-40 w-3/4 -translate-x-1/2 -translate-y-1/2 transform place-self-center rounded-md bg-white p-5 shadow-xl',
+		'fixed top-1/2 left-1/2 z-40 w-3/4 -translate-x-1/2 -translate-y-1/2 transform place-self-center rounded-md border border-gray-700 bg-gray-900 p-5 shadow-xl',
 		classes
 	)}
 	aria-modal="true"
 >
 	<Section classes="shadow-none h-3/4">
 		<div class="mb-5 flex items-center justify-between">
-			<h1 class="text-primary font-semibold">{title}</h1>
+			<h1 class="text-xl font-semibold text-red-400">{title}</h1>
 
 			<button type="button" class="cursor-pointer" onclick={closeModal}>
-				<X size={18} class="text-stone-500" />
+				<X size={18} class="text-gray-400 hover:text-white" />
 			</button>
 		</div>
 
