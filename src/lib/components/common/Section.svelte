@@ -15,6 +15,6 @@
 	} as const;
 </script>
 
-<div class={twMerge('bg-white p-5 shadow-md', variants[variant], classes)}>
+<div class={twMerge('p-5 shadow-md', variants[variant], classes)}>
 	{@render children?.()}
 </div>

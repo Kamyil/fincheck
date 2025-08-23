@@ -2,7 +2,6 @@
 	import { twMerge } from 'tailwind-merge';
 	import { onMount, type Snippet } from 'svelte';
 	import X from 'lucide-svelte/icons/x';
-	import Section from '$lib/components/common/Section.svelte';
 
 	interface Props {
 		title?: string;
@@ -111,36 +110,34 @@
 	{open}
 	bind:this={dialogElement}
 	class={twMerge(
-		'fixed top-1/2 left-1/2 z-40 w-3/4 -translate-x-1/2 -translate-y-1/2 transform place-self-center rounded-md border border-gray-700 bg-gray-900 p-5 shadow-xl',
+		'fixed top-1/2 left-1/2 z-40 w-3/4 -translate-x-1/2 -translate-y-1/2 transform place-self-center rounded-lg border border-gray-700 bg-gray-900 p-5 shadow-xl',
 		classes
 	)}
 	aria-modal="true"
 >
-	<Section classes="shadow-none h-3/4">
-		<div class="mb-5 flex items-center justify-between">
-			<h1 class="text-xl font-semibold text-red-400">{title}</h1>
+	<div class="mb-5 flex items-center justify-between">
+		<h1 class="text-xl font-semibold text-white">{title}</h1>
 
-			<button type="button" class="cursor-pointer" onclick={closeModal}>
-				<X size={18} class="text-gray-400 hover:text-white" />
-			</button>
-		</div>
+		<button type="button" class="cursor-pointer" onclick={closeModal}>
+			<X size={18} class="text-gray-400 hover:text-white" />
+		</button>
+	</div>
 
+	<div class="h-3/4">
 		{@render children?.()}
-	</Section>
+	</div>
 </dialog>
 
 <style>
 	/* Default state (when closed) gets the fadeOut animation */
 	dialog {
 		animation: fadeOut 0.2s ease-in-out forwards;
-		margin: auto;
 		opacity: 0;
 	}
 
 	/* When open, the modal uses fadeIn */
 	dialog[open] {
 		animation: fadeIn 0.2s ease-in-out forwards;
-		margin: auto;
 		opacity: 1;
 	}
 
@@ -152,22 +149,22 @@
 	@keyframes fadeIn {
 		0% {
 			opacity: 0;
-			transform: translateY(-1em);
+			transform: translate(-50%, -50%) translateY(-1em);
 		}
 		100% {
 			opacity: 1;
-			transform: translateY(0);
+			transform: translate(-50%, -50%) translateY(0);
 		}
 	}
 
 	@keyframes fadeOut {
 		0% {
 			opacity: 1;
-			transform: translateY(0);
+			transform: translate(-50%, -50%) translateY(0);
 		}
 		100% {
 			opacity: 0;
-			transform: translateY(-1em);
+			transform: translate(-50%, -50%) translateY(-1em);
 		}
 	}
 </style>

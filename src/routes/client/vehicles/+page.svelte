@@ -48,6 +48,12 @@
 	/>
 </svelte:head>
 
+<!-- Modals -->
+<AddVehicleModal bind:this={addModal} onClose={closeModals} />
+<EditVehicleModal bind:this={editModal} vehicle={selectedVehicle} onClose={closeModals} />
+<DeleteVehicleModal bind:this={deleteModal} vehicle={selectedVehicle} onClose={closeModals} />
+<!-- End of Modals -->
+
 <div
 	class="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black"
 >
@@ -170,11 +176,6 @@
 					{/if}
 				{/key}
 			</div>
-			<!-- Modals -->
-			<AddVehicleModal bind:this={addModal} onClose={closeModals} />
-			<EditVehicleModal bind:this={editModal} vehicle={selectedVehicle} onClose={closeModals} />
-			<DeleteVehicleModal bind:this={deleteModal} vehicle={selectedVehicle} onClose={closeModals} />
-			<!-- End of Modals -->
 		</section>
 
 		{#snippet pending()}

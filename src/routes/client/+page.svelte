@@ -88,7 +88,7 @@
 					variant="orange"
 					size="full_width"
 					classes="mt-4"
-					onClick={() => (window.location.href = '/vehicles')}>Zobacz</Button
+					onClick={() => (window.location.href = '/client/vehicles')}>Zobacz</Button
 				>
 			</div>
 

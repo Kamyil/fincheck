@@ -4,18 +4,19 @@ import { eq } from 'drizzle-orm';
 import * as schema from '$lib/server/db/schema';
 import type { Vehicle } from '$lib/server/db/schema';
 
-// For now, we'll use a hardcoded user ID for testing
-// TODO: Implement proper authentication with remote functions
-let TEST_USER_ID = 'test_user_id';
+// TODO: This is a temporary approach using hardcoded user ID
+// In a proper implementation, we would need access to the request context
+// For now, let's use the example_client_001 ID that we know exists
+let TEMP_USER_ID = 'example_client_001';
 
 export let getUserVehicles = query(async () => {
 	try {
 		let vehicles = await db
 			.select()
 			.from(schema.vehicle)
-			.where(eq(schema.vehicle.userId, TEST_USER_ID));
+			.where(eq(schema.vehicle.userId, TEMP_USER_ID));
 
-		return vehicles as Vehicle[] || [] as Vehicle[];
+		return (vehicles as Vehicle[]) || ([] as Vehicle[]);
 	} catch (err) {
 		console.error('Error fetching vehicles:', err);
 		// Return empty array instead of throwing error to handle gracefully in UI
@@ -42,7 +43,7 @@ export let addVehicle = form(async (data) => {
 
 		await db.insert(schema.vehicle).values({
 			id,
-			userId: TEST_USER_ID,
+			userId: TEMP_USER_ID,
 			make: make.trim(),
 			model: model.trim(),
 			year: parsedYear,
@@ -85,7 +86,7 @@ export let updateVehicle = form(async (data) => {
 			return { success: false, error: 'Vehicle not found' };
 		}
 
-		if (existingVehicle.userId !== TEST_USER_ID) {
+		if (existingVehicle.userId !== TEMP_USER_ID) {
 			return { success: false, error: 'Access denied' };
 		}
 
@@ -126,7 +127,7 @@ export let deleteVehicle = form(async (data) => {
 			return { success: false, error: 'Vehicle not found' };
 		}
 
-		if (existingVehicle.userId !== TEST_USER_ID) {
+		if (existingVehicle.userId !== TEMP_USER_ID) {
 			return { success: false, error: 'Access denied' };
 		}
 
