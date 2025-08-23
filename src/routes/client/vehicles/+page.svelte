@@ -70,7 +70,7 @@
 	</div>
 
 	<!-- Navigation -->
-	<nav class="relative z-50 mx-4 px-4 py-6 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
+	<nav class="relative z-10 mx-4 px-4 py-6 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
 		<div class="mx-auto flex max-w-6xl items-center justify-between">
 			<a href="/" class="flex items-center space-x-4">
 				<div

@@ -110,7 +110,7 @@
 	{open}
 	bind:this={dialogElement}
 	class={twMerge(
-		'fixed top-1/2 left-1/2 z-40 w-3/4 -translate-x-1/2 -translate-y-1/2 transform place-self-center rounded-lg border border-gray-700 bg-gray-900 p-5 shadow-xl',
+		'fixed top-1/2 left-1/2 z-40 max-h-[90vh] w-3/4 -translate-x-1/2 -translate-y-1/2 transform place-self-center overflow-hidden rounded-lg border border-gray-700 bg-gray-900 p-5 shadow-xl',
 		classes
 	)}
 	aria-modal="true"
@@ -123,7 +123,7 @@
 		</button>
 	</div>
 
-	<div class="h-3/4">
+	<div class="modal-content max-h-[calc(90vh-8rem)] overflow-y-auto">
 		{@render children?.()}
 	</div>
 </dialog>
@@ -144,6 +144,31 @@
 	/* When we're closing, force the fadeOut animation even if [open] is still present */
 	dialog.closing {
 		animation: fadeOut 0.2s ease-in-out forwards;
+	}
+
+	/* Custom scrollbar styles */
+	.modal-content {
+		/* WebKit browsers (Safari, Chrome) */
+		scrollbar-width: thin;
+		scrollbar-color: rgb(75 85 99) rgb(31 41 55);
+	}
+
+	.modal-content::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	.modal-content::-webkit-scrollbar-track {
+		background: rgb(31 41 55);
+		border-radius: 4px;
+	}
+
+	.modal-content::-webkit-scrollbar-thumb {
+		background: rgb(75 85 99);
+		border-radius: 4px;
+	}
+
+	.modal-content::-webkit-scrollbar-thumb:hover {
+		background: rgb(107 114 128);
 	}
 
 	@keyframes fadeIn {

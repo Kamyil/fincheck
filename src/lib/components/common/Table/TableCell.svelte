@@ -18,6 +18,6 @@
 	}: Props = $props();
 </script>
 
-<td class={twMerge('px-1', classes)} {rowspan} {colspan} {title}>
+<td class={twMerge('px-6 py-3 text-center', classes)} {rowspan} {colspan} {title}>
 	{@render children?.()}
 </td>

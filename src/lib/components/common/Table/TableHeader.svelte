@@ -9,6 +9,6 @@
 	let { classes = '', children }: Props = $props();
 </script>
 
-<thead class={twMerge('border-b-1 text-xs text-stone-400', classes)}>
+<thead class={twMerge('border-b-1', classes)}>
 	{@render children?.()}
 </thead>

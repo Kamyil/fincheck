@@ -17,7 +17,7 @@
 	}: Props = $props();
 </script>
 
-<th scope="col" class={twMerge('px-6 py-3 text-gray-900', classes)} onclick={onClick} {colspan}>
+<th scope="col" class={twMerge('px-6 py-3 text-zinc-400', classes)} onclick={onClick} {colspan}>
 	<div class="flex justify-center text-center">
 		{#if children}
 			{@render children()}

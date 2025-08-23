@@ -18,9 +18,9 @@
 </script>
 
 <tr
-	class={twMerge('border-b p-2 transition-all duration-150', classes)}
+	class={twMerge('border-b border-gray-700 p-2 text-gray-100 transition-all duration-150', classes)}
 	class:error
-	class:even:bg-stone-100={striped}
+	class:even:bg-gray-100={striped}
 	class:bordered
 >
 	{@render children?.()}
