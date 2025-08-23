@@ -8,7 +8,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-### Container Management (Preferred)
+### Container Management (ALWAYS USE THIS)
+
+**⚠️ IMPORTANT: This is a containerized application. Always use `just` commands instead of `npm` commands directly.**
 
 ```bash
 just start          # Full containerized startup with migrations
@@ -16,18 +18,19 @@ just stop           # Stop containers
 just down           # Stop and remove containers
 just clean          # Complete cleanup with volumes
 just logs           # View application logs
-just restart-app    # Restart just the app container
+just restart-app    # Restart just the app container (use instead of npm run dev)
 ```
 
-### Local Development
+### Local Development (Only use when NOT in container)
 
 ```bash
-npm run dev         # Development server
 npm run build       # Production build
 npm run lint        # Code linting (Prettier)
 npm run format      # Code formatting
 npm run check       # TypeScript + Svelte checking
 ```
+
+**❌ DO NOT RUN `npm run dev` - use `just start` or `just restart-app` instead**
 
 ### Database Operations
 
@@ -208,7 +211,8 @@ Username: demo / Email: demo@pan-samochodzik.local / Password: pansamochodzik
 
 ### Development Workflow
 
-- Prefer containerized development with `just start`
+- **ALWAYS use containerized development** with `just start`
+- **Use `just restart-app` instead of `npm run dev`** when you need to restart the development server
 - Database migrations auto-run on container startup
 - Hot reloading works in both container and local modes
 - Use Drizzle Studio for database inspection

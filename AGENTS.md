@@ -4,24 +4,28 @@
 
 ## Commands
 
-### Preferred: Container Development
+### ALWAYS USE: Container Development
+
+**⚠️ CRITICAL: This is a containerized application. NEVER run `npm run dev` directly. Always use `just` commands.**
 
 - Start: `just start` (full containerized startup with migrations)
+- Restart: `just restart-app` (use this instead of npm run dev)
 - Stop: `just stop`
 - Clean: `just clean` (complete cleanup)
 - Logs: `just logs`
 - DB Migrate: `just db-migrate`
 
-### Local Development
+### Local Development (Only when NOT using containers)
 
 - Build: `npm run build`
-- Dev: `npm run dev`
 - Lint: `npm run lint`
 - Format: `npm run format`
 - Type Check: `npm run check`
 - Unit Tests: `npm run test:unit` or `npm run test:unit -- <test-file-path>`
 - E2E Tests: `npm run test:e2e`
 - DB Commands: `npm run db:push`, `npm run db:migrate`, `npm run db:studio`
+
+**❌ DO NOT USE `npm run dev` - use `just restart-app` instead**
 
 ## Code Style
 
@@ -56,7 +60,8 @@
 - Use Drizzle ORM for database operations
 - Keep components small and focused
 - Use named exports for clarity
-- **Prefer containerized development** with `just start`
+- **ALWAYS use containerized development** with `just start`
+- **Use `just restart-app` instead of `npm run dev`** for restarting the server
 - **Always validate user input on server**
 
 ### File Organization Preferences

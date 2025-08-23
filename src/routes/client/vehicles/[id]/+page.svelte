@@ -1,0 +1,189 @@
+<script lang="ts">
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import Car from 'lucide-svelte/icons/car';
+	import ArrowLeft from 'lucide-svelte/icons/arrow-left';
+	import Calendar from 'lucide-svelte/icons/calendar';
+	import MapPin from 'lucide-svelte/icons/map-pin';
+	import Fuel from 'lucide-svelte/icons/fuel';
+	import Palette from 'lucide-svelte/icons/palette';
+	import Hash from 'lucide-svelte/icons/hash';
+	import Gauge from 'lucide-svelte/icons/gauge';
+	import ClipboardList from 'lucide-svelte/icons/clipboard-list';
+	import Button from '$lib/components/common/Button.svelte';
+
+	let { data } = $props();
+	let vehicle = data.vehicle;
+
+	function goBack() {
+		goto('/client/vehicles');
+	}
+</script>
+
+<svelte:head>
+	<title>{vehicle.make} {vehicle.model} - Pan Samochodzik</title>
+	<meta
+		name="description"
+		content="Szczegóły pojazdu {vehicle.make} {vehicle.model} w Pan Samochodzik"
+	/>
+</svelte:head>
+
+<div
+	class="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black"
+>
+	<!-- Asphalt texture overlay -->
+	<div
+		class="absolute inset-0 opacity-10"
+		style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 20px 20px;"
+	></div>
+	<!-- Lane stripes -->
+	<div class="absolute inset-0 opacity-20">
+		<div class="absolute top-1/4 right-0 left-0 h-1 -skew-y-1 transform bg-white"></div>
+		<div class="absolute top-2/4 right-0 left-0 h-1 skew-y-1 transform bg-white"></div>
+		<div class="absolute top-3/4 right-0 left-0 h-1 -skew-y-1 transform bg-white"></div>
+	</div>
+
+	<!-- Navigation -->
+	<nav class="relative z-10 mx-4 px-4 py-6 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
+		<div class="mx-auto flex max-w-6xl items-center justify-between">
+			<a href="/" class="flex items-center space-x-4">
+				<div
+					class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 shadow-lg shadow-red-600/25"
+				>
+					<Car class="h-6 w-6 text-white" />
+				</div>
+				<span class="text-2xl font-bold text-white">Pan Samochodzik</span>
+			</a>
+		</div>
+	</nav>
+
+	<!-- Main Content -->
+	<section class="relative z-10 mx-4 px-4 py-8 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
+		<div class="mx-auto max-w-6xl">
+			<!-- Breadcrumb and Back Button -->
+			<div class="mb-6 flex items-center space-x-4">
+				<Button variant="ghost" onClick={goBack} classes="flex items-center space-x-2">
+					<ArrowLeft class="h-4 w-4" />
+					<span>Powrót do pojazdów</span>
+				</Button>
+			</div>
+
+			<!-- Vehicle Header -->
+			<div class="mb-8 flex items-center justify-between">
+				<div class="flex items-center space-x-4">
+					<div
+						class="flex h-16 w-16 items-center justify-center rounded-full border border-red-600 bg-red-600/20"
+					>
+						<Car class="h-8 w-8 text-red-400" />
+					</div>
+					<div>
+						<h1 class="text-3xl font-bold text-white">
+							{vehicle.make}
+							{vehicle.model}
+						</h1>
+						<p class="text-gray-400">Rocznik {vehicle.year}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+				<!-- Vehicle Information -->
+				<div class="lg:col-span-2">
+					<div
+						class="rounded-2xl border border-gray-700 bg-gray-900/50 p-6 shadow-2xl shadow-red-600/10"
+					>
+						<h2 class="mb-6 text-xl font-semibold text-white">Informacje o pojeździe</h2>
+
+						<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+							<!-- Basic Info -->
+							<div class="space-y-4">
+								<div class="flex items-center space-x-3">
+									<Car class="h-5 w-5 text-red-400" />
+									<div>
+										<p class="text-sm text-gray-400">Marka i model</p>
+										<p class="font-medium text-white">{vehicle.make} {vehicle.model}</p>
+									</div>
+								</div>
+
+								<div class="flex items-center space-x-3">
+									<Calendar class="h-5 w-5 text-red-400" />
+									<div>
+										<p class="text-sm text-gray-400">Rok produkcji</p>
+										<p class="font-medium text-white">{vehicle.year}</p>
+									</div>
+								</div>
+
+								{#if vehicle.registration}
+									<div class="flex items-center space-x-3">
+										<MapPin class="h-5 w-5 text-red-400" />
+										<div>
+											<p class="text-sm text-gray-400">Numer rejestracyjny</p>
+											<p class="font-medium text-white">{vehicle.registration}</p>
+										</div>
+									</div>
+								{/if}
+							</div>
+
+							<!-- Additional Info -->
+							<div class="space-y-4">
+								{#if vehicle.color}
+									<div class="flex items-center space-x-3">
+										<Palette class="h-5 w-5 text-red-400" />
+										<div>
+											<p class="text-sm text-gray-400">Kolor</p>
+											<p class="font-medium text-white">{vehicle.color}</p>
+										</div>
+									</div>
+								{/if}
+
+								{#if vehicle.mileage}
+									<div class="flex items-center space-x-3">
+										<Gauge class="h-5 w-5 text-red-400" />
+										<div>
+											<p class="text-sm text-gray-400">Przebieg</p>
+											<p class="font-medium text-white">{vehicle.mileage.toLocaleString()} km</p>
+										</div>
+									</div>
+								{/if}
+
+								{#if vehicle.vin}
+									<div class="flex items-center space-x-3">
+										<Hash class="h-5 w-5 text-red-400" />
+										<div>
+											<p class="text-sm text-gray-400">Numer VIN</p>
+											<p class="font-medium break-all text-white">{vehicle.vin}</p>
+										</div>
+									</div>
+								{/if}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Health Record Book Section -->
+				<div class="lg:col-span-1">
+					<div
+						class="rounded-2xl border border-gray-700 bg-gray-900/50 p-6 shadow-2xl shadow-red-600/10"
+					>
+						<div class="mb-4 flex items-center space-x-3">
+							<ClipboardList class="h-6 w-6 text-red-400" />
+							<h2 class="text-xl font-semibold text-white">Książka Zdrowia</h2>
+						</div>
+
+						<div class="py-8 text-center">
+							<div
+								class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-gray-600 bg-gray-800/50"
+							>
+								<ClipboardList class="h-8 w-8 text-gray-400" />
+							</div>
+							<p class="mb-4 text-gray-400">
+								Tutaj będzie historia serwisowa i dokumentacja napraw Twojego pojazdu.
+							</p>
+							<p class="text-sm text-gray-500">Funkcjonalność w przygotowaniu...</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

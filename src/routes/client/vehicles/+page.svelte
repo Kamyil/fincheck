@@ -12,6 +12,7 @@
 	import DeleteVehicleModal from './components/DeleteVehicleModal.svelte';
 	import { getUserVehicles } from '$lib/vehicles/data.remote';
 	import type { Vehicle } from '$lib/server/db/schema';
+	import { goto } from '$app/navigation';
 
 	let selectedVehicle = $state<Vehicle | null>(null);
 	let addModal: AddVehicleModal;
@@ -37,6 +38,10 @@
 		editModal?.closeModal();
 		deleteModal?.closeModal();
 		selectedVehicle = null;
+	}
+
+	function viewVehicleDetails(vehicle: Vehicle) {
+		goto(`/client/vehicles/${vehicle.id}`);
 	}
 </script>
 
@@ -126,14 +131,17 @@
 								</TableHeader>
 								<TableBody>
 									{#each await getUserVehicles() as vehicle}
-										<TableRow>
+										<TableRow
+											classes="cursor-pointer transition-colors hover:bg-gray-800/50"
+											onClick={() => viewVehicleDetails(vehicle)}
+										>
 											<TableCell>{vehicle.make}</TableCell>
 											<TableCell>{vehicle.model}</TableCell>
 											<TableCell>{vehicle.year}</TableCell>
 											<TableCell>{vehicle.registration || '-'}</TableCell>
 											<TableCell>{vehicle.vin || '-'}</TableCell>
 											<TableCell>
-												<div class="flex space-x-2">
+												<div class="flex space-x-2" onclick={(e) => e.stopPropagation()}>
 													<Button variant="blue" size="tiny" onClick={() => openEditModal(vehicle)}>
 														Edytuj
 													</Button>

@@ -12,9 +12,17 @@
 		bordered?: boolean;
 		children?: Snippet;
 		index?: number;
+		onClick?: () => void;
 	}
 
-	let { classes = '', error = false, striped = true, bordered = false, children }: Props = $props();
+	let {
+		classes = '',
+		error = false,
+		striped = true,
+		bordered = false,
+		children,
+		onClick
+	}: Props = $props();
 </script>
 
 <tr
@@ -22,6 +30,7 @@
 	class:error
 	class:even:bg-gray-100={striped}
 	class:bordered
+	onclick={onClick}
 >
 	{@render children?.()}
 </tr>
