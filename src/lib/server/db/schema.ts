@@ -26,3 +26,21 @@ export const session = pgTable('sessions', {
 export type Session = typeof session.$inferSelect;
 
 export type User = typeof user.$inferSelect;
+
+export const vehicle = pgTable('vehicles', {
+	id: text('id').primaryKey(),
+	userId: text('user_id')
+		.notNull()
+		.references(() => user.id),
+	make: varchar('make', { length: 100 }).notNull(),
+	model: varchar('model', { length: 100 }).notNull(),
+	year: integer('year').notNull(),
+	vin: varchar('vin', { length: 17 }),
+	registration: varchar('registration', { length: 20 }),
+	color: varchar('color', { length: 50 }),
+	mileage: integer('mileage'),
+	createdAt: timestamp('created_at').notNull(),
+	updatedAt: timestamp('updated_at')
+});
+
+export type Vehicle = typeof vehicle.$inferSelect;

@@ -65,6 +65,7 @@
 		/** Optional hint that will be attached on bottom of the input */
 		hint?: string;
 		onChange?: () => void;
+		required: boolean;
 	}
 
 	let {
@@ -83,6 +84,7 @@
 		inputInstance = $bindable(),
 		labelInstance = $bindable(),
 		hint = '',
+		required = false,
 		onChange = () => {}
 	}: Props = $props();
 </script>
@@ -113,6 +115,7 @@
 	{readonly}
 	{placeholder}
 	{min}
+	{required}
 	{...{ type }}
 	onchange={onChange}
 	onblur={bubble('blur')}

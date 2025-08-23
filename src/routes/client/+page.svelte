@@ -47,7 +47,7 @@
 		</div>
 
 		<!-- Quick Actions -->
-		<div class="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+		<div class="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
 				<div class="flex items-center">
 					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600">
@@ -72,6 +72,24 @@
 					</div>
 				</div>
 				<Button variant="green" size="full_width" classes="mt-4">Umów</Button>
+			</div>
+
+			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
+				<div class="flex items-center">
+					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-600">
+						<Car class="h-6 w-6 text-white" />
+					</div>
+					<div class="ml-4">
+						<h3 class="text-lg font-medium text-white">Moje Pojazdy</h3>
+						<p class="text-gray-400">Zarządzaj swoimi samochodami</p>
+					</div>
+				</div>
+				<Button
+					variant="orange"
+					size="full_width"
+					classes="mt-4"
+					onClick={() => (window.location.href = '/vehicles')}>Zobacz</Button
+				>
 			</div>
 
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">

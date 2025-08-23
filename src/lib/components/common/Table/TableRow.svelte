@@ -18,7 +18,7 @@
 </script>
 
 <tr
-	class={twMerge('border-b border-b-stone-200 p-2 transition-all duration-150', classes)}
+	class={twMerge('border-b p-2 transition-all duration-150', classes)}
 	class:error
 	class:even:bg-stone-100={striped}
 	class:bordered
@@ -28,10 +28,6 @@
 
 <style lang="postcss">
 	@reference "tailwindcss";
-
-	.bordered {
-		@apply border-b-1 last:border-b-0;
-	}
 
 	.error {
 		@apply bg-red-50 text-red-800 even:bg-red-50;
