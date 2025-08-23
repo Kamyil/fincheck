@@ -1,20 +1,22 @@
-import { form, query } from '$app/server';
+import { form, query, getRequestEvent } from '$app/server';
 import { db } from '$lib/server/db';
 import { eq } from 'drizzle-orm';
 import * as schema from '$lib/server/db/schema';
 import type { Vehicle } from '$lib/server/db/schema';
-
-// TODO: This is a temporary approach using hardcoded user ID
-// In a proper implementation, we would need access to the request context
-// For now, let's use the example_client_001 ID that we know exists
-let TEMP_USER_ID = 'example_client_001';
+import { error } from '@sveltejs/kit';
 
 export let getUserVehicles = query(async () => {
+	const { locals } = getRequestEvent();
+
+	if (!locals.user) {
+		error(401, 'Authentication required');
+	}
+
 	try {
 		let vehicles = await db
 			.select()
 			.from(schema.vehicle)
-			.where(eq(schema.vehicle.userId, TEMP_USER_ID));
+			.where(eq(schema.vehicle.userId, locals.user.id));
 
 		return (vehicles as Vehicle[]) || ([] as Vehicle[]);
 	} catch (err) {
@@ -25,6 +27,12 @@ export let getUserVehicles = query(async () => {
 });
 
 export let addVehicle = form(async (data) => {
+	const { locals } = getRequestEvent();
+
+	if (!locals.user) {
+		return { success: false, error: 'Authentication required' };
+	}
+
 	let make = data.get('make');
 	let model = data.get('model');
 	let year = data.get('year');
@@ -43,7 +51,7 @@ export let addVehicle = form(async (data) => {
 
 		await db.insert(schema.vehicle).values({
 			id,
-			userId: TEMP_USER_ID,
+			userId: locals.user.id,
 			make: make.trim(),
 			model: model.trim(),
 			year: parsedYear,
@@ -65,6 +73,12 @@ export let addVehicle = form(async (data) => {
 });
 
 export let updateVehicle = form(async (data) => {
+	const { locals } = getRequestEvent();
+
+	if (!locals.user) {
+		return { success: false, error: 'Authentication required' };
+	}
+
 	let id = data.get('id');
 	let make = data.get('make');
 	let model = data.get('model');
@@ -86,7 +100,7 @@ export let updateVehicle = form(async (data) => {
 			return { success: false, error: 'Vehicle not found' };
 		}
 
-		if (existingVehicle.userId !== TEMP_USER_ID) {
+		if (existingVehicle.userId !== locals.user.id) {
 			return { success: false, error: 'Access denied' };
 		}
 
@@ -114,6 +128,12 @@ export let updateVehicle = form(async (data) => {
 });
 
 export let deleteVehicle = form(async (data) => {
+	const { locals } = getRequestEvent();
+
+	if (!locals.user) {
+		return { success: false, error: 'Authentication required' };
+	}
+
 	let id = data.get('id');
 
 	if (typeof id !== 'string') {
@@ -127,7 +147,7 @@ export let deleteVehicle = form(async (data) => {
 			return { success: false, error: 'Vehicle not found' };
 		}
 
-		if (existingVehicle.userId !== TEMP_USER_ID) {
+		if (existingVehicle.userId !== locals.user.id) {
 			return { success: false, error: 'Access denied' };
 		}
 
