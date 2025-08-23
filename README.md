@@ -46,19 +46,33 @@ The application automatically sets up local domain resolution using:
 
 ### Test User Credentials
 
-Once the application is running, you can log in with either of these accounts:
+Once the application is running, you can log in with any of these accounts:
 
-#### Test User
+#### Test User (Legacy)
 
 - **Username:** testuser
 - **Email:** testuser@example.com
 - **Password:** testuser123
 
-#### Demo User
+#### Demo User (Legacy)
 
 - **Username:** demo
 - **Email:** demo@pan-samochodzik.local
 - **Password:** pansamochodzik
+
+#### Example Client User
+
+- **Username:** client_example
+- **Email:** client@pan-samochodzik.local
+- **Password:** client123
+- **Role:** CLIENT (redirects to `/client` dashboard)
+
+#### Example Mechanic User
+
+- **Username:** mechanic_example
+- **Email:** mechanic@pan-samochodzik.local
+- **Password:** mechanic123
+- **Role:** MECHANIC (redirects to `/mechanic` dashboard)
 
 ### Common Development Commands
 
@@ -97,9 +111,24 @@ just test-e2e
 - **Frontend**: SvelteKit 2.0 with Svelte 5
 - **Styling**: TailwindCSS
 - **Database**: PostgreSQL with Drizzle ORM
-- **Authentication**: Custom auth with Argon2 password hashing
+- **Authentication**: Custom auth with Argon2 password hashing and role-based access control
+- **User Roles**: CLIENT (consumers seeking mechanic services) and MECHANIC (service providers)
 - **Package Manager**: Bun (for faster installs and better dependency resolution)
 - **Development Environment**: Fully containerized with Docker Compose and Traefik
+
+### Role-Based Features
+
+The application supports two user roles:
+
+- **CLIENT**: Users looking for automotive services
+  - Access to client dashboard at `/client`
+  - Features for finding mechanics and booking appointments
+
+- **MECHANIC**: Service providers offering automotive services
+  - Access to mechanic dashboard at `/mechanic`
+  - Features for managing clients, schedules, and workshop settings
+
+Users are automatically redirected to their appropriate dashboard upon login based on their role.
 
 ## Project Structure
 

@@ -91,38 +91,53 @@
 	/>
 </svelte:head>
 
-<div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-100">
+<div
+	class="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black"
+>
+	<!-- Asphalt texture overlay -->
+	<div
+		class="absolute inset-0 opacity-10"
+		style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 20px 20px;"
+	></div>
+	<!-- Lane stripes -->
+	<div class="absolute inset-0 opacity-20">
+		<div class="absolute top-1/4 right-0 left-0 h-1 -skew-y-1 transform bg-white"></div>
+		<div class="absolute top-2/4 right-0 left-0 h-1 skew-y-1 transform bg-white"></div>
+		<div class="absolute top-3/4 right-0 left-0 h-1 -skew-y-1 transform bg-white"></div>
+	</div>
 	<!-- Navigation -->
 	<nav class="relative z-50 mx-4 px-4 py-6 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
 		<div class="mx-auto flex max-w-6xl items-center justify-between">
 			<div class="flex items-center space-x-4">
-				<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 shadow-lg">
+				<div
+					class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 shadow-lg shadow-red-600/25"
+				>
 					<Car class="h-6 w-6 text-white" />
 				</div>
-				<span class="text-2xl font-bold text-gray-800">Pan Samochodzik</span>
+				<span class="text-2xl font-bold text-white">Pan Samochodzik</span>
 			</div>
 
 			<div class="flex items-center space-x-4">
 				<a
 					href="#features"
-					class="hidden font-medium text-gray-600 transition-colors hover:text-red-600 sm:block"
+					class="hidden font-medium text-gray-300 transition-colors hover:text-red-400 sm:block"
 					>Funkcje</a
 				>
 				<a
 					href="/forum"
-					class="hidden font-medium text-gray-600 transition-colors hover:text-red-600 sm:block"
+					class="hidden font-medium text-gray-300 transition-colors hover:text-red-400 sm:block"
 					>Forum</a
 				>
 				<a
 					href="/parts"
-					class="hidden font-medium text-gray-600 transition-colors hover:text-red-600 sm:block"
+					class="hidden font-medium text-gray-300 transition-colors hover:text-red-400 sm:block"
 					>Części</a
 				>
-				<a href="/login" class="font-medium text-gray-600 transition-colors hover:text-red-600"
+				<a href="/login" class="font-medium text-gray-300 transition-colors hover:text-red-400"
 					>Zaloguj się</a
 				>
 				<button
-					class="transform rounded-xl bg-red-600 px-6 py-3 font-medium text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-xl"
+					class="transform rounded-xl bg-red-600 px-6 py-3 font-medium text-white shadow-lg shadow-red-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-xl hover:shadow-red-700/25"
 				>
 					Dołącz teraz
 				</button>
@@ -138,16 +153,16 @@
 			<div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 				<div class="space-y-8 lg:space-y-10">
 					<div class="space-y-6 lg:space-y-8">
-						<h1 class="text-4xl leading-tight font-bold text-gray-800 sm:text-5xl lg:text-6xl">
+						<h1 class="text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-6xl">
 							Rewolucja w
-							<span class="relative inline-block text-red-600">
+							<span class="relative inline-block text-red-500">
 								motoryzacji
 								<div
-									class="animate-expand absolute -bottom-2 left-0 h-1 w-full origin-left scale-x-100 transform bg-red-600"
+									class="animate-expand absolute -bottom-2 left-0 h-1 w-full origin-left scale-x-100 transform bg-red-500"
 								></div>
 							</span>
 						</h1>
-						<p class="max-w-xl text-lg leading-relaxed text-gray-600 sm:text-xl">
+						<p class="max-w-xl text-lg leading-relaxed text-gray-300 sm:text-xl">
 							Połącz się z najlepszymi mechanikami, zarządzaj zdrowiem swojego auta i zamawiaj
 							części - wszystko w jednym miejscu.
 						</p>
@@ -172,24 +187,24 @@
 						<div class="flex -space-x-2">
 							{#each Array(4) as _, i}
 								<div
-									class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-gradient-to-r from-red-500 to-red-600 text-lg font-bold text-white shadow-lg"
+									class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-gray-800 bg-gradient-to-r from-red-500 to-red-600 text-lg font-bold text-white shadow-lg"
 								>
 									{i + 1}
 								</div>
 							{/each}
 						</div>
-						<span class="font-medium text-gray-600">Ponad 10,000 zadowolonych użytkowników</span>
+						<span class="font-medium text-gray-300">Ponad 10,000 zadowolonych użytkowników</span>
 					</div>
 				</div>
 
 				<!-- Hero Image/Animation -->
 				<div class="relative mt-12 lg:mt-0">
 					<div
-						class="relative z-10 mx-auto max-w-md rotate-2 transform bg-white p-6 shadow-2xl transition-transform duration-500 hover:rotate-0 sm:p-8"
+						class="relative z-10 mx-auto max-w-md rotate-2 transform border border-gray-700 bg-gray-900 p-6 shadow-2xl shadow-red-600/10 transition-transform duration-500 hover:rotate-0 sm:p-8"
 					>
 						<div class="space-y-6">
 							<div
-								class="flex items-center justify-between rounded-2xl bg-gradient-to-r from-red-50 to-red-100 p-4 sm:p-6"
+								class="flex items-center justify-between rounded-2xl bg-gradient-to-r from-gray-800 to-gray-700 p-4 sm:p-6"
 							>
 								<div class="flex items-center space-x-3 sm:space-x-4">
 									<div
@@ -198,28 +213,27 @@
 										🔧
 									</div>
 									<div>
-										<h3 class="text-lg font-semibold text-gray-800">Warsztat Kowalski</h3>
-										<p class="text-sm text-gray-600">⭐⭐⭐⭐⭐ 4.9/5</p>
+										<h3 class="text-lg font-semibold text-white">Warsztat Kowalski</h3>
+										<p class="text-sm text-gray-300">⭐⭐⭐⭐⭐ 4.9/5</p>
 									</div>
 								</div>
-								<span
-									class="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-600"
+								<span class="rounded-full bg-green-500 px-3 py-1 text-sm font-semibold text-white"
 									>Dostępny</span
 								>
 							</div>
 
 							<div class="grid grid-cols-2 gap-4">
 								<div
-									class="rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 p-4 text-center sm:p-6"
+									class="rounded-xl border border-gray-600 bg-gradient-to-br from-gray-800 to-gray-700 p-4 text-center sm:p-6"
 								>
 									<div class="mb-2 text-2xl sm:text-3xl">📋</div>
-									<p class="text-sm font-semibold text-gray-700">Książka Zdrowia</p>
+									<p class="text-sm font-semibold text-white">Książka Zdrowia</p>
 								</div>
 								<div
-									class="rounded-xl bg-gradient-to-br from-green-50 to-green-100 p-4 text-center sm:p-6"
+									class="rounded-xl border border-gray-600 bg-gradient-to-br from-gray-800 to-gray-700 p-4 text-center sm:p-6"
 								>
 									<div class="mb-2 text-2xl sm:text-3xl">⚙️</div>
-									<p class="text-sm font-semibold text-gray-700">Części Online</p>
+									<p class="text-sm font-semibold text-white">Części Online</p>
 								</div>
 							</div>
 						</div>
@@ -227,10 +241,10 @@
 
 					<!-- Floating elements -->
 					<div
-						class="absolute -top-6 -right-6 h-20 w-20 animate-bounce rounded-full bg-gradient-to-r from-red-500 to-red-600 opacity-20"
+						class="absolute -top-6 -right-6 h-20 w-20 animate-bounce rounded-full bg-gradient-to-r from-red-500 to-red-600 opacity-30"
 					></div>
 					<div
-						class="absolute -bottom-10 -left-10 h-32 w-32 animate-pulse rounded-full bg-gradient-to-r from-blue-500 to-purple-600 opacity-10"
+						class="absolute -bottom-10 -left-10 h-32 w-32 animate-pulse rounded-full bg-gradient-to-r from-gray-600 to-gray-700 opacity-20"
 					></div>
 				</div>
 			</div>
@@ -240,14 +254,14 @@
 	<!-- Features Section -->
 	<section
 		id="features"
-		class="mx-4 my-8 bg-white px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
+		class="mx-4 my-8 border border-gray-800 bg-gray-900 px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
 	>
 		<div class="mx-auto max-w-6xl">
 			<div class="mb-12 text-center sm:mb-16 lg:mb-20">
-				<h2 class="mb-6 text-3xl font-bold text-gray-800 sm:text-4xl lg:mb-8 lg:text-5xl">
+				<h2 class="mb-6 text-3xl font-bold text-white sm:text-4xl lg:mb-8 lg:text-5xl">
 					Wszystko czego potrzebujesz
 				</h2>
-				<p class="mx-auto max-w-3xl text-lg leading-relaxed text-gray-600 sm:text-xl">
+				<p class="mx-auto max-w-3xl text-lg leading-relaxed text-gray-300 sm:text-xl">
 					Pan Samochodzik to kompleksowe rozwiązanie dla każdego właściciela samochodu i mechanika
 				</p>
 			</div>
@@ -255,10 +269,10 @@
 			<div class="grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 xl:grid-cols-5">
 				{#each features as feature, i}
 					<div
-						class="group cursor-pointer rounded-2xl p-6 transition-all duration-500 sm:p-8 {activeFeature ===
+						class="group cursor-pointer rounded-2xl border p-6 transition-all duration-500 sm:p-8 {activeFeature ===
 						i
-							? 'scale-105 bg-gradient-to-br from-red-50 to-red-100 shadow-xl'
-							: 'bg-gray-50 hover:bg-red-50'}"
+							? 'scale-105 border-red-600 bg-gradient-to-br from-red-900/50 to-red-800/50 shadow-xl shadow-red-600/20'
+							: 'border-gray-700 bg-gray-800/50 hover:bg-red-900/30'}"
 						on:mouseenter={() => (activeFeature = i)}
 					>
 						<div
@@ -266,22 +280,22 @@
 						>
 							<svelte:component
 								this={feature.icon}
-								class="h-12 w-12 text-red-600 sm:h-14 sm:w-14"
+								class="h-12 w-12 text-red-500 sm:h-14 sm:w-14"
 							/>
 						</div>
-						<h3 class="mb-3 text-xl font-semibold text-gray-800 sm:mb-4 sm:text-2xl">
+						<h3 class="mb-3 text-xl font-semibold text-white sm:mb-4 sm:text-2xl">
 							{feature.title}
 						</h3>
-						<p class="mb-6 text-base leading-relaxed text-gray-600 sm:text-lg">
+						<p class="mb-6 text-base leading-relaxed text-gray-300 sm:text-lg">
 							{feature.description}
 						</p>
 
 						{#if feature.details}
 							<ul class="mb-6 space-y-2">
 								{#each feature.details as detail}
-									<li class="flex items-center text-sm text-gray-600">
+									<li class="flex items-center text-sm text-gray-400">
 										<svg
-											class="mr-2 h-4 w-4 text-green-500"
+											class="mr-2 h-4 w-4 text-green-400"
 											fill="currentColor"
 											viewBox="0 0 20 20"
 										>
@@ -298,7 +312,7 @@
 						{/if}
 
 						<div
-							class="flex items-center text-red-600 transition-transform duration-300 group-hover:translate-x-2"
+							class="flex items-center text-red-400 transition-transform duration-300 group-hover:translate-x-2"
 						>
 							<span class="text-sm font-semibold">Dowiedz się więcej</span>
 							<svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -318,76 +332,80 @@
 
 	<!-- Detailed Features Showcase -->
 	<section
-		class="mx-4 my-8 bg-white px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
+		class="mx-4 my-8 border border-gray-800 bg-gray-900 px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
 	>
 		<div class="mx-auto max-w-6xl">
 			<!-- Car Health Book Feature -->
 			<div class="mb-20 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 				<div class="space-y-6">
 					<div class="flex items-center space-x-3">
-						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
-							<BookOpen class="h-6 w-6 text-blue-600" />
+						<div
+							class="flex h-12 w-12 items-center justify-center rounded-full border border-red-600 bg-red-600/20"
+						>
+							<BookOpen class="h-6 w-6 text-red-400" />
 						</div>
-						<h3 class="text-3xl font-bold text-gray-800">Książka Zdrowia Auta</h3>
+						<h3 class="text-3xl font-bold text-white">Książka Zdrowia Auta</h3>
 					</div>
-					<p class="text-lg leading-relaxed text-gray-600">
+					<p class="text-lg leading-relaxed text-gray-300">
 						Kompleksowe zarządzanie historią serwisową Twojego pojazdu. Śledzenie wszystkich napraw,
 						przeglądów i kosztów w jednym miejscu.
 					</p>
 					<div class="grid grid-cols-2 gap-4">
 						<div class="space-y-2">
-							<div class="flex items-center gap-2 font-semibold text-gray-800">
-								<Calendar class="h-4 w-4 text-blue-600" />
+							<div class="flex items-center gap-2 font-semibold text-white">
+								<Calendar class="h-4 w-4 text-red-400" />
 								Przypomnienia
 							</div>
-							<p class="text-sm text-gray-600">Automatyczne powiadomienia o terminach przeglądów</p>
+							<p class="text-sm text-gray-400">Automatyczne powiadomienia o terminach przeglądów</p>
 						</div>
 						<div class="space-y-2">
-							<div class="flex items-center gap-2 font-semibold text-gray-800">
-								<DollarSign class="h-4 w-4 text-blue-600" />
+							<div class="flex items-center gap-2 font-semibold text-white">
+								<DollarSign class="h-4 w-4 text-red-400" />
 								Koszty
 							</div>
-							<p class="text-sm text-gray-600">Analiza wydatków na utrzymanie auta</p>
+							<p class="text-sm text-gray-400">Analiza wydatków na utrzymanie auta</p>
 						</div>
 						<div class="space-y-2">
-							<div class="flex items-center gap-2 font-semibold text-gray-800">
-								<Search class="h-4 w-4 text-blue-600" />
+							<div class="flex items-center gap-2 font-semibold text-white">
+								<Search class="h-4 w-4 text-red-400" />
 								Historia
 							</div>
-							<p class="text-sm text-gray-600">Pełna dokumentacja wszystkich serwisów</p>
+							<p class="text-sm text-gray-400">Pełna dokumentacja wszystkich serwisów</p>
 						</div>
 						<div class="space-y-2">
-							<div class="flex items-center gap-2 font-semibold text-gray-800">
-								<BarChart3 class="h-4 w-4 text-blue-600" />
+							<div class="flex items-center gap-2 font-semibold text-white">
+								<BarChart3 class="h-4 w-4 text-red-400" />
 								Raporty
 							</div>
-							<p class="text-sm text-gray-600">Szczegółowe raporty o stanie pojazdu</p>
+							<p class="text-sm text-gray-400">Szczegółowe raporty o stanie pojazdu</p>
 						</div>
 					</div>
 				</div>
-				<div class="rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 p-8">
-					<div class="space-y-4 rounded-xl bg-white p-6 shadow-lg">
+				<div
+					class="rounded-2xl border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 p-8"
+				>
+					<div class="space-y-4 rounded-xl border border-gray-700 bg-black/50 p-6 shadow-lg">
 						<div class="flex items-center justify-between">
-							<span class="font-semibold text-gray-800">Toyota Corolla 2020</span>
-							<span class="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-600"
+							<span class="font-semibold text-white">Toyota Corolla 2020</span>
+							<span class="rounded-full bg-green-500 px-3 py-1 text-sm font-medium text-white"
 								>Sprawny</span
 							>
 						</div>
 						<div class="space-y-3">
 							<div class="flex justify-between text-sm">
-								<span class="text-gray-600">Ostatni przegląd:</span>
-								<span class="font-medium">15.01.2025</span>
+								<span class="text-gray-400">Ostatni przegląd:</span>
+								<span class="font-medium text-white">15.01.2025</span>
 							</div>
 							<div class="flex justify-between text-sm">
-								<span class="text-gray-600">Następny serwis:</span>
-								<span class="font-medium text-red-600">Za 2 tygodnie</span>
+								<span class="text-gray-400">Następny serwis:</span>
+								<span class="font-medium text-red-400">Za 2 tygodnie</span>
 							</div>
 							<div class="flex justify-between text-sm">
-								<span class="text-gray-600">Przebieg:</span>
-								<span class="font-medium">95,420 km</span>
+								<span class="text-gray-400">Przebieg:</span>
+								<span class="font-medium text-white">95,420 km</span>
 							</div>
 						</div>
-						<div class="mt-4 h-2 w-full rounded-full bg-gray-200">
+						<div class="mt-4 h-2 w-full rounded-full bg-gray-700">
 							<div class="h-2 w-3/4 rounded-full bg-green-500"></div>
 						</div>
 					</div>
@@ -713,7 +731,7 @@
 
 	<!-- Stats Section -->
 	<section
-		class="mx-4 my-8 bg-gradient-to-r from-red-600 to-red-700 px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
+		class="mx-4 my-8 bg-gradient-to-r from-red-600 to-red-800 px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
 	>
 		<div class="mx-auto max-w-6xl">
 			<div class="grid gap-8 text-center sm:grid-cols-2 md:grid-cols-4">
@@ -739,47 +757,47 @@
 
 	<!-- How it works -->
 	<section
-		class="mx-4 my-8 bg-gray-50 px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
+		class="mx-4 my-8 border border-gray-700 bg-gray-800 px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
 	>
 		<div class="mx-auto max-w-6xl">
 			<div class="mb-12 text-center sm:mb-16">
-				<h2 class="mb-6 text-3xl font-bold text-gray-800 sm:text-4xl">Jak to działa?</h2>
-				<p class="text-lg text-gray-600 sm:text-xl">Prosty proces w trzech krokach</p>
+				<h2 class="mb-6 text-3xl font-bold text-white sm:text-4xl">Jak to działa?</h2>
+				<p class="text-lg text-gray-300 sm:text-xl">Prosty proces w trzech krokach</p>
 			</div>
 
 			<div class="grid gap-12 md:grid-cols-3">
 				<div class="space-y-6 text-center">
 					<div
-						class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-red-600 text-2xl font-bold text-white shadow-lg"
+						class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-red-600 text-2xl font-bold text-white shadow-lg shadow-red-600/25"
 					>
 						1
 					</div>
-					<h3 class="text-xl font-semibold text-gray-800">Znajdź mechanika</h3>
-					<p class="leading-relaxed text-gray-600">
+					<h3 class="text-xl font-semibold text-white">Znajdź mechanika</h3>
+					<p class="leading-relaxed text-gray-300">
 						Wyszukaj najlepszych mechaników w swojej okolicy i sprawdź ich opinie
 					</p>
 				</div>
 
 				<div class="space-y-6 text-center">
 					<div
-						class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-red-600 text-2xl font-bold text-white shadow-lg"
+						class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-red-600 text-2xl font-bold text-white shadow-lg shadow-red-600/25"
 					>
 						2
 					</div>
-					<h3 class="text-xl font-semibold text-gray-800">Umów wizytę</h3>
-					<p class="leading-relaxed text-gray-600">
+					<h3 class="text-xl font-semibold text-white">Umów wizytę</h3>
+					<p class="leading-relaxed text-gray-300">
 						Zarezerwuj termin online i zarządzaj książką zdrowia swojego auta
 					</p>
 				</div>
 
 				<div class="space-y-6 text-center">
 					<div
-						class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-red-600 text-2xl font-bold text-white shadow-lg"
+						class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-red-600 text-2xl font-bold text-white shadow-lg shadow-red-600/25"
 					>
 						3
 					</div>
-					<h3 class="text-xl font-semibold text-gray-800">Zamów części</h3>
-					<p class="leading-relaxed text-gray-600">
+					<h3 class="text-xl font-semibold text-white">Zamów części</h3>
+					<p class="leading-relaxed text-gray-300">
 						Kup potrzebne części bezpośrednio przez aplikację z szybką dostawą
 					</p>
 				</div>
@@ -789,7 +807,7 @@
 
 	<!-- CTA Section -->
 	<section
-		class="mx-4 my-8 bg-gradient-to-br from-gray-800 to-gray-900 px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
+		class="mx-4 my-8 bg-gradient-to-br from-gray-900 to-black px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
 	>
 		<div class="mx-auto max-w-4xl text-center">
 			<h2 class="mb-6 text-3xl font-bold text-white sm:text-4xl">
@@ -802,7 +820,7 @@
 			<div class="flex flex-col justify-center gap-6 sm:flex-row">
 				<a
 					href="/register?type=customer"
-					class="transform rounded-2xl bg-red-600 px-10 py-4 text-center text-lg font-semibold text-white shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:bg-red-700 hover:shadow-red-500/25"
+					class="transform rounded-2xl bg-red-600 px-10 py-4 text-center text-lg font-semibold text-white shadow-2xl shadow-red-600/25 transition-all duration-300 hover:-translate-y-1 hover:bg-red-700 hover:shadow-red-700/25"
 				>
 					Dołącz jako użytkownik
 				</a>
@@ -816,12 +834,11 @@
 		</div>
 	</section>
 
-	<section>
-	</section>
+	<section></section>
 
 	<!-- Footer -->
 	<footer
-		class="mx-4 mt-8 mb-8 bg-gray-900 px-4 py-12 sm:mx-6 sm:mt-12 sm:mb-12 sm:px-6 lg:mx-8 lg:mt-16 lg:mb-16 lg:px-8"
+		class="mx-4 mt-8 mb-8 bg-black px-4 py-12 sm:mx-6 sm:mt-12 sm:mb-12 sm:px-6 lg:mx-8 lg:mt-16 lg:mb-16 lg:px-8"
 	>
 		<div class="mx-auto max-w-6xl">
 			<div class="flex flex-col items-center justify-between md:flex-row">

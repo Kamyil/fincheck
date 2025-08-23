@@ -1,43 +1,205 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
+	import Car from 'lucide-svelte/icons/car';
 
 	let { form } = $props();
+	let isRegistering = $state(false);
 </script>
 
-<div class="container mx-auto p-8">
-	<h1 class="mb-6 text-2xl font-bold">Login</h1>
-	<form method="post" action="?/login" use:enhance>
-		<div class="mb-4">
-			<label class="mb-1 block">
-				Username
-				<input
-					name="username"
-					class="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-				/>
-			</label>
+<svelte:head>
+	<title>Zaloguj się - Pan Samochodzik</title>
+	<meta
+		name="description"
+		content="Zaloguj się do Pan Samochodzik - Twój Cyfrowy Asystent Motoryzacyjny"
+	/>
+</svelte:head>
+
+<div
+	class="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black"
+>
+	<!-- Asphalt texture overlay -->
+	<div
+		class="absolute inset-0 opacity-10"
+		style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 20px 20px;"
+	></div>
+	<!-- Lane stripes -->
+	<div class="absolute inset-0 opacity-20">
+		<div class="absolute top-1/4 right-0 left-0 h-1 -skew-y-1 transform bg-white"></div>
+		<div class="absolute top-2/4 right-0 left-0 h-1 skew-y-1 transform bg-white"></div>
+		<div class="absolute top-3/4 right-0 left-0 h-1 -skew-y-1 transform bg-white"></div>
+	</div>
+
+	<!-- Navigation -->
+	<nav class="relative z-50 mx-4 px-4 py-6 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
+		<div class="mx-auto flex max-w-6xl items-center justify-between">
+			<a href="/" class="flex items-center space-x-4">
+				<div
+					class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 shadow-lg shadow-red-600/25"
+				>
+					<Car class="h-6 w-6 text-white" />
+				</div>
+				<span class="text-2xl font-bold text-white">Pan Samochodzik</span>
+			</a>
 		</div>
-		<div class="mb-6">
-			<label class="mb-1 block">
-				Password
-				<input
-					type="password"
-					name="password"
-					class="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-				/>
-			</label>
+	</nav>
+
+	<!-- Login Section -->
+	<section class="relative z-10 flex items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
+		<div class="w-full max-w-md">
+			<div class="rounded-2xl border border-gray-700 bg-gray-900 p-8 shadow-2xl shadow-red-600/10">
+				<div class="mb-8 text-center">
+					<div
+						class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-red-600 bg-red-600/20"
+					>
+						<Car class="h-8 w-8 text-red-400" />
+					</div>
+					<h1 class="text-3xl font-bold text-white">
+						{isRegistering ? 'Załóż konto' : 'Zaloguj się'}
+					</h1>
+					<p class="mt-2 text-gray-400">
+						{isRegistering
+							? 'Dołącz do społeczności Pan Samochodzik'
+							: 'Wróć do swojego cyfrowego asystenta motoryzacyjnego'}
+					</p>
+				</div>
+
+				<form
+					method="post"
+					action={isRegistering ? '?/register' : '?/login'}
+					use:enhance
+					class="space-y-6"
+				>
+					<div>
+						<label class="block text-sm font-medium text-gray-300"> Nazwa użytkownika </label>
+						<input
+							name="username"
+							type="text"
+							required
+							class="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							placeholder="Wprowadź swoją nazwę użytkownika"
+						/>
+					</div>
+
+					<div>
+						<label class="block text-sm font-medium text-gray-300"> Hasło </label>
+						<input
+							type="password"
+							name="password"
+							required
+							class="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							placeholder="Wprowadź swoje hasło"
+						/>
+					</div>
+
+					{#if isRegistering}
+						<div>
+							<label class="block text-sm font-medium text-gray-300"> Rola </label>
+							<select
+								name="role"
+								required
+								class="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							>
+								<option value="">Wybierz rolę</option>
+								<option value="CLIENT">Klient (szukam mechanika)</option>
+								<option value="MECHANIC">Mechanik (oferuję usługi)</option>
+							</select>
+						</div>
+					{/if}
+
+					<div class="space-y-4">
+						<button
+							type="submit"
+							class="w-full transform rounded-xl bg-red-600 px-6 py-3 font-semibold text-white shadow-lg shadow-red-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-xl hover:shadow-red-700/25"
+						>
+							{isRegistering ? 'Załóż konto' : 'Zaloguj się'}
+						</button>
+
+						<button
+							type="button"
+							onclick={() => (isRegistering = !isRegistering)}
+							class="w-full rounded-xl border-2 border-red-600 px-6 py-3 font-semibold text-red-400 transition-all duration-300 hover:bg-red-600 hover:text-white"
+						>
+							{isRegistering ? 'Mam już konto - Zaloguj' : 'Załóż nowe konto'}
+						</button>
+					</div>
+				</form>
+
+				{#if form?.success}
+					<div class="mt-6 rounded-lg border border-green-700 bg-green-900/20 p-4">
+						<p class="text-sm text-green-300">Login successful! Role: {form.role}</p>
+						<a
+							href={form.role === 'MECHANIC' ? '/mechanic' : '/client'}
+							class="mt-2 inline-block text-blue-400 underline"
+						>
+							Go to dashboard
+						</a>
+					</div>
+				{/if}
+
+				{#if form?.message}
+					<div class="mt-6 rounded-lg border border-red-700 bg-red-900/20 p-4">
+						<p class="text-sm text-red-300">{form.message}</p>
+					</div>
+				{/if}
+
+				<div class="mt-8 text-center">
+					<p class="text-sm text-gray-400">
+						Nie masz jeszcze konta?
+						<a href="/register" class="font-medium text-red-400 hover:text-red-300">
+							Zarejestruj się tutaj
+						</a>
+					</p>
+				</div>
+			</div>
+
+			<!-- Floating elements for visual appeal -->
+			<div
+				class="pointer-events-none absolute -top-6 -right-6 h-20 w-20 animate-bounce rounded-full bg-gradient-to-r from-red-500 to-red-600 opacity-30"
+			></div>
+			<div
+				class="pointer-events-none absolute -bottom-10 -left-10 h-32 w-32 animate-pulse rounded-full bg-gradient-to-r from-gray-600 to-gray-700 opacity-20"
+			></div>
 		</div>
-		<div class="flex gap-4">
-			<button class="rounded-md bg-blue-600 px-6 py-2 text-white transition hover:bg-blue-700"
-				>Login</button
-			>
-			<button
-				formaction="?/register"
-				class="rounded-md bg-blue-600 px-6 py-2 text-white transition hover:bg-blue-700"
-				>Register</button
-			>
-		</div>
-	</form>
-	{#if form?.message}
-		<p class="mt-4 text-red-600">{form.message}</p>
-	{/if}
+	</section>
 </div>
+
+<style>
+	@keyframes bounce {
+		0%,
+		20%,
+		53%,
+		80%,
+		100% {
+			transform: translateY(0);
+		}
+		40%,
+		43% {
+			transform: translateY(-10px);
+		}
+		70% {
+			transform: translateY(-5px);
+		}
+		90% {
+			transform: translateY(-2px);
+		}
+	}
+
+	@keyframes pulse {
+		0%,
+		100% {
+			opacity: 0.1;
+		}
+		50% {
+			opacity: 0.3;
+		}
+	}
+
+	.animate-bounce {
+		animation: bounce 2s infinite;
+	}
+
+	.animate-pulse {
+		animation: pulse 2s infinite;
+	}
+</style>

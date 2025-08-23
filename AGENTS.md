@@ -1,6 +1,18 @@
 # Agent Guidelines for pan-samochodzik
 
+**Pan Samochodzik** is a Polish automotive platform built with SvelteKit 2.0 + Svelte 5, showcasing experimental remote functions and async features.
+
 ## Commands
+
+### Preferred: Container Development
+
+- Start: `just start` (full containerized startup with migrations)
+- Stop: `just stop`
+- Clean: `just clean` (complete cleanup)
+- Logs: `just logs`
+- DB Migrate: `just db-migrate`
+
+### Local Development
 
 - Build: `npm run build`
 - Dev: `npm run dev`
@@ -18,9 +30,17 @@
 - No trailing commas
 - 100 character line width
 - TypeScript with strict mode enabled
+- Prefer `let` over `const` - use `const` only for true constants
 - Use Svelte 5 with SvelteKit 2.0
 - Component files use `.svelte` extension
 - Follow TailwindCSS conventions for styling
+
+## Architecture
+
+- **Custom session-based auth** (not Auth.js) with 30-day sessions and auto-renewal
+- **Database schema note**: `username` maps to `login` column in database
+- **Multi-domain setup**: `.test` (dnsmasq), `.local` (mDNS), `localhost`
+- **Test users**: `testuser/testuser123`, `demo/pansamochodzik`
 
 ## Structure
 
@@ -33,10 +53,11 @@
 
 - Use TypeScript for type safety
 - Follow ESLint and Prettier configurations
-- Use Paraglide for internationalization
 - Use Drizzle ORM for database operations
 - Keep components small and focused
 - Use named exports for clarity
+- **Prefer containerized development** with `just start`
+- **Always validate user input on server**
 
 ## Error Handling
 

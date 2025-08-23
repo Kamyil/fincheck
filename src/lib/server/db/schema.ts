@@ -1,4 +1,6 @@
-import { pgTable, integer, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { pgTable, integer, text, timestamp, varchar, pgEnum } from 'drizzle-orm/pg-core';
+
+export const userRoleEnum = pgEnum('user_role', ['CLIENT', 'MECHANIC']);
 
 // The table in the database is actually called "users", not "user"
 export const user = pgTable('users', {
@@ -8,6 +10,7 @@ export const user = pgTable('users', {
 	username: text('login').notNull().unique(),
 	email: varchar('email', { length: 255 }).notNull().unique(),
 	passwordHash: text('password_hash').notNull(),
+	role: userRoleEnum('role').notNull().default('CLIENT'),
 	createdAt: timestamp('created_at').notNull(),
 	updatedAt: timestamp('updated_at')
 });
