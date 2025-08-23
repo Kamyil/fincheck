@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import * as auth from '$lib/server/auth';
 
-export const load: PageServerLoad = async (event) => {
+const performLogout = async (event: any) => {
 	// Get the session ID from the cookie
 	const sessionToken = event.cookies.get(auth.sessionCookieName);
 
@@ -26,4 +26,14 @@ export const load: PageServerLoad = async (event) => {
 
 	// Redirect to login page
 	throw redirect(302, '/login');
+};
+
+export const load: PageServerLoad = async (event) => {
+	await performLogout(event);
+};
+
+export const actions = {
+	default: async (event: any) => {
+		await performLogout(event);
+	}
 };

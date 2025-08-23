@@ -48,11 +48,18 @@
 				<div>Ustawienia</div>
 			</SidebarItem>
 
-			<SidebarItem redirectsTo={'/logout'} rel="external">
-				<LogOutIcon size={12} />
-				<span class="mx-1"> </span>
-				<span>Wyloguj się</span>
-			</SidebarItem>
+			<form method="POST" action="/logout" style="display: contents;">
+				<button
+					type="submit"
+					class="hover:bg-primary flex h-10 cursor-pointer items-center rounded-md fill-gray-100 stroke-gray-100 text-sm font-normal text-gray-100 transition-all hover:shadow-md active:scale-95"
+				>
+					<div class="mx-5 flex w-full items-center">
+						<LogOutIcon size={12} />
+						<span class="mx-1"> </span>
+						<span>Wyloguj się</span>
+					</div>
+				</button>
+			</form>
 		</div>
 	</div>
 
