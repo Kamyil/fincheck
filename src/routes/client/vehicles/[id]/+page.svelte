@@ -31,18 +31,6 @@
 <div
 	class="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black"
 >
-	<!-- Asphalt texture overlay -->
-	<div
-		class="absolute inset-0 opacity-10"
-		style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 20px 20px;"
-	></div>
-	<!-- Lane stripes -->
-	<div class="absolute inset-0 opacity-20">
-		<div class="absolute top-1/4 right-0 left-0 h-1 -skew-y-1 transform bg-white"></div>
-		<div class="absolute top-2/4 right-0 left-0 h-1 skew-y-1 transform bg-white"></div>
-		<div class="absolute top-3/4 right-0 left-0 h-1 -skew-y-1 transform bg-white"></div>
-	</div>
-
 	<!-- Navigation -->
 	<nav class="relative z-10 mx-4 px-4 py-6 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
 		<div class="mx-auto flex max-w-6xl items-center justify-between">
