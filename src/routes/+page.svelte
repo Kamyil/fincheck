@@ -1,6 +1,24 @@
 <!-- +page.svelte -->
 <script>
 	import { onMount } from 'svelte';
+	import BookOpen from 'lucide-svelte/icons/book-open';
+	import MessageCircle from 'lucide-svelte/icons/message-circle';
+	import Tag from 'lucide-svelte/icons/tag';
+	import Users from 'lucide-svelte/icons/users';
+	import Settings from 'lucide-svelte/icons/settings';
+	import Car from 'lucide-svelte/icons/car';
+	import Calendar from 'lucide-svelte/icons/calendar';
+	import DollarSign from 'lucide-svelte/icons/dollar-sign';
+	import Search from 'lucide-svelte/icons/search';
+	import BarChart3 from 'lucide-svelte/icons/bar-chart-3';
+	import CheckCircle from 'lucide-svelte/icons/check-circle';
+	import Send from 'lucide-svelte/icons/send';
+	import Truck from 'lucide-svelte/icons/truck';
+	import Gem from 'lucide-svelte/icons/gem';
+	import Shield from 'lucide-svelte/icons/shield';
+	import Wrench from 'lucide-svelte/icons/wrench';
+	import Smartphone from 'lucide-svelte/icons/smartphone';
+	import PartyPopper from 'lucide-svelte/icons/party-popper';
 
 	let isVisible = false;
 	let activeFeature = 0;
@@ -10,7 +28,7 @@
 
 		// Auto-rotate features every 4 seconds
 		const interval = setInterval(() => {
-			activeFeature = (activeFeature + 1) % 4;
+			activeFeature = (activeFeature + 1) % 5;
 		}, 4000);
 
 		return () => clearInterval(interval);
@@ -18,24 +36,49 @@
 
 	const features = [
 		{
-			title: 'Znajdź Mechanika',
-			description: 'Odkryj zaufanych mechaników w Twojej okolicy z opiniami klientów',
-			icon: '🔧'
-		},
-		{
 			title: 'Książka Zdrowia Auta',
-			description: 'Śledź historię serwisową i stan techniczny swojego pojazdu',
-			icon: '📋'
+			description:
+				'Kompletna historia serwisowa, przeglądy techniczne, przypomnienia o serwisach i monitoring stanu technicznego w jednym miejscu',
+			icon: BookOpen,
+			details: [
+				'Historia napraw i serwisów',
+				'Przypomnienia o przeglądach',
+				'Stan techniczny pojazdu',
+				'Koszty utrzymania'
+			]
 		},
 		{
-			title: 'Zamów Części',
-			description: 'Szybkie zamawianie części samochodowych bezpośrednio przez aplikację',
-			icon: '⚙️'
+			title: 'Bezpośrednia Komunikacja',
+			description:
+				'Czat w czasie rzeczywistym z mechanikami - zadawaj pytania, otrzymuj porady i śledź postęp napraw',
+			icon: MessageCircle,
+			details: ['Chat z mechanikami', 'Porady ekspertów', 'Zdjęcia problemów', 'Status napraw']
 		},
 		{
-			title: 'Społeczność',
-			description: 'Połącz się z mechanikami i innymi właścicielami aut',
-			icon: '👥'
+			title: 'System Ofert',
+			description:
+				'Opisz problem swojego auta i otrzymaj konkurencyjne oferty od mechaników w Twojej okolicy',
+			icon: Tag,
+			details: ['Opisy problemów', 'Konkurencyjne ceny', 'Porównanie ofert', 'Oceny mechaników']
+		},
+		{
+			title: 'Forum Motoryzacyjne',
+			description:
+				'Dołącz do społeczności motoryzacyjnej - dziel się doświadczeniami i szukaj rozwiązań',
+			icon: Users,
+			details: [
+				'Społeczność ekspertów',
+				'Wymiana doświadczeń',
+				'Porady techniczne',
+				'Recenzje części'
+			]
+		},
+		{
+			title: 'Zamawianie Części',
+			description:
+				'Łatwe zamawianie oryginalnych i zamiennych części samochodowych z szybką dostawą',
+			icon: Settings,
+			details: ['Katalog części', 'Szybka dostawa', 'Konkurencyjne ceny', 'Gwarancja jakości']
 		}
 	];
 </script>
@@ -48,33 +91,35 @@
 	/>
 </svelte:head>
 
-<div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-red-50">
+<div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-100">
 	<!-- Navigation -->
 	<nav class="relative z-50 mx-4 px-4 py-6 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
 		<div class="mx-auto flex max-w-6xl items-center justify-between">
 			<div class="flex items-center space-x-4">
 				<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 shadow-lg">
-					<span class="text-xl font-bold text-white">🚗</span>
+					<Car class="h-6 w-6 text-white" />
 				</div>
 				<span class="text-2xl font-bold text-gray-800">Pan Samochodzik</span>
 			</div>
 
-			<div class="space-x-2 flex items-center">
-				<a href="#features" class="font-medium block text-gray-600 transition-colors hover:text-red-600"
+			<div class="flex items-center space-x-4">
+				<a
+					href="#features"
+					class="hidden font-medium text-gray-600 transition-colors hover:text-red-600 sm:block"
 					>Funkcje</a
 				>
-				<a href="#about" class="font-medium block text-gray-600 transition-colors hover:text-red-600"
-					>O nas</a
+				<a
+					href="/forum"
+					class="hidden font-medium text-gray-600 transition-colors hover:text-red-600 sm:block"
+					>Forum</a
 				>
-				<a href="#contact" class="font-medium p text-gray-600 transition-colors hover:text-red-600"
-					>Kontakt</a
+				<a
+					href="/parts"
+					class="hidden font-medium text-gray-600 transition-colors hover:text-red-600 sm:block"
+					>Części</a
 				>
-				<a href="#contact" class="font-medium text-gray-600 transition-colors hover:text-red-600"
+				<a href="/login" class="font-medium text-gray-600 transition-colors hover:text-red-600"
 					>Zaloguj się</a
-				>
-
-				<a href="#contact" class="font-medium text-gray-600 transition-colors hover:text-red-600"
-					>Zarejestruj się</a
 				>
 				<button
 					class="transform rounded-xl bg-red-600 px-6 py-3 font-medium text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-xl"
@@ -98,7 +143,7 @@
 							<span class="relative inline-block text-red-600">
 								motoryzacji
 								<div
-									class="absolute -bottom-2 left-0 h-1 w-full origin-left scale-x-0 transform animate-pulse bg-red-600"
+									class="animate-expand absolute -bottom-2 left-0 h-1 w-full origin-left scale-x-100 transform bg-red-600"
 								></div>
 							</span>
 						</h1>
@@ -109,16 +154,18 @@
 					</div>
 
 					<div class="flex flex-col gap-4 sm:flex-row lg:gap-6">
-						<button
-							class="transform rounded-2xl bg-red-600 px-8 py-4 text-lg font-semibold text-white shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-red-700 hover:shadow-red-500/25"
+						<a
+							href="/register"
+							class="transform rounded-2xl bg-red-600 px-8 py-4 text-center text-lg font-semibold text-white shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-red-700 hover:shadow-red-500/25"
 						>
 							Rozpocznij podróż
-						</button>
-						<button
-							class="rounded-2xl border-2 border-red-600 px-8 py-4 text-lg font-semibold text-red-600 transition-all duration-300 hover:bg-red-600 hover:text-white"
+						</a>
+						<a
+							href="#features"
+							class="rounded-2xl border-2 border-red-600 px-8 py-4 text-center text-lg font-semibold text-red-600 transition-all duration-300 hover:bg-red-600 hover:text-white"
 						>
-							Zobacz demo
-						</button>
+							Zobacz funkcje
+						</a>
 					</div>
 
 					<div class="flex items-center space-x-6 pt-6">
@@ -205,7 +252,7 @@
 				</p>
 			</div>
 
-			<div class="grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4">
+			<div class="grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 xl:grid-cols-5">
 				{#each features as feature, i}
 					<div
 						class="group cursor-pointer rounded-2xl p-6 transition-all duration-500 sm:p-8 {activeFeature ===
@@ -215,9 +262,12 @@
 						on:mouseenter={() => (activeFeature = i)}
 					>
 						<div
-							class="mb-4 transform text-4xl transition-transform duration-300 group-hover:scale-110 sm:mb-6 sm:text-5xl"
+							class="mb-4 transform transition-transform duration-300 group-hover:scale-110 sm:mb-6"
 						>
-							{feature.icon}
+							<svelte:component
+								this={feature.icon}
+								class="h-12 w-12 text-red-600 sm:h-14 sm:w-14"
+							/>
 						</div>
 						<h3 class="mb-3 text-xl font-semibold text-gray-800 sm:mb-4 sm:text-2xl">
 							{feature.title}
@@ -225,6 +275,27 @@
 						<p class="mb-6 text-base leading-relaxed text-gray-600 sm:text-lg">
 							{feature.description}
 						</p>
+
+						{#if feature.details}
+							<ul class="mb-6 space-y-2">
+								{#each feature.details as detail}
+									<li class="flex items-center text-sm text-gray-600">
+										<svg
+											class="mr-2 h-4 w-4 text-green-500"
+											fill="currentColor"
+											viewBox="0 0 20 20"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+												clip-rule="evenodd"
+											></path>
+										</svg>
+										{detail}
+									</li>
+								{/each}
+							</ul>
+						{/if}
 
 						<div
 							class="flex items-center text-red-600 transition-transform duration-300 group-hover:translate-x-2"
@@ -241,6 +312,401 @@
 						</div>
 					</div>
 				{/each}
+			</div>
+		</div>
+	</section>
+
+	<!-- Detailed Features Showcase -->
+	<section
+		class="mx-4 my-8 bg-white px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
+	>
+		<div class="mx-auto max-w-6xl">
+			<!-- Car Health Book Feature -->
+			<div class="mb-20 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+				<div class="space-y-6">
+					<div class="flex items-center space-x-3">
+						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+							<BookOpen class="h-6 w-6 text-blue-600" />
+						</div>
+						<h3 class="text-3xl font-bold text-gray-800">Książka Zdrowia Auta</h3>
+					</div>
+					<p class="text-lg leading-relaxed text-gray-600">
+						Kompleksowe zarządzanie historią serwisową Twojego pojazdu. Śledzenie wszystkich napraw,
+						przeglądów i kosztów w jednym miejscu.
+					</p>
+					<div class="grid grid-cols-2 gap-4">
+						<div class="space-y-2">
+							<div class="flex items-center gap-2 font-semibold text-gray-800">
+								<Calendar class="h-4 w-4 text-blue-600" />
+								Przypomnienia
+							</div>
+							<p class="text-sm text-gray-600">Automatyczne powiadomienia o terminach przeglądów</p>
+						</div>
+						<div class="space-y-2">
+							<div class="flex items-center gap-2 font-semibold text-gray-800">
+								<DollarSign class="h-4 w-4 text-blue-600" />
+								Koszty
+							</div>
+							<p class="text-sm text-gray-600">Analiza wydatków na utrzymanie auta</p>
+						</div>
+						<div class="space-y-2">
+							<div class="flex items-center gap-2 font-semibold text-gray-800">
+								<Search class="h-4 w-4 text-blue-600" />
+								Historia
+							</div>
+							<p class="text-sm text-gray-600">Pełna dokumentacja wszystkich serwisów</p>
+						</div>
+						<div class="space-y-2">
+							<div class="flex items-center gap-2 font-semibold text-gray-800">
+								<BarChart3 class="h-4 w-4 text-blue-600" />
+								Raporty
+							</div>
+							<p class="text-sm text-gray-600">Szczegółowe raporty o stanie pojazdu</p>
+						</div>
+					</div>
+				</div>
+				<div class="rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 p-8">
+					<div class="space-y-4 rounded-xl bg-white p-6 shadow-lg">
+						<div class="flex items-center justify-between">
+							<span class="font-semibold text-gray-800">Toyota Corolla 2020</span>
+							<span class="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-600"
+								>Sprawny</span
+							>
+						</div>
+						<div class="space-y-3">
+							<div class="flex justify-between text-sm">
+								<span class="text-gray-600">Ostatni przegląd:</span>
+								<span class="font-medium">15.01.2025</span>
+							</div>
+							<div class="flex justify-between text-sm">
+								<span class="text-gray-600">Następny serwis:</span>
+								<span class="font-medium text-red-600">Za 2 tygodnie</span>
+							</div>
+							<div class="flex justify-between text-sm">
+								<span class="text-gray-600">Przebieg:</span>
+								<span class="font-medium">95,420 km</span>
+							</div>
+						</div>
+						<div class="mt-4 h-2 w-full rounded-full bg-gray-200">
+							<div class="h-2 w-3/4 rounded-full bg-green-500"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Direct Communication Feature -->
+			<div class="mb-20 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+				<div
+					class="order-2 rounded-2xl bg-gradient-to-br from-green-50 to-green-100 p-8 lg:order-1"
+				>
+					<div class="space-y-4 rounded-xl bg-white p-6 shadow-lg">
+						<div class="flex items-center space-x-3">
+							<div class="h-10 w-10 rounded-full bg-red-600"></div>
+							<div>
+								<div class="font-semibold text-gray-800">Mechanik Kowalski</div>
+								<div class="text-sm text-green-600">● Online</div>
+							</div>
+						</div>
+						<div class="space-y-3">
+							<div class="rounded-lg bg-gray-100 p-3 text-sm">
+								Sprawdziłem Twoje zdjęcia. To problem z klockami hamulcowymi.
+							</div>
+							<div class="rounded-lg bg-red-50 p-3 text-right text-sm">
+								Ile będzie kosztować naprawa?
+							</div>
+							<div class="rounded-lg bg-gray-100 p-3 text-sm">
+								Około 300-400 zł z robocizną. Mogę zacząć jutro rano.
+							</div>
+						</div>
+						<div class="flex items-center space-x-2">
+							<input
+								class="flex-1 rounded-full border px-4 py-2 text-sm"
+								placeholder="Napisz wiadomość..."
+							/>
+							<button class="rounded-full bg-red-600 p-2 text-white">
+								<Send class="h-4 w-4" />
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="order-1 space-y-6 lg:order-2">
+					<div class="flex items-center space-x-3">
+						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+							<MessageCircle class="h-6 w-6 text-green-600" />
+						</div>
+						<h3 class="text-3xl font-bold text-gray-800">Bezpośrednia Komunikacja</h3>
+					</div>
+					<p class="text-lg leading-relaxed text-gray-600">
+						Czat w czasie rzeczywistym z mechanikami. Wysyłaj zdjęcia problemów, otrzymuj porady i
+						śledź postęp napraw bez wychodzenia z domu.
+					</p>
+					<div class="space-y-4">
+						<div class="flex items-center space-x-3">
+							<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
+								<CheckCircle class="h-5 w-5 text-white" />
+							</div>
+							<span class="text-gray-700">Instant messaging z mechanikami</span>
+						</div>
+						<div class="flex items-center space-x-3">
+							<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
+								<CheckCircle class="h-5 w-5 text-white" />
+							</div>
+							<span class="text-gray-700">Wysyłanie zdjęć problemów</span>
+						</div>
+						<div class="flex items-center space-x-3">
+							<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
+								<CheckCircle class="h-5 w-5 text-white" />
+							</div>
+							<span class="text-gray-700">Śledzenie statusu napraw</span>
+						</div>
+						<div class="flex items-center space-x-3">
+							<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
+								<CheckCircle class="h-5 w-5 text-white" />
+							</div>
+							<span class="text-gray-700">Historie wszystkich rozmów</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Tenders/Bidding System Feature -->
+			<div class="mb-20 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+				<div class="space-y-6">
+					<div class="flex items-center space-x-3">
+						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-purple-100">
+							<Tag class="h-6 w-6 text-purple-600" />
+						</div>
+						<h3 class="text-3xl font-bold text-gray-800">System Ofert</h3>
+					</div>
+					<p class="text-lg leading-relaxed text-gray-600">
+						Opisz problem swojego auta i otrzymaj konkurencyjne oferty od sprawdzonych mechaników w
+						Twojej okolicy. Porównuj ceny i wybieraj najlepszą opcję.
+					</p>
+					<div class="space-y-4">
+						<div class="rounded-lg border-l-4 border-purple-500 bg-purple-50 p-4">
+							<div class="font-semibold text-purple-800">1. Opisz problem</div>
+							<p class="text-sm text-purple-700">Dodaj opis, zdjęcia i lokalizację</p>
+						</div>
+						<div class="rounded-lg border-l-4 border-purple-500 bg-purple-50 p-4">
+							<div class="font-semibold text-purple-800">2. Otrzymaj oferty</div>
+							<p class="text-sm text-purple-700">Mechanicy składają konkurencyjne propozycje</p>
+						</div>
+						<div class="rounded-lg border-l-4 border-purple-500 bg-purple-50 p-4">
+							<div class="font-semibold text-purple-800">3. Wybierz najlepszą</div>
+							<p class="text-sm text-purple-700">Porównaj ceny, opinie i lokalizacje</p>
+						</div>
+					</div>
+				</div>
+				<div class="rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 p-8">
+					<div class="space-y-4 rounded-xl bg-white p-6 shadow-lg">
+						<div class="border-b pb-3">
+							<div class="font-semibold text-gray-800">Problem z silnikiem - BMW 320i</div>
+							<div class="text-sm text-gray-600">3 oferty otrzymane</div>
+						</div>
+						<div class="space-y-3">
+							<div class="rounded-lg border p-3">
+								<div class="flex items-center justify-between">
+									<div>
+										<div class="font-medium text-gray-800">AutoSerwis Nowak</div>
+										<div class="text-sm text-gray-600">⭐ 4.8 • 2.5 km</div>
+									</div>
+									<div class="text-right">
+										<div class="font-bold text-green-600">450 zł</div>
+										<div class="text-xs text-gray-500">+ części</div>
+									</div>
+								</div>
+							</div>
+							<div class="rounded-lg border p-3">
+								<div class="flex items-center justify-between">
+									<div>
+										<div class="font-medium text-gray-800">Mechanik Kowalski</div>
+										<div class="text-sm text-gray-600">⭐ 4.9 • 1.8 km</div>
+									</div>
+									<div class="text-right">
+										<div class="font-bold text-green-600">380 zł</div>
+										<div class="text-xs text-gray-500">+ części</div>
+									</div>
+								</div>
+							</div>
+							<div class="rounded-lg border p-3">
+								<div class="flex items-center justify-between">
+									<div>
+										<div class="font-medium text-gray-800">BMW Serwis Pro</div>
+										<div class="text-sm text-gray-600">⭐ 4.7 • 3.2 km</div>
+									</div>
+									<div class="text-right">
+										<div class="font-bold text-green-600">520 zł</div>
+										<div class="text-xs text-gray-500">z częściami</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Forum Feature -->
+			<div class="mb-20 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+				<div
+					class="order-2 rounded-2xl bg-gradient-to-br from-orange-50 to-orange-100 p-8 lg:order-1"
+				>
+					<div class="space-y-4 rounded-xl bg-white p-6 shadow-lg">
+						<div class="border-b pb-3">
+							<div class="font-semibold text-gray-800">Najnowsze posty na forum</div>
+						</div>
+						<div class="space-y-4">
+							<div class="border-l-4 border-orange-500 pl-4">
+								<div class="font-medium text-gray-800">Jak wymienić olej w Golf VII?</div>
+								<div class="text-sm text-gray-600">15 odpowiedzi • Dodano 2h temu</div>
+							</div>
+							<div class="border-l-4 border-orange-500 pl-4">
+								<div class="font-medium text-gray-800">Problem z klimatyzacją Audi A4</div>
+								<div class="text-sm text-gray-600">8 odpowiedzi • Dodano 5h temu</div>
+							</div>
+							<div class="border-l-4 border-orange-500 pl-4">
+								<div class="font-medium text-gray-800">Polecane opony zimowe 2025</div>
+								<div class="text-sm text-gray-600">23 odpowiedzi • Dodano wczoraj</div>
+							</div>
+						</div>
+						<button class="w-full rounded-lg bg-orange-600 py-2 text-white hover:bg-orange-700">
+							Zadaj pytanie
+						</button>
+					</div>
+				</div>
+				<div class="order-1 space-y-6 lg:order-2">
+					<div class="flex items-center space-x-3">
+						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
+							<Users class="h-6 w-6 text-orange-600" />
+						</div>
+						<h3 class="text-3xl font-bold text-gray-800">Forum Motoryzacyjne</h3>
+					</div>
+					<p class="text-lg leading-relaxed text-gray-600">
+						Dołącz do największej społeczności motoryzacyjnej w Polsce. Zadawaj pytania, dziel się
+						doświadczeniem i pomagaj innym kierowcom.
+					</p>
+					<div class="grid grid-cols-2 gap-4">
+						<div class="rounded-lg bg-orange-50 p-4 text-center">
+							<div class="text-2xl font-bold text-orange-600">50k+</div>
+							<div class="text-sm text-gray-600">Aktywnych użytkowników</div>
+						</div>
+						<div class="rounded-lg bg-orange-50 p-4 text-center">
+							<div class="text-2xl font-bold text-orange-600">15k+</div>
+							<div class="text-sm text-gray-600">Rozwiązanych problemów</div>
+						</div>
+					</div>
+					<div class="space-y-3">
+						<div class="flex items-center space-x-3">
+							<Wrench class="h-6 w-6 text-orange-600" />
+							<span class="text-gray-700">Porady od ekspertów</span>
+						</div>
+						<div class="flex items-center space-x-3">
+							<Car class="h-6 w-6 text-orange-600" />
+							<span class="text-gray-700">Wszystkie marki aut</span>
+						</div>
+						<div class="flex items-center space-x-3">
+							<Smartphone class="h-6 w-6 text-orange-600" />
+							<span class="text-gray-700">Mobilna aplikacja</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Parts Ordering Feature -->
+			<div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+				<div class="space-y-6">
+					<div class="flex items-center space-x-3">
+						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+							<Settings class="h-6 w-6 text-red-600" />
+						</div>
+						<h3 class="text-3xl font-bold text-gray-800">Zamawianie Części</h3>
+					</div>
+					<p class="text-lg leading-relaxed text-gray-600">
+						Największy katalog części samochodowych online. Oryginalne i zamienniki w najlepszych
+						cenach z szybką dostawą nawet w 24h.
+					</p>
+					<div class="grid grid-cols-2 gap-4">
+						<div class="space-y-2">
+							<div class="flex items-center gap-2 font-semibold text-gray-800">
+								<Truck class="h-4 w-4 text-red-600" />
+								Szybka dostawa
+							</div>
+							<p class="text-sm text-gray-600">24-48h w całej Polsce</p>
+						</div>
+						<div class="space-y-2">
+							<div class="flex items-center gap-2 font-semibold text-gray-800">
+								<Gem class="h-4 w-4 text-red-600" />
+								Oryginały
+							</div>
+							<p class="text-sm text-gray-600">Części OEM i zamienniki</p>
+						</div>
+						<div class="space-y-2">
+							<div class="flex items-center gap-2 font-semibold text-gray-800">
+								<Search class="h-4 w-4 text-red-600" />
+								Wyszukiwarka
+							</div>
+							<p class="text-sm text-gray-600">Znajdź po VIN lub modelu</p>
+						</div>
+						<div class="space-y-2">
+							<div class="flex items-center gap-2 font-semibold text-gray-800">
+								<Shield class="h-4 w-4 text-red-600" />
+								Gwarancja
+							</div>
+							<p class="text-sm text-gray-600">Pełna gwarancja na części</p>
+						</div>
+					</div>
+					<div class="rounded-lg bg-red-50 p-4">
+						<div class="flex items-center gap-2 font-semibold text-red-800">
+							<PartyPopper class="h-4 w-4 text-red-600" />
+							Promocja dla nowych użytkowników
+						</div>
+						<p class="text-sm text-red-700">-15% na pierwsze zamówienie powyżej 200 zł</p>
+					</div>
+				</div>
+				<div class="rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-8">
+					<div class="space-y-4 rounded-xl bg-white p-6 shadow-lg">
+						<div class="flex items-center justify-between border-b pb-3">
+							<div class="font-semibold text-gray-800">Koszyk</div>
+							<div class="text-sm text-gray-600">3 pozycje</div>
+						</div>
+						<div class="space-y-3">
+							<div class="flex items-center justify-between">
+								<div class="flex items-center space-x-3">
+									<div class="h-12 w-12 rounded bg-gray-100"></div>
+									<div>
+										<div class="font-medium text-gray-800">Klocki hamulcowe</div>
+										<div class="text-sm text-gray-600">BMW 320i E90</div>
+									</div>
+								</div>
+								<div class="text-right">
+									<div class="font-bold text-gray-800">149 zł</div>
+									<div class="text-xs text-green-600">✓ Dostępny</div>
+								</div>
+							</div>
+							<div class="flex items-center justify-between">
+								<div class="flex items-center space-x-3">
+									<div class="h-12 w-12 rounded bg-gray-100"></div>
+									<div>
+										<div class="font-medium text-gray-800">Filtr oleju</div>
+										<div class="text-sm text-gray-600">BMW 320i E90</div>
+									</div>
+								</div>
+								<div class="text-right">
+									<div class="font-bold text-gray-800">35 zł</div>
+									<div class="text-xs text-green-600">✓ Dostępny</div>
+								</div>
+							</div>
+						</div>
+						<div class="border-t pt-3">
+							<div class="flex items-center justify-between text-lg font-bold">
+								<span>Razem:</span>
+								<span class="text-red-600">184 zł</span>
+							</div>
+							<button class="mt-3 w-full rounded-lg bg-red-600 py-3 text-white hover:bg-red-700">
+								Zamów teraz
+							</button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -334,18 +800,23 @@
 			</p>
 
 			<div class="flex flex-col justify-center gap-6 sm:flex-row">
-				<button
-					class="transform rounded-2xl bg-red-600 px-10 py-4 text-lg font-semibold text-white shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:bg-red-700 hover:shadow-red-500/25"
+				<a
+					href="/register?type=customer"
+					class="transform rounded-2xl bg-red-600 px-10 py-4 text-center text-lg font-semibold text-white shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:bg-red-700 hover:shadow-red-500/25"
 				>
 					Dołącz jako użytkownik
-				</button>
-				<button
-					class="rounded-2xl border-2 border-white px-10 py-4 text-lg font-semibold text-white transition-all duration-300 hover:bg-white hover:text-gray-900"
+				</a>
+				<a
+					href="/register?type=mechanic"
+					class="rounded-2xl border-2 border-white px-10 py-4 text-center text-lg font-semibold text-white transition-all duration-300 hover:bg-white hover:text-gray-900"
 				>
 					Dołącz jako mechanik
-				</button>
+				</a>
 			</div>
 		</div>
+	</section>
+
+	<section>
 	</section>
 
 	<!-- Footer -->
@@ -356,7 +827,7 @@
 			<div class="flex flex-col items-center justify-between md:flex-row">
 				<div class="mb-4 flex items-center space-x-3 md:mb-0">
 					<div class="flex h-10 w-10 items-center justify-center rounded-xl bg-red-600">
-						<span class="text-xl font-bold text-white">🚗</span>
+						<Car class="h-5 w-5 text-white" />
 					</div>
 					<span class="text-2xl font-bold text-white">Pan Samochodzik</span>
 				</div>
@@ -401,11 +872,24 @@
 		}
 	}
 
+	@keyframes expand {
+		0% {
+			transform: scaleX(0);
+		}
+		100% {
+			transform: scaleX(1);
+		}
+	}
+
 	.animate-bounce {
 		animation: bounce 2s infinite;
 	}
 
 	.animate-pulse {
 		animation: pulse 2s infinite;
+	}
+
+	.animate-expand {
+		animation: expand 2s ease-out forwards;
 	}
 </style>
