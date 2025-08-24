@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Car from 'lucide-svelte/icons/car';
+	import CarIcon from 'lucide-svelte/icons/car';
 	import Card from '$lib/components/common/Card.svelte';
 	import Button from '$lib/components/common/Button.svelte';
 	import type { Vehicle } from '$lib/server/db/schema';
@@ -20,7 +20,7 @@
 		<div
 			class="mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-red-600 bg-red-600/20 group-hover:bg-red-600/30"
 		>
-			<Car class="h-8 w-8 text-red-400" />
+			<CarIcon class="h-8 w-8 text-red-400" />
 		</div>
 
 		<!-- Vehicle Info -->

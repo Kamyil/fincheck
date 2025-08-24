@@ -38,6 +38,7 @@
 - Use Svelte 5 with SvelteKit 2.0
 - Component files use `.svelte` extension
 - Follow TailwindCSS conventions for styling
+- **Icons**: Always import Lucide icons with "Icon" suffix (e.g., `import CarIcon from 'lucide-svelte/icons/car'` instead of `import Car from 'lucide-svelte/icons/car'`) for clarity
 
 ## Architecture
 

@@ -287,6 +287,7 @@ export const user = pgTable('users', {
 - **No trailing commas**
 - **Variables**: Prefer `let` over `const` - use `const` only for true constants
 - **Components**: PascalCase naming, `.svelte` extension
+- **Icons**: Always import Lucide icons with "Icon" suffix (e.g., `import CarIcon from 'lucide-svelte/icons/car'` instead of `import Car from 'lucide-svelte/icons/car'`) for clarity
 
 ### File Organization Preferences
 

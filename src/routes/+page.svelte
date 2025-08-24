@@ -1,24 +1,24 @@
 <!-- +page.svelte -->
 <script>
 	import { onMount } from 'svelte';
-	import BookOpen from 'lucide-svelte/icons/book-open';
-	import MessageCircle from 'lucide-svelte/icons/message-circle';
-	import Tag from 'lucide-svelte/icons/tag';
-	import Users from 'lucide-svelte/icons/users';
-	import Settings from 'lucide-svelte/icons/settings';
-	import Car from 'lucide-svelte/icons/car';
-	import Calendar from 'lucide-svelte/icons/calendar';
-	import DollarSign from 'lucide-svelte/icons/dollar-sign';
-	import Search from 'lucide-svelte/icons/search';
-	import BarChart3 from 'lucide-svelte/icons/bar-chart-3';
-	import CheckCircle from 'lucide-svelte/icons/check-circle';
-	import Send from 'lucide-svelte/icons/send';
-	import Truck from 'lucide-svelte/icons/truck';
-	import Gem from 'lucide-svelte/icons/gem';
-	import Shield from 'lucide-svelte/icons/shield';
-	import Wrench from 'lucide-svelte/icons/wrench';
-	import Smartphone from 'lucide-svelte/icons/smartphone';
-	import PartyPopper from 'lucide-svelte/icons/party-popper';
+	import BookOpenIcon from 'lucide-svelte/icons/book-open';
+	import MessageCircleIcon from 'lucide-svelte/icons/message-circle';
+	import TagIcon from 'lucide-svelte/icons/tag';
+	import UsersIcon from 'lucide-svelte/icons/users';
+	import SettingsIcon from 'lucide-svelte/icons/settings';
+	import CarIcon from 'lucide-svelte/icons/car';
+	import CalendarIcon from 'lucide-svelte/icons/calendar';
+	import DollarSignIcon from 'lucide-svelte/icons/dollar-sign';
+	import SearchIcon from 'lucide-svelte/icons/search';
+	import BarChart3Icon from 'lucide-svelte/icons/bar-chart-3';
+	import CheckCircleIcon from 'lucide-svelte/icons/check-circle';
+	import SendIcon from 'lucide-svelte/icons/send';
+	import TruckIcon from 'lucide-svelte/icons/truck';
+	import GemIcon from 'lucide-svelte/icons/gem';
+	import ShieldIcon from 'lucide-svelte/icons/shield';
+	import WrenchIcon from 'lucide-svelte/icons/wrench';
+	import SmartphoneIcon from 'lucide-svelte/icons/smartphone';
+	import PartyPopperIcon from 'lucide-svelte/icons/party-popper';
 	import Button from '$lib/components/common/Button.svelte';
 
 	let isVisible = false;
@@ -40,7 +40,7 @@
 			title: 'Książka Zdrowia Auta',
 			description:
 				'Kompletna historia serwisowa, przeglądy techniczne, przypomnienia o serwisach i monitoring stanu technicznego w jednym miejscu',
-			icon: BookOpen,
+			icon: BookOpenIcon,
 			details: [
 				'Historia napraw i serwisów',
 				'Przypomnienia o przeglądach',
@@ -52,21 +52,21 @@
 			title: 'Bezpośrednia Komunikacja',
 			description:
 				'Czat w czasie rzeczywistym z mechanikami - zadawaj pytania, otrzymuj porady i śledź postęp napraw',
-			icon: MessageCircle,
+			icon: MessageCircleIcon,
 			details: ['Chat z mechanikami', 'Porady ekspertów', 'Zdjęcia problemów', 'Status napraw']
 		},
 		{
 			title: 'System Ofert',
 			description:
 				'Opisz problem swojego auta i otrzymaj konkurencyjne oferty od mechaników w Twojej okolicy',
-			icon: Tag,
+			icon: TagIcon,
 			details: ['Opisy problemów', 'Konkurencyjne ceny', 'Porównanie ofert', 'Oceny mechaników']
 		},
 		{
 			title: 'Forum Motoryzacyjne',
 			description:
 				'Dołącz do społeczności motoryzacyjnej - dziel się doświadczeniami i szukaj rozwiązań',
-			icon: Users,
+			icon: UsersIcon,
 			details: [
 				'Społeczność ekspertów',
 				'Wymiana doświadczeń',
@@ -78,7 +78,7 @@
 			title: 'Zamawianie Części',
 			description:
 				'Łatwe zamawianie oryginalnych i zamiennych części samochodowych z szybką dostawą',
-			icon: Settings,
+			icon: SettingsIcon,
 			details: ['Katalog części', 'Szybka dostawa', 'Konkurencyjne ceny', 'Gwarancja jakości']
 		}
 	];
@@ -100,7 +100,7 @@
 				<div
 					class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 shadow-lg shadow-red-600/25"
 				>
-					<Car class="h-6 w-6 text-white" />
+					<CarIcon class="h-6 w-6 text-white" />
 				</div>
 				<span class="text-2xl font-bold text-white">Pan Samochodzik</span>
 			</div>
@@ -142,7 +142,7 @@
 			<div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 				<div class="space-y-8 lg:space-y-10">
 					<div class="space-y-6 lg:space-y-8">
-						<h1 class="text-4xl leading-tight font-bold text-white sm:text-5xl lg:text-6xl">
+						<h1 class="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
 							Rewolucja w
 							<span class="relative inline-block text-red-500">
 								motoryzacji
@@ -230,7 +230,7 @@
 
 					<!-- Floating elements -->
 					<div
-						class="absolute -top-6 -right-6 h-20 w-20 animate-bounce rounded-full bg-gradient-to-r from-red-500 to-red-600 opacity-30"
+						class="absolute -right-6 -top-6 h-20 w-20 animate-bounce rounded-full bg-gradient-to-r from-red-500 to-red-600 opacity-30"
 					></div>
 					<div
 						class="absolute -bottom-10 -left-10 h-32 w-32 animate-pulse rounded-full bg-gradient-to-r from-gray-600 to-gray-700 opacity-20"
@@ -342,28 +342,28 @@
 					<div class="grid grid-cols-2 gap-4">
 						<div class="space-y-2">
 							<div class="flex items-center gap-2 font-semibold text-white">
-								<Calendar class="h-4 w-4 text-red-400" />
+								<CalendarIcon class="h-4 w-4 text-red-400" />
 								Przypomnienia
 							</div>
 							<p class="text-sm text-gray-400">Automatyczne powiadomienia o terminach przeglądów</p>
 						</div>
 						<div class="space-y-2">
 							<div class="flex items-center gap-2 font-semibold text-white">
-								<DollarSign class="h-4 w-4 text-red-400" />
+								<DollarSignIcon class="h-4 w-4 text-red-400" />
 								Koszty
 							</div>
 							<p class="text-sm text-gray-400">Analiza wydatków na utrzymanie auta</p>
 						</div>
 						<div class="space-y-2">
 							<div class="flex items-center gap-2 font-semibold text-white">
-								<Search class="h-4 w-4 text-red-400" />
+								<SearchIcon class="h-4 w-4 text-red-400" />
 								Historia
 							</div>
 							<p class="text-sm text-gray-400">Pełna dokumentacja wszystkich serwisów</p>
 						</div>
 						<div class="space-y-2">
 							<div class="flex items-center gap-2 font-semibold text-white">
-								<BarChart3 class="h-4 w-4 text-red-400" />
+								<BarChart3Icon class="h-4 w-4 text-red-400" />
 								Raporty
 							</div>
 							<p class="text-sm text-gray-400">Szczegółowe raporty o stanie pojazdu</p>
@@ -448,25 +448,25 @@
 					<div class="space-y-4">
 						<div class="flex items-center space-x-3">
 							<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
-								<CheckCircle class="h-5 w-5 text-white" />
+								<CheckCircleIcon class="h-5 w-5 text-white" />
 							</div>
 							<span class="text-gray-700">Instant messaging z mechanikami</span>
 						</div>
 						<div class="flex items-center space-x-3">
 							<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
-								<CheckCircle class="h-5 w-5 text-white" />
+								<CheckCircleIcon class="h-5 w-5 text-white" />
 							</div>
 							<span class="text-gray-700">Wysyłanie zdjęć problemów</span>
 						</div>
 						<div class="flex items-center space-x-3">
 							<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
-								<CheckCircle class="h-5 w-5 text-white" />
+								<CheckCircleIcon class="h-5 w-5 text-white" />
 							</div>
 							<span class="text-gray-700">Śledzenie statusu napraw</span>
 						</div>
 						<div class="flex items-center space-x-3">
 							<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
-								<CheckCircle class="h-5 w-5 text-white" />
+								<CheckCircleIcon class="h-5 w-5 text-white" />
 							</div>
 							<span class="text-gray-700">Historie wszystkich rozmów</span>
 						</div>
@@ -599,15 +599,15 @@
 					</div>
 					<div class="space-y-3">
 						<div class="flex items-center space-x-3">
-							<Wrench class="h-6 w-6 text-orange-600" />
+							<WrenchIcon class="h-6 w-6 text-orange-600" />
 							<span class="text-gray-700">Porady od ekspertów</span>
 						</div>
 						<div class="flex items-center space-x-3">
-							<Car class="h-6 w-6 text-orange-600" />
+							<CarIcon class="h-6 w-6 text-orange-600" />
 							<span class="text-gray-700">Wszystkie marki aut</span>
 						</div>
 						<div class="flex items-center space-x-3">
-							<Smartphone class="h-6 w-6 text-orange-600" />
+							<SmartphoneIcon class="h-6 w-6 text-orange-600" />
 							<span class="text-gray-700">Mobilna aplikacja</span>
 						</div>
 					</div>
@@ -630,28 +630,28 @@
 					<div class="grid grid-cols-2 gap-4">
 						<div class="space-y-2">
 							<div class="flex items-center gap-2 font-semibold text-gray-800">
-								<Truck class="h-4 w-4 text-red-600" />
+								<TruckIcon class="h-4 w-4 text-red-600" />
 								Szybka dostawa
 							</div>
 							<p class="text-sm text-gray-600">24-48h w całej Polsce</p>
 						</div>
 						<div class="space-y-2">
 							<div class="flex items-center gap-2 font-semibold text-gray-800">
-								<Gem class="h-4 w-4 text-red-600" />
+								<GemIcon class="h-4 w-4 text-red-600" />
 								Oryginały
 							</div>
 							<p class="text-sm text-gray-600">Części OEM i zamienniki</p>
 						</div>
 						<div class="space-y-2">
 							<div class="flex items-center gap-2 font-semibold text-gray-800">
-								<Search class="h-4 w-4 text-red-600" />
+								<SearchIcon class="h-4 w-4 text-red-600" />
 								Wyszukiwarka
 							</div>
 							<p class="text-sm text-gray-600">Znajdź po VIN lub modelu</p>
 						</div>
 						<div class="space-y-2">
 							<div class="flex items-center gap-2 font-semibold text-gray-800">
-								<Shield class="h-4 w-4 text-red-600" />
+								<ShieldIcon class="h-4 w-4 text-red-600" />
 								Gwarancja
 							</div>
 							<p class="text-sm text-gray-600">Pełna gwarancja na części</p>
@@ -659,7 +659,7 @@
 					</div>
 					<div class="rounded-lg bg-red-50 p-4">
 						<div class="flex items-center gap-2 font-semibold text-red-800">
-							<PartyPopper class="h-4 w-4 text-red-600" />
+							<PartyPopperIcon class="h-4 w-4 text-red-600" />
 							Promocja dla nowych użytkowników
 						</div>
 						<p class="text-sm text-red-700">-15% na pierwsze zamówienie powyżej 200 zł</p>
@@ -821,13 +821,13 @@
 
 	<!-- Footer -->
 	<footer
-		class="mx-4 mt-8 mb-8 bg-black px-4 py-12 sm:mx-6 sm:mt-12 sm:mb-12 sm:px-6 lg:mx-8 lg:mt-16 lg:mb-16 lg:px-8"
+		class="mx-4 mb-8 mt-8 bg-black px-4 py-12 sm:mx-6 sm:mb-12 sm:mt-12 sm:px-6 lg:mx-8 lg:mb-16 lg:mt-16 lg:px-8"
 	>
 		<div class="mx-auto max-w-6xl">
 			<div class="flex flex-col items-center justify-between md:flex-row">
 				<div class="mb-4 flex items-center space-x-3 md:mb-0">
 					<div class="flex h-10 w-10 items-center justify-center rounded-xl bg-red-600">
-						<Car class="h-5 w-5 text-white" />
+						<CarIcon class="h-5 w-5 text-white" />
 					</div>
 					<span class="text-2xl font-bold text-white">Pan Samochodzik</span>
 				</div>

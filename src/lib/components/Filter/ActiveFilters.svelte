@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/components/common/Button.svelte';
-	import X from 'lucide-svelte/icons/x';
+	import XIcon from 'lucide-svelte/icons/x';
 	import { twMerge } from 'tailwind-merge';
 	import type { FilterDefinitions, Filters } from '$lib/utilities/filters';
 
@@ -72,7 +72,7 @@
 				{#each splitFilterValue(filter, filter.value) as splitValue}
 					<!-- render multiple filter tags for separator-based filters (e.g. multi-select values) -->
 					<div
-						class="text-primary border-primary flex h-8 w-fit cursor-pointer items-center gap-2 rounded-lg border p-2 text-xs font-normal transition-all active:scale-95"
+						class="flex h-8 w-fit cursor-pointer items-center gap-2 rounded-lg border border-primary p-2 text-xs font-normal text-primary transition-all active:scale-95"
 					>
 						<span>{filter.label}:</span>
 						<span>{splitValue}</span>
@@ -82,7 +82,7 @@
 							size="tiny_square"
 							type="button"
 							title="Usuń filtr"
-							icon={X}
+							icon={XIcon}
 							iconPosition="center"
 							onclick={() => handleRemoveFilter(key, splitValue)}
 						/>
@@ -91,7 +91,7 @@
 			{:else}
 				<!-- render single filter tag for regular filters -->
 				<div
-					class="text-primary border-primary flex h-8 w-fit cursor-pointer items-center gap-2 rounded-lg border p-2 text-xs font-normal transition-all active:scale-95"
+					class="flex h-8 w-fit cursor-pointer items-center gap-2 rounded-lg border border-primary p-2 text-xs font-normal text-primary transition-all active:scale-95"
 				>
 					<span>{filter.label}:</span>
 					{#if key === 'start_date' || key === 'end_date'}

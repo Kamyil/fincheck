@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import Car from 'lucide-svelte/icons/car';
-	import Users from 'lucide-svelte/icons/users';
-	import Calendar from 'lucide-svelte/icons/calendar';
-	import Settings from 'lucide-svelte/icons/settings';
-	import DollarSign from 'lucide-svelte/icons/dollar-sign';
-	import BarChart from 'lucide-svelte/icons/bar-chart';
+	import CarIcon from 'lucide-svelte/icons/car';
+	import UsersIcon from 'lucide-svelte/icons/users';
+	import CalendarIcon from 'lucide-svelte/icons/calendar';
+	import SettingsIcon from 'lucide-svelte/icons/settings';
+	import DollarSignIcon from 'lucide-svelte/icons/dollar-sign';
+	import BarChartIcon from 'lucide-svelte/icons/bar-chart';
 	import Button from '$lib/components/common/Button.svelte';
 
 	let { data } = $props();
@@ -23,7 +23,7 @@
 			<div class="flex h-16 items-center justify-between">
 				<div class="flex items-center">
 					<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-red-600">
-						<Car class="h-5 w-5 text-white" />
+						<CarIcon class="h-5 w-5 text-white" />
 					</div>
 					<span class="ml-3 text-xl font-bold text-white">Pan Samochodzik</span>
 				</div>
@@ -52,7 +52,7 @@
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
 				<div class="flex items-center">
 					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600">
-						<Users class="h-6 w-6 text-white" />
+						<UsersIcon class="h-6 w-6 text-white" />
 					</div>
 					<div class="ml-4">
 						<h3 class="text-2xl font-bold text-white">0</h3>
@@ -64,7 +64,7 @@
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
 				<div class="flex items-center">
 					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-600">
-						<Calendar class="h-6 w-6 text-white" />
+						<CalendarIcon class="h-6 w-6 text-white" />
 					</div>
 					<div class="ml-4">
 						<h3 class="text-2xl font-bold text-white">0</h3>
@@ -76,7 +76,7 @@
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
 				<div class="flex items-center">
 					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-yellow-600">
-						<DollarSign class="h-6 w-6 text-white" />
+						<DollarSignIcon class="h-6 w-6 text-white" />
 					</div>
 					<div class="ml-4">
 						<h3 class="text-2xl font-bold text-white">0 zł</h3>
@@ -88,7 +88,7 @@
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
 				<div class="flex items-center">
 					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-600">
-						<BarChart class="h-6 w-6 text-white" />
+						<BarChartIcon class="h-6 w-6 text-white" />
 					</div>
 					<div class="ml-4">
 						<h3 class="text-2xl font-bold text-white">0</h3>
@@ -103,7 +103,7 @@
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
 				<div class="flex items-center">
 					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600">
-						<Users class="h-6 w-6 text-white" />
+						<UsersIcon class="h-6 w-6 text-white" />
 					</div>
 					<div class="ml-4">
 						<h3 class="text-lg font-medium text-white">Zarządzaj Klientami</h3>
@@ -116,7 +116,7 @@
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
 				<div class="flex items-center">
 					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-600">
-						<Calendar class="h-6 w-6 text-white" />
+						<CalendarIcon class="h-6 w-6 text-white" />
 					</div>
 					<div class="ml-4">
 						<h3 class="text-lg font-medium text-white">Harmonogram</h3>
@@ -129,7 +129,7 @@
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
 				<div class="flex items-center">
 					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-600">
-						<Settings class="h-6 w-6 text-white" />
+						<SettingsIcon class="h-6 w-6 text-white" />
 					</div>
 					<div class="ml-4">
 						<h3 class="text-lg font-medium text-white">Ustawienia Warsztatu</h3>

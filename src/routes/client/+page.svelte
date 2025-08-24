@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import Car from 'lucide-svelte/icons/car';
-	import Wrench from 'lucide-svelte/icons/wrench';
-	import Calendar from 'lucide-svelte/icons/calendar';
-	import MapPin from 'lucide-svelte/icons/map-pin';
+	import CarIcon from 'lucide-svelte/icons/car';
+	import WrenchIcon from 'lucide-svelte/icons/wrench';
+	import CalendarIcon from 'lucide-svelte/icons/calendar';
+	import MapPinIcon from 'lucide-svelte/icons/map-pin';
 	import Button from '$lib/components/common/Button.svelte';
 
 	let { data } = $props();
@@ -24,7 +24,7 @@
 			<div class="flex h-16 items-center justify-between">
 				<div class="flex items-center">
 					<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-red-600">
-						<Car class="h-5 w-5 text-white" />
+						<CarIcon class="h-5 w-5 text-white" />
 					</div>
 					<span class="ml-3 text-xl font-bold text-white">Pan Samochodzik</span>
 				</div>
@@ -51,7 +51,7 @@
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
 				<div class="flex items-center">
 					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600">
-						<Wrench class="h-6 w-6 text-white" />
+						<WrenchIcon class="h-6 w-6 text-white" />
 					</div>
 					<div class="ml-4">
 						<h3 class="text-lg font-medium text-white">Znajdź Mechanika</h3>
@@ -64,7 +64,7 @@
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
 				<div class="flex items-center">
 					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-600">
-						<Calendar class="h-6 w-6 text-white" />
+						<CalendarIcon class="h-6 w-6 text-white" />
 					</div>
 					<div class="ml-4">
 						<h3 class="text-lg font-medium text-white">Umów Wizytę</h3>
@@ -77,7 +77,7 @@
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
 				<div class="flex items-center">
 					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-600">
-						<Car class="h-6 w-6 text-white" />
+						<CarIcon class="h-6 w-6 text-white" />
 					</div>
 					<div class="ml-4">
 						<h3 class="text-lg font-medium text-white">Moje Pojazdy</h3>
@@ -95,7 +95,7 @@
 			<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
 				<div class="flex items-center">
 					<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-600">
-						<MapPin class="h-6 w-6 text-white" />
+						<MapPinIcon class="h-6 w-6 text-white" />
 					</div>
 					<div class="ml-4">
 						<h3 class="text-lg font-medium text-white">Moja Lokalizacja</h3>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { twMerge } from 'tailwind-merge';
 	import { onMount, type Snippet } from 'svelte';
-	import X from 'lucide-svelte/icons/x';
+	import XIcon from 'lucide-svelte/icons/x';
 
 	interface Props {
 		title?: string;
@@ -95,7 +95,7 @@
 {#if open}
 	<!-- custom backdrop -->
 	<div
-		class="fixed inset-0 z-30 bg-black/70 transition-opacity duration-250"
+		class="duration-250 fixed inset-0 z-30 bg-black/70 transition-opacity"
 		onclick={() => {
 			if (onDismiss) {
 				onDismiss();
@@ -110,7 +110,7 @@
 	{open}
 	bind:this={dialogElement}
 	class={twMerge(
-		'fixed top-1/2 left-1/2 z-40 max-h-[90vh] w-3/4 -translate-x-1/2 -translate-y-1/2 transform place-self-center overflow-hidden rounded-lg border border-gray-700 bg-gray-900 p-5 shadow-xl',
+		'fixed left-1/2 top-1/2 z-40 max-h-[90vh] w-3/4 -translate-x-1/2 -translate-y-1/2 transform place-self-center overflow-hidden rounded-lg border border-gray-700 bg-gray-900 p-5 shadow-xl',
 		classes
 	)}
 	aria-modal="true"
@@ -119,7 +119,7 @@
 		<h1 class="text-xl font-semibold text-white">{title}</h1>
 
 		<button type="button" class="cursor-pointer" onclick={closeModal}>
-			<X size={18} class="text-gray-400 hover:text-white" />
+			<XIcon size={18} class="text-gray-400 hover:text-white" />
 		</button>
 	</div>
 

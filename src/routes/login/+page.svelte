@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
-	import Car from 'lucide-svelte/icons/car';
+	import CarIcon from 'lucide-svelte/icons/car';
 	import Button from '$lib/components/common/Button.svelte';
 
 	let { form } = $props();
@@ -19,7 +19,6 @@
 <div
 	class="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black"
 >
-
 	<!-- Navigation -->
 	<nav class="relative z-50 mx-4 px-4 py-6 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
 		<div class="mx-auto flex max-w-6xl items-center justify-between">
@@ -27,7 +26,7 @@
 				<div
 					class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 shadow-lg shadow-red-600/25"
 				>
-					<Car class="h-6 w-6 text-white" />
+					<CarIcon class="h-6 w-6 text-white" />
 				</div>
 				<span class="text-2xl font-bold text-white">Pan Samochodzik</span>
 			</a>
@@ -42,7 +41,7 @@
 					<div
 						class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-red-600 bg-red-600/20"
 					>
-						<Car class="h-8 w-8 text-red-400" />
+						<CarIcon class="h-8 w-8 text-red-400" />
 					</div>
 					<h1 class="text-3xl font-bold text-white">
 						{isRegistering ? 'Załóż konto' : 'Zaloguj się'}
@@ -66,7 +65,7 @@
 							name="username"
 							type="text"
 							required
-							class="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							class="mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-20"
 							placeholder="Wprowadź swoją nazwę użytkownika"
 						/>
 					</div>
@@ -77,7 +76,7 @@
 							type="password"
 							name="password"
 							required
-							class="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							class="mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-20"
 							placeholder="Wprowadź swoje hasło"
 						/>
 					</div>
@@ -88,7 +87,7 @@
 							<select
 								name="role"
 								required
-								class="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+								class="mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white shadow-sm transition-all focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-20"
 							>
 								<option value="">Wybierz rolę</option>
 								<option value="CLIENT">Klient (szukam mechanika)</option>
@@ -149,7 +148,7 @@
 
 			<!-- Floating elements for visual appeal -->
 			<div
-				class="pointer-events-none absolute -top-6 -right-6 h-20 w-20 animate-bounce rounded-full bg-gradient-to-r from-red-500 to-red-600 opacity-30"
+				class="pointer-events-none absolute -right-6 -top-6 h-20 w-20 animate-bounce rounded-full bg-gradient-to-r from-red-500 to-red-600 opacity-30"
 			></div>
 			<div
 				class="pointer-events-none absolute -bottom-10 -left-10 h-32 w-32 animate-pulse rounded-full bg-gradient-to-r from-gray-600 to-gray-700 opacity-20"

@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import Car from 'lucide-svelte/icons/car';
-	import ArrowLeft from 'lucide-svelte/icons/arrow-left';
-	import Calendar from 'lucide-svelte/icons/calendar';
-	import MapPin from 'lucide-svelte/icons/map-pin';
-	import Fuel from 'lucide-svelte/icons/fuel';
-	import Palette from 'lucide-svelte/icons/palette';
-	import Hash from 'lucide-svelte/icons/hash';
-	import Gauge from 'lucide-svelte/icons/gauge';
-	import ClipboardList from 'lucide-svelte/icons/clipboard-list';
-	import Plus from 'lucide-svelte/icons/plus';
+	import CarIcon from 'lucide-svelte/icons/car';
+	import ArrowLeftIcon from 'lucide-svelte/icons/arrow-left';
+	import CalendarIcon from 'lucide-svelte/icons/calendar';
+	import MapPinIcon from 'lucide-svelte/icons/map-pin';
+	import FuelIcon from 'lucide-svelte/icons/fuel';
+	import PaletteIcon from 'lucide-svelte/icons/palette';
+	import HashIcon from 'lucide-svelte/icons/hash';
+	import GaugeIcon from 'lucide-svelte/icons/gauge';
+	import ClipboardListIcon from 'lucide-svelte/icons/clipboard-list';
+	import PlusIcon from 'lucide-svelte/icons/plus';
 	import Button from '$lib/components/common/Button.svelte';
 	import AddHealthRecordModal from '../components/AddHealthRecordModal.svelte';
 	import EditHealthRecordModal from '../components/EditHealthRecordModal.svelte';
@@ -91,7 +91,7 @@
 				<div
 					class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 shadow-lg shadow-red-600/25"
 				>
-					<Car class="h-6 w-6 text-white" />
+					<CarIcon class="h-6 w-6 text-white" />
 				</div>
 				<span class="text-2xl font-bold text-white">Pan Samochodzik</span>
 			</a>
@@ -104,7 +104,7 @@
 			<!-- Breadcrumb and Back Button -->
 			<div class="mb-6 flex items-center space-x-4">
 				<Button variant="red" onClick={goBack} classes="flex items-center space-x-2">
-					<ArrowLeft class="h-4 w-4" />
+					<ArrowLeftIcon class="h-4 w-4" />
 					<span>Powrót do pojazdów</span>
 				</Button>
 			</div>
@@ -115,7 +115,7 @@
 					<div
 						class="flex h-16 w-16 items-center justify-center rounded-full border border-red-600 bg-red-600/20"
 					>
-						<Car class="h-8 w-8 text-red-400" />
+						<CarIcon class="h-8 w-8 text-red-400" />
 					</div>
 					<div>
 						<h1 class="text-3xl font-bold text-white">
@@ -139,7 +139,7 @@
 							<!-- Basic Info -->
 							<div class="space-y-4">
 								<div class="flex items-center space-x-3">
-									<Car class="h-5 w-5 text-red-400" />
+									<CarIcon class="h-5 w-5 text-red-400" />
 									<div>
 										<p class="text-sm text-gray-400">Marka i model</p>
 										<p class="font-medium text-white">{vehicle.make} {vehicle.model}</p>
@@ -147,7 +147,7 @@
 								</div>
 
 								<div class="flex items-center space-x-3">
-									<Calendar class="h-5 w-5 text-red-400" />
+									<CalendarIcon class="h-5 w-5 text-red-400" />
 									<div>
 										<p class="text-sm text-gray-400">Rok produkcji</p>
 										<p class="font-medium text-white">{vehicle.year}</p>
@@ -156,7 +156,7 @@
 
 								{#if vehicle.registration}
 									<div class="flex items-center space-x-3">
-										<MapPin class="h-5 w-5 text-red-400" />
+										<MapPinIcon class="h-5 w-5 text-red-400" />
 										<div>
 											<p class="text-sm text-gray-400">Numer rejestracyjny</p>
 											<p class="font-medium text-white">{vehicle.registration}</p>
@@ -169,7 +169,7 @@
 							<div class="space-y-4">
 								{#if vehicle.color}
 									<div class="flex items-center space-x-3">
-										<Palette class="h-5 w-5 text-red-400" />
+										<PaletteIcon class="h-5 w-5 text-red-400" />
 										<div>
 											<p class="text-sm text-gray-400">Kolor</p>
 											<p class="font-medium text-white">{vehicle.color}</p>
@@ -179,7 +179,7 @@
 
 								{#if vehicle.mileage}
 									<div class="flex items-center space-x-3">
-										<Gauge class="h-5 w-5 text-red-400" />
+										<GaugeIcon class="h-5 w-5 text-red-400" />
 										<div>
 											<p class="text-sm text-gray-400">Przebieg</p>
 											<p class="font-medium text-white">{vehicle.mileage.toLocaleString()} km</p>
@@ -189,7 +189,7 @@
 
 								{#if vehicle.vin}
 									<div class="flex items-center space-x-3">
-										<Hash class="h-5 w-5 text-red-400" />
+										<HashIcon class="h-5 w-5 text-red-400" />
 										<div>
 											<p class="text-sm text-gray-400">Numer VIN</p>
 											<p class="break-all font-medium text-white">{vehicle.vin}</p>
@@ -208,7 +208,7 @@
 					>
 						<div class="mb-6 flex items-center justify-between">
 							<div class="flex items-center space-x-3">
-								<ClipboardList class="h-6 w-6 text-red-400" />
+								<ClipboardListIcon class="h-6 w-6 text-red-400" />
 								<h2 class="text-xl font-semibold text-white">Księga Zdrowia</h2>
 							</div>
 							<Button
@@ -216,7 +216,7 @@
 								onClick={openAddHealthRecordModal}
 								classes="flex items-center space-x-2"
 							>
-								<Plus class="h-4 w-4" />
+								<PlusIcon class="h-4 w-4" />
 								<span>Dodaj wpis</span>
 							</Button>
 						</div>

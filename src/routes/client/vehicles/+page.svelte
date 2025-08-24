@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Car from 'lucide-svelte/icons/car';
+	import CarIcon from 'lucide-svelte/icons/car';
 	import Button from '$lib/components/common/Button.svelte';
 	import VehicleCard from '$lib/components/VehicleCard.svelte';
 	import AddVehicleModal from './components/AddVehicleModal.svelte';
@@ -64,7 +64,7 @@
 				<div
 					class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 shadow-lg shadow-red-600/25"
 				>
-					<Car class="h-6 w-6 text-white" />
+					<CarIcon class="h-6 w-6 text-white" />
 				</div>
 				<span class="text-2xl font-bold text-white">Pan Samochodzik</span>
 			</a>
@@ -80,7 +80,7 @@
 						<div
 							class="flex h-16 w-16 items-center justify-center rounded-full border border-red-600 bg-red-600/20"
 						>
-							<Car class="h-8 w-8 text-red-400" />
+							<CarIcon class="h-8 w-8 text-red-400" />
 						</div>
 						<div>
 							<h1 class="text-3xl font-bold text-white">Twoje Pojazdy</h1>
@@ -115,7 +115,7 @@
 							<div
 								class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-red-600 bg-red-600/20"
 							>
-								<Car class="h-10 w-10 text-red-400" />
+								<CarIcon class="h-10 w-10 text-red-400" />
 							</div>
 							<h3 class="mb-4 text-2xl font-semibold text-white">Jeszcze nie masz pojazdów</h3>
 							<p class="mb-8 text-lg text-gray-400">
@@ -138,7 +138,7 @@
 		{#snippet pending()}
 			<div class="container mx-auto flex items-center justify-center p-8">
 				<div
-					class="h-12 w-12 animate-spin rounded-full border-t-2 border-b-2 border-blue-600"
+					class="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-blue-600"
 				></div>
 			</div>
 		{/snippet}

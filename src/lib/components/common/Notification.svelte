@@ -51,7 +51,7 @@
 
 <script lang="ts">
 	import { createToaster, melt } from '@melt-ui/svelte';
-	import X from 'lucide-svelte/icons/x';
+	import XIcon from 'lucide-svelte/icons/x';
 	import { cubicInOut, expoInOut, quartInOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
 	import { twMerge } from 'tailwind-merge';
@@ -64,7 +64,7 @@
 	let { classes = '' }: Props = $props();
 </script>
 
-<div use:portal id="notifications-slide-track" class="fixed right-10 bottom-10 z-[99]">
+<div use:portal id="notifications-slide-track" class="fixed bottom-10 right-10 z-[99]">
 	{#each $toasts as { id, data } (id)}
 		<div
 			transition:fly={{ y: 50, duration: 300, easing: quartInOut }}
@@ -87,10 +87,10 @@
 				<button
 					use:melt={$close(id)}
 					aria-label="close notification"
-					class="absolute top-2 right-2 z-50 cursor-pointer"
+					class="absolute right-2 top-2 z-50 cursor-pointer"
 					class:text-black={data.type === 'normal'}
 				>
-					<X size={14} />
+					<XIcon size={14} />
 				</button>
 			</div>
 		</div>
