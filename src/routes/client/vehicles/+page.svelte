@@ -1,5 +1,4 @@
 <script lang="ts">
-	import CarIcon from 'lucide-svelte/icons/car';
 	import Button from '$lib/components/common/Button.svelte';
 	import VehicleCard from '$lib/components/VehicleCard.svelte';
 	import AddVehicleModal from './components/AddVehicleModal.svelte';
@@ -8,6 +7,7 @@
 	import { getUserVehicles } from '$lib/vehicles/data.remote';
 	import type { Vehicle } from '$lib/server/db/schema';
 	import { goto } from '$app/navigation';
+	import CarIcon from 'lucide-svelte/icons/car';
 
 	let selectedVehicle = $state<Vehicle | null>(null);
 	let addModal: AddVehicleModal;
@@ -54,23 +54,7 @@
 <DeleteVehicleModal bind:this={deleteModal} vehicle={selectedVehicle} onClose={closeModals} />
 <!-- End of Modals -->
 
-<div
-	class="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black"
->
-	<!-- Navigation -->
-	<nav class="relative z-10 mx-4 px-4 py-6 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
-		<div class="mx-auto flex max-w-6xl items-center justify-between">
-			<a href="/" class="flex items-center space-x-4">
-				<div
-					class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 shadow-lg shadow-red-600/25"
-				>
-					<CarIcon class="h-6 w-6 text-white" />
-				</div>
-				<span class="text-2xl font-bold text-white">Pan Samochodzik</span>
-			</a>
-		</div>
-	</nav>
-
+<div class="relative overflow-hidden">
 	<svelte:boundary>
 		<!-- Main Content -->
 		<section class="relative z-10 mx-4 px-4 py-8 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">

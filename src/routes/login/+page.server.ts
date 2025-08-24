@@ -67,15 +67,12 @@ export const actions: Actions = {
 		const session = await auth.createSession(sessionToken, existingUser.id);
 		auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
 
-		// For debugging - return success instead of redirect
-		return { success: true, role: existingUser.role };
-
 		// Redirect based on user role
-		// if (existingUser.role === 'MECHANIC') {
-		// 	throw redirect(302, '/mechanic');
-		// } else {
-		// 	throw redirect(302, '/client');
-		// }
+		if (existingUser.role === 'MECHANIC') {
+			throw redirect(302, '/mechanic');
+		} else {
+			throw redirect(302, '/client');
+		}
 	},
 
 	register: async (event: RequestEvent) => {

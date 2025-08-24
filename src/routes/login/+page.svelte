@@ -56,7 +56,15 @@
 				<form
 					method="post"
 					action={isRegistering ? '?/register' : '?/login'}
-					use:enhance
+					use:enhance={({ formData, cancel }) => {
+						console.log('Form submitted', formData.get('username'));
+						return async ({ result }) => {
+							console.log('Form result', result);
+							if (result.type === 'redirect') {
+								goto(result.location);
+							}
+						};
+					}}
 					class="space-y-6"
 				>
 					<div>

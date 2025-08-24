@@ -81,23 +81,7 @@
 	/>
 </svelte:head>
 
-<div
-	class="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black"
->
-	<!-- Navigation -->
-	<nav class="relative z-10 mx-4 px-4 py-6 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
-		<div class="mx-auto flex max-w-6xl items-center justify-between">
-			<a href="/" class="flex items-center space-x-4">
-				<div
-					class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 shadow-lg shadow-red-600/25"
-				>
-					<CarIcon class="h-6 w-6 text-white" />
-				</div>
-				<span class="text-2xl font-bold text-white">Pan Samochodzik</span>
-			</a>
-		</div>
-	</nav>
-
+<div class="relative overflow-hidden">
 	<!-- Main Content -->
 	<section class="relative z-10 mx-4 px-4 py-8 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
 		<div class="mx-auto max-w-6xl">

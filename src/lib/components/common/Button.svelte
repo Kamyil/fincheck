@@ -84,8 +84,10 @@
 	async function handleClick(event: MouseEvent) {
 		if (isDisabled) return;
 
-		// Prevent default behavior to avoid page scroll
-		event.preventDefault();
+		// Only prevent default for non-submit buttons to avoid interfering with form submission
+		if (type !== 'submit') {
+			event.preventDefault();
+		}
 
 		let result = onClick();
 

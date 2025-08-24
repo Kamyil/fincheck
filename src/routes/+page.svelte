@@ -331,7 +331,7 @@
 						<div
 							class="flex h-12 w-12 items-center justify-center rounded-full border border-red-600 bg-red-600/20"
 						>
-							<BookOpen class="h-6 w-6 text-red-400" />
+							<BookOpenIcon class="h-6 w-6 text-red-400" />
 						</div>
 						<h3 class="text-3xl font-bold text-white">Książka Zdrowia Auta</h3>
 					</div>
@@ -430,14 +430,14 @@
 								class="flex-1 rounded-full border px-4 py-2 text-sm"
 								placeholder="Napisz wiadomość..."
 							/>
-							<Button variant="red" size="icon_small" icon={Send} />
+							<Button variant="red" size="icon_small" icon={SendIcon} />
 						</div>
 					</div>
 				</div>
 				<div class="order-1 space-y-6 lg:order-2">
 					<div class="flex items-center space-x-3">
 						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-							<MessageCircle class="h-6 w-6 text-green-600" />
+							<MessageCircleIcon class="h-6 w-6 text-green-600" />
 						</div>
 						<h3 class="text-3xl font-bold text-gray-800">Bezpośrednia Komunikacja</h3>
 					</div>
@@ -479,7 +479,7 @@
 				<div class="space-y-6">
 					<div class="flex items-center space-x-3">
 						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-purple-100">
-							<Tag class="h-6 w-6 text-purple-600" />
+							<TagIcon class="h-6 w-6 text-purple-600" />
 						</div>
 						<h3 class="text-3xl font-bold text-gray-800">System Ofert</h3>
 					</div>
@@ -579,7 +579,7 @@
 				<div class="order-1 space-y-6 lg:order-2">
 					<div class="flex items-center space-x-3">
 						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
-							<Users class="h-6 w-6 text-orange-600" />
+							<UsersIcon class="h-6 w-6 text-orange-600" />
 						</div>
 						<h3 class="text-3xl font-bold text-gray-800">Forum Motoryzacyjne</h3>
 					</div>
@@ -619,7 +619,7 @@
 				<div class="space-y-6">
 					<div class="flex items-center space-x-3">
 						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
-							<Settings class="h-6 w-6 text-red-600" />
+							<SettingsIcon class="h-6 w-6 text-red-600" />
 						</div>
 						<h3 class="text-3xl font-bold text-gray-800">Zamawianie Części</h3>
 					</div>
