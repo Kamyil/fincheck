@@ -1,6 +1,24 @@
-import { pgTable, integer, text, timestamp, varchar, pgEnum } from 'drizzle-orm/pg-core';
+import {
+	pgTable,
+	integer,
+	text,
+	timestamp,
+	varchar,
+	pgEnum,
+	jsonb,
+	numeric
+} from 'drizzle-orm/pg-core';
 
 export const userRoleEnum = pgEnum('user_role', ['CLIENT', 'MECHANIC']);
+
+export const partStatusEnum = pgEnum('part_status', [
+	'CHANGED',
+	'REPAIRED',
+	'REPLACED',
+	'ADJUSTED',
+	'CLEANED',
+	'INSPECTED'
+]);
 
 // The table in the database is actually called "users", not "user"
 export const user = pgTable('users', {
@@ -44,3 +62,27 @@ export const vehicle = pgTable('vehicles', {
 });
 
 export type Vehicle = typeof vehicle.$inferSelect;
+
+export const vehicleHealthRecord = pgTable('vehicle_health_records', {
+	id: text('id').primaryKey(),
+	vehicleId: text('vehicle_id')
+		.notNull()
+		.references(() => vehicle.id, { onDelete: 'cascade' }),
+	userId: text('user_id')
+		.notNull()
+		.references(() => user.id),
+	title: varchar('title', { length: 200 }).notNull(),
+	description: text('description'),
+	mileage: integer('mileage'),
+	serviceDate: timestamp('service_date').notNull(),
+	serviceType: varchar('service_type', { length: 100 }),
+	partsReplaced: jsonb('parts_replaced'),
+	laborCost: numeric('labor_cost', { precision: 10, scale: 2 }),
+	totalCost: numeric('total_cost', { precision: 10, scale: 2 }),
+	receiptUrl: text('receipt_url'),
+	serviceProvider: varchar('service_provider', { length: 200 }),
+	createdAt: timestamp('created_at').notNull(),
+	updatedAt: timestamp('updated_at')
+});
+
+export type VehicleHealthRecord = typeof vehicleHealthRecord.$inferSelect;

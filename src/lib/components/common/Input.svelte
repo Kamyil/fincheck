@@ -83,8 +83,8 @@
 		readonly = false,
 		type = 'text',
 		variant = 'with-border',
-		min = 0,
-		max = 0,
+		min = undefined,
+		max = undefined,
 		minlength = undefined,
 		maxlength = undefined,
 		inputInstance = $bindable(),
@@ -98,7 +98,7 @@
 {#if label}
 	<label
 		for={id}
-		class="mt-2 mb-1 block text-xs font-medium text-zinc-500"
+		class="mb-1 mt-2 block text-xs font-medium text-zinc-500"
 		bind:this={labelInstance}
 	>
 		{label}
@@ -109,7 +109,7 @@
 	bind:this={inputInstance}
 	bind:value
 	class={twMerge(
-		'md:text-md relative w-full rounded-md border-1 border-transparent p-4 text-gray-900 transition-all duration-150 read-only:cursor-not-allowed read-only:bg-stone-100 sm:text-sm',
+		'md:text-md border-1 relative w-full rounded-md border-transparent p-4 text-gray-900 transition-all duration-150 read-only:cursor-not-allowed read-only:bg-stone-100 sm:text-sm',
 		variants[variant],
 		classes
 	)}
@@ -120,12 +120,12 @@
 	{autocomplete}
 	{readonly}
 	{placeholder}
-	{min}
-	{max}
 	{required}
 	{minlength}
 	{maxlength}
 	{...{ type }}
+	{...min !== undefined ? { min } : {}}
+	{...max !== undefined ? { max } : {}}
 	onchange={onChange}
 	onblur={bubble('blur')}
 	oninput={bubble('input')}
@@ -133,7 +133,7 @@
 />
 
 {#if hint}
-	<span class="mt-1 mb-2 ml-2 block text-sm text-green-800">
+	<span class="mb-2 ml-2 mt-1 block text-sm text-green-800">
 		{hint}
 	</span>
 {/if}

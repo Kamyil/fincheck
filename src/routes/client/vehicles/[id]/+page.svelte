@@ -10,14 +10,76 @@
 	import Hash from 'lucide-svelte/icons/hash';
 	import Gauge from 'lucide-svelte/icons/gauge';
 	import ClipboardList from 'lucide-svelte/icons/clipboard-list';
+	import Plus from 'lucide-svelte/icons/plus';
 	import Button from '$lib/components/common/Button.svelte';
+	import AddHealthRecordModal from '../components/AddHealthRecordModal.svelte';
+	import HealthRecordsList from '../components/HealthRecordsList.svelte';
+	import {
+		getHealthRecordsForVehicle,
+		deleteHealthRecord
+	} from '$lib/vehicles/health-records.remote';
+	import type { VehicleHealthRecord } from '$lib/server/db/schema';
 
 	let { data } = $props();
 	let vehicle = data.vehicle;
 
+	let addHealthRecordModal: AddHealthRecordModal;
+	let healthRecords: VehicleHealthRecord[] = $state([]);
+	let isLoadingRecords = $state(false);
+
 	function goBack() {
 		goto('/client/vehicles');
 	}
+
+	function openAddHealthRecordModal() {
+		addHealthRecordModal?.openModal();
+	}
+
+	async function loadHealthRecords() {
+		isLoadingRecords = true;
+		try {
+			let result = await getHealthRecordsForVehicle(vehicle.id);
+			if (result.success && result.records) {
+				healthRecords = result.records;
+			}
+		} catch (error) {
+			console.error('Error loading health records:', error);
+		} finally {
+			isLoadingRecords = false;
+		}
+	}
+
+	async function refreshHealthRecords() {
+		// Refresh the query data
+		getHealthRecordsForVehicle(vehicle.id).refresh();
+		await loadHealthRecords();
+	}
+
+	function handleEditRecord(record: VehicleHealthRecord) {
+		// TODO: Implement edit functionality
+		console.log('Edit record:', record);
+	}
+
+	async function handleDeleteRecord(record: VehicleHealthRecord) {
+		if (confirm('Czy na pewno chcesz usunąć ten wpis z księgi zdrowia?')) {
+			let formData = new FormData();
+			formData.set('id', record.id);
+
+			let result = await deleteHealthRecord(formData);
+			if (result.success) {
+				await loadHealthRecords(); // Refresh the list
+			}
+		}
+	}
+
+	function onAddHealthRecordClose() {
+		loadHealthRecords(); // Refresh the list after adding a new record
+	}
+
+	// Load health records when component mounts
+	$effect(() => {
+		loadHealthRecords();
+	});
 </script>
 
 <svelte:head>
@@ -74,9 +136,9 @@
 				</div>
 			</div>
 
-			<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+			<div class="grid grid-cols-1 gap-8">
 				<!-- Vehicle Information -->
-				<div class="lg:col-span-2">
+				<div>
 					<div
 						class="rounded-2xl border border-gray-700 bg-gray-900/50 p-6 shadow-2xl shadow-red-600/10"
 					>
@@ -139,7 +201,7 @@
 										<Hash class="h-5 w-5 text-red-400" />
 										<div>
 											<p class="text-sm text-gray-400">Numer VIN</p>
-											<p class="font-medium break-all text-white">{vehicle.vin}</p>
+											<p class="break-all font-medium text-white">{vehicle.vin}</p>
 										</div>
 									</div>
 								{/if}
@@ -149,29 +211,50 @@
 				</div>
 
 				<!-- Health Record Book Section -->
-				<div class="lg:col-span-1">
+				<div>
 					<div
 						class="rounded-2xl border border-gray-700 bg-gray-900/50 p-6 shadow-2xl shadow-red-600/10"
 					>
-						<div class="mb-4 flex items-center space-x-3">
-							<ClipboardList class="h-6 w-6 text-red-400" />
-							<h2 class="text-xl font-semibold text-white">Książka Zdrowia</h2>
+						<div class="mb-6 flex items-center justify-between">
+							<div class="flex items-center space-x-3">
+								<ClipboardList class="h-6 w-6 text-red-400" />
+								<h2 class="text-xl font-semibold text-white">Księga Zdrowia</h2>
+							</div>
+							<Button
+								variant="red"
+								onClick={openAddHealthRecordModal}
+								classes="flex items-center space-x-2"
+							>
+								<Plus class="h-4 w-4" />
+								<span>Dodaj wpis</span>
+							</Button>
 						</div>
 
-						<div class="py-8 text-center">
-							<div
-								class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-gray-600 bg-gray-800/50"
-							>
-								<ClipboardList class="h-8 w-8 text-gray-400" />
+						{#if isLoadingRecords}
+							<div class="py-8 text-center">
+								<div
+									class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-red-400"
+								></div>
+								<p class="mt-4 text-gray-400">Ładowanie wpisów...</p>
 							</div>
-							<p class="mb-4 text-gray-400">
-								Tutaj będzie historia serwisowa i dokumentacja napraw Twojego pojazdu.
-							</p>
-							<p class="text-sm text-gray-500">Funkcjonalność w przygotowaniu...</p>
-						</div>
+						{:else}
+							<HealthRecordsList
+								records={healthRecords}
+								onEdit={handleEditRecord}
+								onDelete={handleDeleteRecord}
+							/>
+						{/if}
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 </div>
+
+<!-- Modals -->
+<AddHealthRecordModal
+	bind:this={addHealthRecordModal}
+	vehicleId={vehicle.id}
+	onClose={onAddHealthRecordClose}
+	onRecordAdded={refreshHealthRecords}
+/>
