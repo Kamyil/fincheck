@@ -50,7 +50,7 @@
 		<div class="mx-auto max-w-6xl">
 			<!-- Breadcrumb and Back Button -->
 			<div class="mb-6 flex items-center space-x-4">
-				<Button variant="ghost" onClick={goBack} classes="flex items-center space-x-2">
+				<Button variant="red" onClick={goBack} classes="flex items-center space-x-2">
 					<ArrowLeft class="h-4 w-4" />
 					<span>Powrót do pojazdów</span>
 				</Button>
