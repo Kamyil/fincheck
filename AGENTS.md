@@ -68,6 +68,7 @@
 ### File Organization Preferences
 
 - **Route-specific components**: Keep components that are only used by a specific route in a `components/` folder next to the route page (e.g., `src/routes/client/vehicles/components/AddVehicleModal.svelte`) rather than in `$lib/components/`
+- **Component organization**: `$lib/components/common/` should only contain ultra-reusable UI primitives (Button, Modal, Input, etc.) - thin HTML abstractions. Application-specific components go in `$lib/components/` directly
 - **HTTP Status Codes**: Use `$lib/httpStatusCodes.ts` enum instead of hardcoding status code numbers
 - **File Access**: Prefer accessing files directly inside Docker container over network requests (unless debugging network issues)
 - **Database Operations**: Always use conditional creation patterns like `CREATE TABLE IF NOT EXISTS`, `CREATE TYPE IF NOT EXISTS`, and wrap `ALTER TABLE` statements in `DO $$ BEGIN ... END $$` blocks with existence checks to make all database operations idempotent and safe to re-run
