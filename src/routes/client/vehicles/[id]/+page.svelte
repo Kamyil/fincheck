@@ -13,6 +13,7 @@
 	import Plus from 'lucide-svelte/icons/plus';
 	import Button from '$lib/components/common/Button.svelte';
 	import AddHealthRecordModal from '../components/AddHealthRecordModal.svelte';
+	import EditHealthRecordModal from '../components/EditHealthRecordModal.svelte';
 	import HealthRecordsList from '../components/HealthRecordsList.svelte';
 	import {
 		getHealthRecordsForVehicle,
@@ -24,8 +25,11 @@
 	let vehicle = data.vehicle;
 
 	let addHealthRecordModal: AddHealthRecordModal;
-	let healthRecords: VehicleHealthRecord[] = $state([]);
-	let isLoadingRecords = $state(false);
+	let editHealthRecordModal: EditHealthRecordModal;
+	let currentEditRecord: VehicleHealthRecord | null = $state(null);
+
+	// Use the remote function directly instead of manual state
+	let healthRecordsQuery = $derived(getHealthRecordsForVehicle(vehicle.id));
 
 	function goBack() {
 		goto('/client/vehicles');
@@ -35,51 +39,38 @@
 		addHealthRecordModal?.openModal();
 	}
 
-	async function loadHealthRecords() {
-		isLoadingRecords = true;
-		try {
-			let result = await getHealthRecordsForVehicle(vehicle.id);
-			if (result.success && result.records) {
-				healthRecords = result.records;
-			}
-		} catch (error) {
-			console.error('Error loading health records:', error);
-		} finally {
-			isLoadingRecords = false;
-		}
-	}
-
-	async function refreshHealthRecords() {
-		// Refresh the query data
-		getHealthRecordsForVehicle(vehicle.id).refresh();
-		await loadHealthRecords();
-	}
-
 	function handleEditRecord(record: VehicleHealthRecord) {
-		// TODO: Implement edit functionality
-		console.log('Edit record:', record);
+		currentEditRecord = record;
+		editHealthRecordModal?.openModal();
 	}
 
 	async function handleDeleteRecord(record: VehicleHealthRecord) {
 		if (confirm('Czy na pewno chcesz usunąć ten wpis z księgi zdrowia?')) {
-			let formData = new FormData();
-			formData.set('id', record.id);
-
-			let result = await deleteHealthRecord(formData);
-			if (result.success) {
-				await loadHealthRecords(); // Refresh the list
+			try {
+				let result = await deleteHealthRecord(record.id);
+				if (result.success) {
+					// Refresh the query - this should update the UI automatically
+					getHealthRecordsForVehicle(vehicle.id).refresh();
+				} else {
+					console.error('Delete failed:', result.error);
+				}
+			} catch (error) {
+				console.error('Delete error:', error);
 			}
 		}
 	}
 
 	function onAddHealthRecordClose() {
-		loadHealthRecords(); // Refresh the list after adding a new record
+		getHealthRecordsForVehicle(vehicle.id).refresh(); // Refresh after adding
 	}
 
-	// Load health records when component mounts
-	$effect(() => {
-		loadHealthRecords();
-	});
+	function onEditHealthRecordClose() {
+		currentEditRecord = null;
+	}
+
+	function onEditHealthRecordUpdated() {
+		getHealthRecordsForVehicle(vehicle.id).refresh(); // Refresh after editing
+	}
 </script>
 
 <svelte:head>
@@ -230,20 +221,26 @@
 							</Button>
 						</div>
 
-						{#if isLoadingRecords}
-							<div class="py-8 text-center">
-								<div
-									class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-red-400"
-								></div>
-								<p class="mt-4 text-gray-400">Ładowanie wpisów...</p>
-							</div>
-						{:else}
-							<HealthRecordsList
-								records={healthRecords}
-								onEdit={handleEditRecord}
-								onDelete={handleDeleteRecord}
-							/>
-						{/if}
+						<svelte:boundary>
+							{#await healthRecordsQuery}
+								<div class="py-8 text-center">
+									<div
+										class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-red-400"
+									></div>
+									<p class="mt-4 text-gray-400">Ładowanie wpisów...</p>
+								</div>
+							{:then result}
+								{#if result.success && result.records}
+									<HealthRecordsList
+										records={result.records}
+										onEdit={handleEditRecord}
+										onDelete={handleDeleteRecord}
+									/>
+								{:else}
+									<p class="text-red-400">Błąd: {result.error}</p>
+								{/if}
+							{/await}
+						</svelte:boundary>
 					</div>
 				</div>
 			</div>
@@ -256,5 +253,13 @@
 	bind:this={addHealthRecordModal}
 	vehicleId={vehicle.id}
 	onClose={onAddHealthRecordClose}
-	onRecordAdded={refreshHealthRecords}
+	onRecordAdded={onAddHealthRecordClose}
+/>
+
+<EditHealthRecordModal
+	bind:this={editHealthRecordModal}
+	vehicleId={vehicle.id}
+	record={currentEditRecord}
+	onClose={onEditHealthRecordClose}
+	onRecordUpdated={onEditHealthRecordUpdated}
 />

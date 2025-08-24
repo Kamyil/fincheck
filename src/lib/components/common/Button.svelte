@@ -81,8 +81,11 @@
 	let isLoading = $state(false);
 	let isDisabled = $derived(disabled || isLoading);
 
-	async function handleClick() {
+	async function handleClick(event: MouseEvent) {
 		if (isDisabled) return;
+
+		// Prevent default behavior to avoid page scroll
+		event.preventDefault();
 
 		let result = onClick();
 
@@ -113,7 +116,7 @@
 		'cursor-pointer transition-all duration-200',
 		'active:scale-95 active:brightness-95',
 		'hover:scale-[103%] active:scale-95 active:brightness-95',
-		'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+		'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
 		'disabled:cursor-not-allowed',
 		// Props-driven classes come first
 		sizes[size],

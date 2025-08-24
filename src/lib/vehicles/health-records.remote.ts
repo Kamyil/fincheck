@@ -1,4 +1,4 @@
-import { form, query, getRequestEvent } from '$app/server';
+import { form, query, command, getRequestEvent } from '$app/server';
 import { db } from '$lib/server/db';
 import { eq, and, desc } from 'drizzle-orm';
 import * as schema from '$lib/server/db/schema';
@@ -27,12 +27,12 @@ export let getHealthRecordsForVehicle = query('unchecked', async (vehicleId: str
 			return { success: false, error: 'Access denied' };
 		}
 
-		// Get health records for the vehicle, ordered by service date (newest first)
+		// Get health records for the vehicle, ordered by creation date (newest first)
 		let records = await db
 			.select()
 			.from(schema.vehicleHealthRecord)
 			.where(eq(schema.vehicleHealthRecord.vehicleId, vehicleId))
-			.orderBy(desc(schema.vehicleHealthRecord.serviceDate));
+			.orderBy(desc(schema.vehicleHealthRecord.createdAt));
 
 		return { success: true, records: records as VehicleHealthRecord[] };
 	} catch (err) {
@@ -194,27 +194,30 @@ export let updateHealthRecord = form(async (data) => {
 	}
 });
 
-export let deleteHealthRecord = form(async (data) => {
+export let deleteHealthRecord = command('unchecked', async (recordId: string) => {
 	const { locals } = getRequestEvent();
 
 	if (!locals.user) {
 		return { success: false, error: 'Authentication required' };
 	}
 
-	let id = data.get('id');
-
-	if (typeof id !== 'string') {
+	if (typeof recordId !== 'string') {
 		return { success: false, error: 'Invalid record ID' };
 	}
 
 	try {
+		console.log('Attempting to delete health record with ID:', recordId);
+
 		// First get the record to be deleted
 		let [record] = await db
 			.select()
 			.from(schema.vehicleHealthRecord)
-			.where(eq(schema.vehicleHealthRecord.id, id));
+			.where(eq(schema.vehicleHealthRecord.id, recordId));
+
+		console.log('Found record:', record);
 
 		if (!record) {
+			console.log('Record not found for ID:', recordId);
 			return { success: false, error: 'Record not found' };
 		}
 
@@ -226,12 +229,20 @@ export let deleteHealthRecord = form(async (data) => {
 				and(eq(schema.vehicle.id, record.vehicleId), eq(schema.vehicle.userId, locals.user.id))
 			);
 
+		console.log('Found vehicle:', vehicle);
+
 		if (!vehicle) {
+			console.log('Access denied - user does not own vehicle');
 			return { success: false, error: 'Access denied' };
 		}
 
-		await db.delete(schema.vehicleHealthRecord).where(eq(schema.vehicleHealthRecord.id, id));
+		console.log('Executing delete query...');
+		let deleteResult = await db
+			.delete(schema.vehicleHealthRecord)
+			.where(eq(schema.vehicleHealthRecord.id, recordId));
+		console.log('Delete result:', deleteResult);
 
+		console.log('Successfully deleted health record');
 		return { success: true };
 	} catch (err) {
 		console.error('Error deleting health record:', err);
