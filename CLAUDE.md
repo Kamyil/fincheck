@@ -62,34 +62,191 @@ npm run test               # All tests
 
 ### Remote Functions Pattern (Experimental SvelteKit Feature)
 
-Revolutionary client-server communication pattern:
+Revolutionary client-server communication pattern with four types:
+
+#### 1. Query Functions - For Reading Data
 
 ```typescript
-// In .remote.ts files
-import { query, form, command } from '$app/server';
+// Basic query (no arguments)
+export const getPosts = query(async () => {
+	const posts = await db.sql`SELECT * FROM post ORDER BY created_at DESC`;
+	return posts;
+});
 
-export const getData = query(async () => {
-	/* server logic */
+// Query with arguments (requires validation schema or 'unchecked')
+import * as v from 'valibot';
+export const getPost = query(v.string(), async (slug) => {
+	const [post] = await db.sql`SELECT * FROM post WHERE slug = ${slug}`;
+	if (!post) error(404, 'Not found');
+	return post;
 });
-export const addItem = form(async (formData) => {
-	/* mutation */
+
+// Unchecked query (skip validation - use carefully)
+export const getHealthRecords = query('unchecked', async (vehicleId: string) => {
+	return await db.select().from(healthRecords).where(eq(healthRecords.vehicleId, vehicleId));
 });
-export const doAction = command(async () => {
-	/* immediate action */
+```
+
+#### 2. Form Functions - For Form Submissions
+
+```typescript
+export const createPost = form(async (data) => {
+	const user = await getUser();
+	if (!user) error(401, 'Unauthorized');
+
+	const title = data.get('title');
+	const content = data.get('content');
+
+	if (typeof title !== 'string' || typeof content !== 'string') {
+		error(400, 'Title and content are required');
+	}
+
+	const slug = title.toLowerCase().replace(/ /g, '-');
+
+	await db.sql`INSERT INTO post (slug, title, content) VALUES (${slug}, ${title}, ${content})`;
+
+	// Refresh related queries on server
+	await getPosts().refresh();
+
+	redirect(303, `/blog/${slug}`);
+});
+```
+
+#### 3. Command Functions - For Immediate Actions
+
+```typescript
+import * as v from 'valibot';
+
+export const addLike = command(v.string(), async (id) => {
+	await db.sql`UPDATE item SET likes = likes + 1 WHERE id = ${id}`;
+
+	// Refresh related data
+	await getLikes(id).refresh();
+});
+```
+
+#### 4. Prerender Functions - For Static Data
+
+```typescript
+export const getStaticPosts = prerender(async () => {
+	return await db.sql`SELECT * FROM featured_posts`;
+});
+
+// With inputs for build-time prerendering
+export const getPost = prerender(
+	v.string(),
+	async (slug) => {
+		/* ... */
+	},
+	{
+		inputs: () => ['first-post', 'second-post', 'third-post'],
+		dynamic: true // Allow runtime calls to non-prerendered inputs
+	}
+);
+```
+
+#### Usage in Components
+
+```svelte
+<script>
+	import { getPosts, createPost, addLike } from './data.remote';
+
+	// Query usage with await
+	const posts = await getPosts();
+
+	// Or with reactive properties
+	const query = getPosts();
+	// query.loading, query.error, query.current available
+</script>
+
+<!-- Form usage -->
+<form {...createPost}>
+	<input name="title" />
+	<textarea name="content"></textarea>
+	<button>Create Post</button>
+</form>
+
+<!-- Command usage -->
+<button onclick={() => addLike(post.id).updates(getPosts())}> Like </button>
+
+<!-- Query with arguments -->
+<svelte:boundary>
+	{#each await getPosts() as post}
+		<article>{post.title}</article>
+	{/each}
+
+	{#snippet pending()}
+		<div>Loading posts...</div>
+	{/snippet}
+</svelte:boundary>
+
+<!-- Handle form results -->
+{#if createPost.result?.success}
+	<p>Post created successfully!</p>
+{:else if createPost.result?.error}
+	<p class="error">{createPost.result.error}</p>
+{/if}
+```
+
+#### Advanced Patterns
+
+**Single-Flight Mutations** - Refresh specific queries without full page reload:
+
+```typescript
+// Server-side refresh
+export const createPost = form(async (data) => {
+	// ... create post
+	await getPosts().refresh(); // Refreshed data sent with response
+	redirect(303, `/blog/${slug}`);
 });
 ```
 
 ```svelte
-<!-- In components - automatic state management -->
-<svelte:boundary>
-	{#each await getData() as item}
-		<form {...addItem}><!-- Automatic form handling --></form>
-	{/each}
+<!-- Client-side refresh with optimistic updates -->
+<form {...createPost.enhance(async ({ submit }) => {
+	await submit().updates(
+		getPosts().withOverride(posts => [...posts, newPost])
+	);
+})}>
+```
 
-	{#snippet pending()}
-		<div>Loading...</div>
-	{/snippet}
-</svelte:boundary>
+**Query Refresh Methods:**
+
+```svelte
+<script>
+	// Manual refresh
+	const refreshPosts = () => getPosts().refresh();
+
+	// Queries are cached: getPosts() === getPosts()
+	// No need to store references for refreshing
+</script>
+
+<button onclick={refreshPosts}>Refresh Posts</button>
+```
+
+**Form Enhancement:**
+
+```svelte
+<form {...createPost.enhance(async ({ form, data, submit }) => {
+	try {
+		await submit();
+		form.reset();
+		showToast('Success!');
+	} catch (error) {
+		showToast('Error!');
+	}
+})}>
+```
+
+**Multi-form Actions (buttonProps):**
+
+```svelte
+<form {...login}>
+	<input name="username" />
+	<input name="password" type="password" />
+	<button>Login</button>
+	<button {...register.buttonProps}>Register</button>
+</form>
 ```
 
 **Key Benefits:**
@@ -98,6 +255,9 @@ export const doAction = command(async () => {
 - Built-in caching and reactivity for queries
 - Type-safe client-server boundary
 - Automatic state refresh after mutations
+- Progressive enhancement (works without JS)
+- Optimistic updates support
+- Comprehensive error handling
 
 ### Database Schema (Drizzle + PostgreSQL)
 
