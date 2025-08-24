@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Modal from '$lib/components/common/Modal.svelte';
 	import Input from '$lib/components/common/Input.svelte';
-	import Label from '$lib/components/common/Label.svelte';
 	import Button from '$lib/components/common/Button.svelte';
 	import { addVehicle } from '$lib/vehicles/data.remote';
 
@@ -40,10 +39,10 @@
 		<form {...addVehicle}>
 			<div class="space-y-6">
 				<div>
-					<Label htmlFor="make">Marka</Label>
 					<Input
 						name="make"
 						id="make"
+						label="Marka"
 						required
 						form={addVehicle}
 						placeholder="np. Toyota"
@@ -52,10 +51,10 @@
 				</div>
 
 				<div>
-					<Label htmlFor="model">Model</Label>
 					<Input
 						name="model"
 						id="model"
+						label="Model"
 						required
 						form={addVehicle}
 						placeholder="np. Corolla"
@@ -64,10 +63,10 @@
 				</div>
 
 				<div>
-					<Label htmlFor="year">Rocznik</Label>
 					<Input
 						name="year"
 						id="year"
+						label="Rocznik"
 						type="number"
 						required
 						form={addVehicle}
@@ -79,10 +78,10 @@
 				</div>
 
 				<div>
-					<Label htmlFor="registration">Numer Rejestracyjny (opcjonalnie)</Label>
 					<Input
 						name="registration"
 						id="registration"
+						label="Numer Rejestracyjny (opcjonalnie)"
 						form={addVehicle}
 						placeholder="np. KR ABC123"
 						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
@@ -90,10 +89,10 @@
 				</div>
 
 				<div>
-					<Label htmlFor="vin">VIN (opcjonalnie)</Label>
 					<Input
 						name="vin"
 						id="vin"
+						label="VIN (opcjonalnie)"
 						form={addVehicle}
 						placeholder="17-znakowy numer VIN"
 						maxlength={17}
@@ -102,10 +101,10 @@
 				</div>
 
 				<div>
-					<Label htmlFor="color">Kolor (opcjonalnie)</Label>
 					<Input
 						name="color"
 						id="color"
+						label="Kolor (opcjonalnie)"
 						form={addVehicle}
 						placeholder="np. Niebieski"
 						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
@@ -113,10 +112,10 @@
 				</div>
 
 				<div>
-					<Label htmlFor="mileage">Aktualny Przebieg (opcjonalnie)</Label>
 					<Input
 						name="mileage"
 						id="mileage"
+						label="Aktualny Przebieg (opcjonalnie)"
 						type="number"
 						form={addVehicle}
 						min={0}
@@ -143,15 +142,15 @@
 				</Button>
 			</div>
 
-		{#if addVehicle.result?.success}
-			<div class="mt-6 rounded-lg border border-green-700 bg-green-900/20 p-4">
-				<p class="text-sm text-green-300">Pojazd został pomyślnie dodany!</p>
-			</div>
-		{:else if addVehicle.result?.error}
-			<div class="mt-6 rounded-lg border border-red-700 bg-red-900/20 p-4">
-				<p class="text-sm text-red-300">{addVehicle.result.error}</p>
-			</div>
-		{/if}
+			{#if addVehicle.result?.success}
+				<div class="mt-6 rounded-lg border border-green-700 bg-green-900/20 p-4">
+					<p class="text-sm text-green-300">Pojazd został pomyślnie dodany!</p>
+				</div>
+			{:else if addVehicle.result?.error}
+				<div class="mt-6 rounded-lg border border-red-700 bg-red-900/20 p-4">
+					<p class="text-sm text-red-300">{addVehicle.result.error}</p>
+				</div>
+			{/if}
 		</form>
 	</div>
 </Modal>

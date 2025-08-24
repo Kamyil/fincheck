@@ -99,10 +99,10 @@
 				<!-- Basic Information -->
 				<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 					<div>
-						<Label htmlFor="title">Tytuł Serwisu *</Label>
 						<Input
 							name="title"
 							id="title"
+							label="Tytuł Serwisu *"
 							required
 							form={addHealthRecord}
 							placeholder="np. Wymiana oleju silnikowego"
@@ -111,10 +111,10 @@
 					</div>
 
 					<div>
-						<Label htmlFor="serviceDate">Data Serwisu *</Label>
 						<Input
 							name="serviceDate"
 							id="serviceDate"
+							label="Data Serwisu *"
 							type="date"
 							required
 							form={addHealthRecord}
@@ -136,10 +136,10 @@
 					</div>
 
 					<div>
-						<Label htmlFor="mileage">Przebieg (km)</Label>
 						<Input
 							name="mileage"
 							id="mileage"
+							label="Przebieg (km)"
 							type="number"
 							min={0}
 							form={addHealthRecord}
@@ -150,10 +150,10 @@
 				</div>
 
 				<div>
-					<Label htmlFor="serviceProvider">Dostawca Usług</Label>
 					<Input
 						name="serviceProvider"
 						id="serviceProvider"
+						label="Dostawca Usług"
 						form={addHealthRecord}
 						placeholder="np. AutoSerwis Kowalski lub DIY"
 						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
@@ -161,10 +161,10 @@
 				</div>
 
 				<div>
-					<Label htmlFor="description">Opis</Label>
 					<Textarea
 						name="description"
 						id="description"
+						label="Opis"
 						placeholder="Szczegółowy opis wykonanych prac..."
 						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 						rows={3}
@@ -182,10 +182,10 @@
 						<div class="mb-4 rounded-lg bg-gray-800 p-4">
 							<div class="mb-3 grid grid-cols-1 gap-4 md:grid-cols-4">
 								<div>
-									<Label htmlFor="part-name-{index}">Nazwa Części</Label>
 									<Input
 										bind:value={part.name}
 										id="part-name-{index}"
+										label="Nazwa Części"
 										placeholder="np. Filtr oleju"
 										classes="focus:ring-opacity-20 mt-1 w-full rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white placeholder-gray-400 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 									/>
@@ -202,10 +202,10 @@
 								</div>
 
 								<div>
-									<Label htmlFor="part-cost-{index}">Koszt (PLN)</Label>
 									<Input
 										bind:value={part.cost}
 										id="part-cost-{index}"
+										label="Koszt (PLN)"
 										type="number"
 										step="0.01"
 										placeholder="0.00"
@@ -226,10 +226,10 @@
 							</div>
 
 							<div>
-								<Label htmlFor="part-description-{index}">Dodatkowy Opis</Label>
 								<Input
 									bind:value={part.description}
 									id="part-description-{index}"
+									label="Dodatkowy Opis"
 									placeholder="Dlaczego część została wymieniona/naprawiona..."
 									classes="focus:ring-opacity-20 mt-1 w-full rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white placeholder-gray-400 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 								/>
@@ -243,11 +243,11 @@
 					<h3 class="mb-4 text-lg font-medium text-white">Koszty</h3>
 					<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
 						<div>
-							<Label htmlFor="laborCost">Koszt Robocizny (PLN)</Label>
 							<Input
 								bind:value={laborCost}
 								name="laborCost"
 								id="laborCost"
+								label="Koszt Robocizny (PLN)"
 								type="number"
 								step="0.01"
 								placeholder="0.00"
@@ -274,10 +274,10 @@
 				</div>
 
 				<div>
-					<Label htmlFor="receiptUrl">Link do Paragonu/Faktury</Label>
 					<Input
 						name="receiptUrl"
 						id="receiptUrl"
+						label="Link do Paragonu/Faktury"
 						type="url"
 						form={addHealthRecord}
 						placeholder="https://..."

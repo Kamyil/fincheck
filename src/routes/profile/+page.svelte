@@ -2,7 +2,6 @@
 	import { getUserProfile, updateUserProfile, logoutUser } from '$lib/user/data.remote';
 	import Button from '$lib/components/common/Button.svelte';
 	import Input from '$lib/components/common/Input.svelte';
-	import Label from '$lib/components/common/Label.svelte';
 </script>
 
 <svelte:boundary>
@@ -14,10 +13,10 @@
 
 			<form {...updateUserProfile}>
 				<div class="mb-4">
-					<Label htmlFor="username">Username</Label>
 					<Input
 						name="username"
 						id="username"
+						label="Username"
 						form={updateUserProfile}
 						value={profile.username}
 						classes="w-full rounded border px-4 py-2"
@@ -25,10 +24,10 @@
 				</div>
 
 				<div class="mb-6">
-					<Label htmlFor="email">Email</Label>
 					<Input
 						name="email"
 						id="email"
+						label="Email"
 						type="email"
 						form={updateUserProfile}
 						value={profile.email}

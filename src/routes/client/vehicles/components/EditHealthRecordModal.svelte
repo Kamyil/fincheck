@@ -116,10 +116,10 @@
 
 					<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 						<div>
-							<Label htmlFor="title">Tytuł serwisu</Label>
 							<Input
 								name="title"
 								id="title"
+								label="Tytuł serwisu"
 								placeholder="np. Wymiana oleju i filtra"
 								required
 								value={record?.title || ''}
@@ -128,10 +128,10 @@
 						</div>
 
 						<div>
-							<Label htmlFor="serviceDate">Data serwisu</Label>
 							<Input
 								name="serviceDate"
 								id="serviceDate"
+								label="Data serwisu"
 								type="date"
 								required
 								value={record ? formatDateForInput(record.serviceDate) : ''}
@@ -140,10 +140,10 @@
 						</div>
 
 						<div>
-							<Label htmlFor="mileage">Przebieg (km)</Label>
 							<Input
 								name="mileage"
 								id="mileage"
+								label="Przebieg (km)"
 								type="number"
 								placeholder="75000"
 								value={record?.mileage || ''}
@@ -163,10 +163,10 @@
 						</div>
 
 						<div class="md:col-span-2">
-							<Label htmlFor="serviceProvider">Serwis / Warsztat</Label>
 							<Input
 								name="serviceProvider"
 								id="serviceProvider"
+								label="Serwis / Warsztat"
 								placeholder="np. AutoSerwis Kowalski"
 								value={record?.serviceProvider || ''}
 								classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
@@ -175,10 +175,10 @@
 					</div>
 
 					<div class="mt-4">
-						<Label htmlFor="description">Opis serwisu</Label>
 						<Textarea
 							name="description"
 							id="description"
+							label="Opis serwisu"
 							rows={3}
 							placeholder="Dodatkowe informacje o wykonanych pracach..."
 							value={record?.description || ''}
@@ -198,10 +198,10 @@
 						<div class="mb-4 rounded-lg bg-gray-800 p-4">
 							<div class="mb-3 grid grid-cols-1 gap-4 md:grid-cols-4">
 								<div>
-									<Label htmlFor="part-name-{index}">Nazwa Części</Label>
 									<Input
 										bind:value={part.name}
 										id="part-name-{index}"
+										label="Nazwa Części"
 										placeholder="np. Filtr oleju"
 										classes="focus:ring-opacity-20 mt-1 w-full rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white placeholder-gray-400 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 									/>
@@ -218,10 +218,10 @@
 								</div>
 
 								<div>
-									<Label htmlFor="part-cost-{index}">Koszt (PLN)</Label>
 									<Input
 										bind:value={part.cost}
 										id="part-cost-{index}"
+										label="Koszt (PLN)"
 										type="number"
 										step="0.01"
 										placeholder="0.00"
@@ -242,10 +242,10 @@
 							</div>
 
 							<div>
-								<Label htmlFor="part-description-{index}">Dodatkowy Opis</Label>
 								<Input
 									bind:value={part.description}
 									id="part-description-{index}"
+									label="Dodatkowy Opis"
 									placeholder="Dlaczego część została wymieniona/naprawiona..."
 									classes="focus:ring-opacity-20 mt-1 w-full rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white placeholder-gray-400 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 								/>
@@ -260,11 +260,11 @@
 
 					<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
 						<div>
-							<Label htmlFor="laborCost">Koszt Robocizny (PLN)</Label>
 							<Input
 								bind:value={laborCost}
 								name="laborCost"
 								id="laborCost"
+								label="Koszt Robocizny (PLN)"
 								type="number"
 								step="0.01"
 								placeholder="0.00"
@@ -291,10 +291,10 @@
 				</div>
 
 				<div>
-					<Label htmlFor="receiptUrl">Link do Paragonu/Faktury</Label>
 					<Input
 						name="receiptUrl"
 						id="receiptUrl"
+						label="Link do Paragonu/Faktury"
 						type="url"
 						placeholder="https://example.com/receipt.pdf"
 						value={record?.receiptUrl || ''}

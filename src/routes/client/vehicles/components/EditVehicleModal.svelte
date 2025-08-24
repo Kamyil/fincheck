@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Modal from '$lib/components/common/Modal.svelte';
 	import Input from '$lib/components/common/Input.svelte';
-	import Label from '$lib/components/common/Label.svelte';
 	import Button from '$lib/components/common/Button.svelte';
 	import { updateVehicle } from '$lib/vehicles/data.remote';
 	import type { Vehicle } from '$lib/server/db/schema';
@@ -37,10 +36,10 @@
 				<input type="hidden" name="id" value={vehicle.id} />
 				<div class="space-y-6">
 					<div>
-						<Label htmlFor="edit-make">Marka</Label>
 						<Input
 							name="make"
 							id="edit-make"
+							label="Marka"
 							required
 							form={updateVehicle}
 							value={vehicle.make}
@@ -49,10 +48,10 @@
 					</div>
 
 					<div>
-						<Label htmlFor="edit-model">Model</Label>
 						<Input
 							name="model"
 							id="edit-model"
+							label="Model"
 							required
 							form={updateVehicle}
 							value={vehicle.model}
@@ -61,10 +60,10 @@
 					</div>
 
 					<div>
-						<Label htmlFor="edit-year">Rocznik</Label>
 						<Input
 							name="year"
 							id="edit-year"
+							label="Rocznik"
 							type="number"
 							required
 							form={updateVehicle}
@@ -76,10 +75,10 @@
 					</div>
 
 					<div>
-						<Label htmlFor="edit-registration">Numer Rejestracyjny (opcjonalnie)</Label>
 						<Input
 							name="registration"
 							id="edit-registration"
+							label="Numer Rejestracyjny (opcjonalnie)"
 							form={updateVehicle}
 							value={vehicle.registration || ''}
 							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
@@ -87,10 +86,10 @@
 					</div>
 
 					<div>
-						<Label htmlFor="edit-vin">VIN (opcjonalnie)</Label>
 						<Input
 							name="vin"
 							id="edit-vin"
+							label="VIN (opcjonalnie)"
 							form={updateVehicle}
 							maxlength={17}
 							value={vehicle.vin || ''}
@@ -99,10 +98,10 @@
 					</div>
 
 					<div>
-						<Label htmlFor="edit-color">Kolor (opcjonalnie)</Label>
 						<Input
 							name="color"
 							id="edit-color"
+							label="Kolor (opcjonalnie)"
 							form={updateVehicle}
 							value={vehicle.color || ''}
 							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
@@ -110,10 +109,10 @@
 					</div>
 
 					<div>
-						<Label htmlFor="edit-mileage">Aktualny Przebieg (opcjonalnie)</Label>
 						<Input
 							name="mileage"
 							id="edit-mileage"
+							label="Aktualny Przebieg (opcjonalnie)"
 							type="number"
 							form={updateVehicle}
 							min={0}
