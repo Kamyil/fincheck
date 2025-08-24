@@ -3,6 +3,8 @@ import { db } from '$lib/server/db';
 import { eq, and, desc } from 'drizzle-orm';
 import * as schema from '$lib/server/db/schema';
 import type { VehicleHealthRecord } from '$lib/server/db/schema';
+import { validate } from '$lib/utils/validation';
+import { addHealthRecordSchema, updateHealthRecordSchema } from './health-records-schemas';
 
 // This query will be used in the vehicle detail page to fetch health records
 export let getHealthRecordsForVehicle = query('unchecked', async (vehicleId: string) => {
@@ -41,20 +43,33 @@ export let getHealthRecordsForVehicle = query('unchecked', async (vehicleId: str
 	}
 });
 
-export let addHealthRecord = form(async (data) => {
+export let addHealthRecord = form(async (formData) => {
 	const { locals } = getRequestEvent();
 
 	if (!locals.user) {
 		return { success: false, error: 'Authentication required' };
 	}
 
-	let vehicleId = data.get('vehicleId');
-	let title = data.get('title');
-	let serviceDateStr = data.get('serviceDate');
+	const { data, errors } = validate(formData, addHealthRecordSchema);
 
-	if (typeof vehicleId !== 'string' || typeof title !== 'string' || !serviceDateStr) {
-		return { success: false, error: 'Required fields missing' };
+	if (errors || !data) {
+		console.error('Validation errors:', errors);
+		return { success: false, errors };
 	}
+
+	const {
+		vehicleId,
+		title,
+		description,
+		mileage,
+		serviceDate,
+		serviceType,
+		partsReplaced,
+		laborCost,
+		totalCost,
+		receiptUrl,
+		serviceProvider
+	} = data;
 
 	try {
 		// Verify the user owns this vehicle
@@ -68,40 +83,22 @@ export let addHealthRecord = form(async (data) => {
 		}
 
 		let id = crypto.randomUUID();
-		let serviceDate = new Date(serviceDateStr.toString());
-
-		// Parse parts data (JSON string from form)
-		let partsData = null;
-		let partsString = data.get('partsReplaced');
-		if (partsString && typeof partsString === 'string') {
-			try {
-				partsData = JSON.parse(partsString);
-			} catch (parseErr) {
-				console.error('Error parsing parts data:', parseErr);
-				// Continue with null partsData
-			}
-		}
-
-		// Parse costs
-		let laborCost = data.get('laborCost');
-		let totalCost = data.get('totalCost');
-		let parsedLaborCost = laborCost && typeof laborCost === 'string' ? parseFloat(laborCost) : null;
-		let parsedTotalCost = totalCost && typeof totalCost === 'string' ? parseFloat(totalCost) : null;
+		let parsedServiceDate = new Date(serviceDate);
 
 		await db.insert(schema.vehicleHealthRecord).values({
 			id,
 			vehicleId,
 			userId: locals.user.id,
-			title: title.trim(),
-			description: data.get('description')?.toString()?.trim() || null,
-			mileage: data.get('mileage') ? parseInt(data.get('mileage')!.toString(), 10) : null,
-			serviceDate,
-			serviceType: data.get('serviceType')?.toString()?.trim() || null,
-			partsReplaced: partsData,
-			laborCost: parsedLaborCost ? parsedLaborCost.toString() : null,
-			totalCost: parsedTotalCost ? parsedTotalCost.toString() : null,
-			receiptUrl: data.get('receiptUrl')?.toString()?.trim() || null,
-			serviceProvider: data.get('serviceProvider')?.toString()?.trim() || null,
+			title,
+			description: description || null,
+			mileage: mileage || null,
+			serviceDate: parsedServiceDate,
+			serviceType: serviceType || null,
+			partsReplaced: partsReplaced || null,
+			laborCost: laborCost ? laborCost.toString() : null,
+			totalCost: totalCost ? totalCost.toString() : null,
+			receiptUrl: receiptUrl || null,
+			serviceProvider: serviceProvider || null,
 			createdAt: new Date(),
 			updatedAt: new Date()
 		});
@@ -113,20 +110,33 @@ export let addHealthRecord = form(async (data) => {
 	}
 });
 
-export let updateHealthRecord = form(async (data) => {
+export let updateHealthRecord = form(async (formData) => {
 	const { locals } = getRequestEvent();
 
 	if (!locals.user) {
 		return { success: false, error: 'Authentication required' };
 	}
 
-	let id = data.get('id');
-	let title = data.get('title');
-	let serviceDateStr = data.get('serviceDate');
+	const { data, errors } = validate(formData, updateHealthRecordSchema);
 
-	if (typeof id !== 'string' || typeof title !== 'string' || !serviceDateStr) {
-		return { success: false, error: 'Required fields missing' };
+	if (errors || !data) {
+		console.error('Validation errors:', errors);
+		return { success: false, errors };
 	}
+
+	const {
+		id,
+		title,
+		description,
+		mileage,
+		serviceDate,
+		serviceType,
+		partsReplaced,
+		laborCost,
+		totalCost,
+		receiptUrl,
+		serviceProvider
+	} = data;
 
 	try {
 		// First get the existing record
@@ -151,38 +161,21 @@ export let updateHealthRecord = form(async (data) => {
 			return { success: false, error: 'Access denied' };
 		}
 
-		let serviceDate = new Date(serviceDateStr.toString());
-
-		// Parse parts data (JSON string from form)
-		let partsData = null;
-		let partsString = data.get('partsReplaced');
-		if (partsString && typeof partsString === 'string') {
-			try {
-				partsData = JSON.parse(partsString);
-			} catch (parseErr) {
-				console.error('Error parsing parts data:', parseErr);
-			}
-		}
-
-		// Parse costs
-		let laborCost = data.get('laborCost');
-		let totalCost = data.get('totalCost');
-		let parsedLaborCost = laborCost && typeof laborCost === 'string' ? parseFloat(laborCost) : null;
-		let parsedTotalCost = totalCost && typeof totalCost === 'string' ? parseFloat(totalCost) : null;
+		let parsedServiceDate = new Date(serviceDate);
 
 		await db
 			.update(schema.vehicleHealthRecord)
 			.set({
-				title: title.trim(),
-				description: data.get('description')?.toString()?.trim() || null,
-				mileage: data.get('mileage') ? parseInt(data.get('mileage')!.toString(), 10) : null,
-				serviceDate,
-				serviceType: data.get('serviceType')?.toString()?.trim() || null,
-				partsReplaced: partsData,
-				laborCost: parsedLaborCost ? parsedLaborCost.toString() : null,
-				totalCost: parsedTotalCost ? parsedTotalCost.toString() : null,
-				receiptUrl: data.get('receiptUrl')?.toString()?.trim() || null,
-				serviceProvider: data.get('serviceProvider')?.toString()?.trim() || null,
+				title,
+				description: description || null,
+				mileage: mileage || null,
+				serviceDate: parsedServiceDate,
+				serviceType: serviceType || null,
+				partsReplaced: partsReplaced || null,
+				laborCost: laborCost ? laborCost.toString() : null,
+				totalCost: totalCost ? totalCost.toString() : null,
+				receiptUrl: receiptUrl || null,
+				serviceProvider: serviceProvider || null,
 				updatedAt: new Date()
 			})
 			.where(eq(schema.vehicleHealthRecord.id, id));

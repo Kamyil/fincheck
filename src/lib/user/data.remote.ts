@@ -2,7 +2,9 @@ import { form, query, command } from '$app/server';
 import { db } from '$lib/server/db';
 import { eq } from 'drizzle-orm';
 import * as schema from '$lib/server/db/schema';
-import { fail, error } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
+import { validate } from '$lib/utils/validation';
+import { updateUserProfileSchema } from './schemas';
 
 // Get user profile
 export const getUserProfile = query(async () => {
@@ -26,26 +28,15 @@ export const getUserProfile = query(async () => {
 });
 
 // Update user profile with form
-export const updateUserProfile = form(async (data) => {
-	const email = data.get('email');
-	const username = data.get('username');
+export const updateUserProfile = form(async (formData) => {
+	const { data, errors } = validate(formData, updateUserProfileSchema);
 
-	// Validate data
-	if (typeof email !== 'string' || typeof username !== 'string') {
-		return fail(400, {
-			message: 'Invalid form data',
-			fields: { email, username },
-			invalid: true
-		});
+	if (errors || !data) {
+		console.error('Validation errors:', errors);
+		return { success: false, errors };
 	}
 
-	if (username.length < 3) {
-		return fail(400, {
-			message: 'Username must be at least 3 characters',
-			fields: { email, username },
-			invalid: true
-		});
-	}
+	const { email, username } = data;
 
 	try {
 		// Check if username already exists (excluding current user)
@@ -55,22 +46,14 @@ export const updateUserProfile = form(async (data) => {
 			.where(eq(schema.user.username, username))
 			.limit(1);
 
-		if (existingUser.length > 0 && existingUser[0].email !== email) {
-			return fail(400, {
-				message: 'Username already taken',
-				fields: { email, username },
-				invalid: true
-			});
-		}
-
-		// For demo purposes, just update the first user
+		// For demo purposes, get first user for comparison
 		const users = await db.select().from(schema.user).limit(1);
 		if (users.length === 0) {
-			return fail(404, {
-				message: 'No users found to update',
-				fields: { email, username },
-				invalid: true
-			});
+			return { success: false, error: 'No users found to update' };
+		}
+
+		if (existingUser.length > 0 && existingUser[0].id !== users[0].id) {
+			return { success: false, errors: { username: 'Nazwa użytkownika jest już zajęta' } };
 		}
 
 		// Update user
@@ -89,11 +72,7 @@ export const updateUserProfile = form(async (data) => {
 		return { success: true };
 	} catch (err) {
 		console.error('Error updating profile:', err);
-		return fail(500, {
-			message: 'Failed to update profile',
-			fields: { email, username },
-			invalid: true
-		});
+		return { success: false, error: 'Failed to update profile' };
 	}
 });
 

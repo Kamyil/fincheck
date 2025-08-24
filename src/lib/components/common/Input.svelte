@@ -17,9 +17,14 @@
 		 */
 		classes?: string;
 		/**
-		 * if true, then marks whole input (and potentially label) with red color.
+		 * Remote form object
 		 */
-		error?: boolean;
+		form?: any;
+		/**
+		 * If true, marks the input with red outline.
+		 * If string, shows both red outline and the string as an error message.
+		 */
+		error?: boolean | string;
 		/** normal HTML input's placeholder  */
 		placeholder?: string;
 		/** value on init. Can be binded */
@@ -73,6 +78,7 @@
 
 	let {
 		classes = '',
+		form = undefined,
 		error = false,
 		placeholder = '',
 		value = $bindable(''),
@@ -93,6 +99,16 @@
 		required = false,
 		onChange = () => {}
 	}: Props = $props();
+
+	// Simple and clean error handling
+	const errorMessage = $derived(
+		// Handle direct error prop (string)
+		typeof error === 'string'
+			? error
+			: // Handle remote form errors (simple object format)
+				form?.result?.errors?.[name] || null
+	);
+	const hasError = $derived(!!errorMessage || error === true);
 </script>
 
 {#if label}
@@ -114,7 +130,7 @@
 		classes
 	)}
 	class:readonly
-	class:error
+	class:error={hasError}
 	{id}
 	{name}
 	{autocomplete}
@@ -135,6 +151,12 @@
 {#if hint}
 	<span class="mb-2 ml-2 mt-1 block text-sm text-green-800">
 		{hint}
+	</span>
+{/if}
+
+{#if errorMessage}
+	<span class="mb-2 ml-2 mt-1 block text-sm text-red-600">
+		{errorMessage}
 	</span>
 {/if}
 

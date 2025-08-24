@@ -4,6 +4,8 @@ import { eq } from 'drizzle-orm';
 import * as schema from '$lib/server/db/schema';
 import type { Vehicle } from '$lib/server/db/schema';
 import { error } from '@sveltejs/kit';
+import { validate } from '$lib/utils/validation';
+import { addVehicleSchema, updateVehicleSchema, deleteVehicleSchema } from './schemas';
 
 export let getUserVehicles = query(async () => {
 	const { locals } = getRequestEvent();
@@ -26,24 +28,21 @@ export let getUserVehicles = query(async () => {
 	}
 });
 
-export let addVehicle = form(async (data) => {
+export let addVehicle = form(async (formData) => {
 	const { locals } = getRequestEvent();
 
 	if (!locals.user) {
 		return { success: false, error: 'Authentication required' };
 	}
 
-	let make = data.get('make');
-	let model = data.get('model');
-	let year = data.get('year');
+	// Validate form data
+	const { data, errors } = validate(formData, addVehicleSchema);
 
-	if (typeof make !== 'string' || typeof model !== 'string' || !year) {
-		return { success: false, error: 'Invalid vehicle data' };
-	}
-
-	let parsedYear = parseInt(year.toString(), 10);
-	if (isNaN(parsedYear) || parsedYear < 1900 || parsedYear > new Date().getFullYear() + 1) {
-		return { success: false, error: 'Invalid year' };
+	if (errors) {
+		return {
+			success: false,
+			errors
+		};
 	}
 
 	try {
@@ -52,13 +51,13 @@ export let addVehicle = form(async (data) => {
 		await db.insert(schema.vehicle).values({
 			id,
 			userId: locals.user.id,
-			make: make.trim(),
-			model: model.trim(),
-			year: parsedYear,
-			vin: data.get('vin')?.toString()?.trim() || null,
-			registration: data.get('registration')?.toString()?.trim() || null,
-			color: data.get('color')?.toString()?.trim() || null,
-			mileage: data.get('mileage') ? parseInt(data.get('mileage')!.toString(), 10) : null,
+			make: data!.make,
+			model: data!.model,
+			year: data!.year,
+			vin: data!.vin || null,
+			registration: data!.registration || null,
+			color: data!.color || null,
+			mileage: data!.mileage || null,
 			createdAt: new Date(),
 			updatedAt: new Date()
 		});
@@ -72,29 +71,28 @@ export let addVehicle = form(async (data) => {
 	}
 });
 
-export let updateVehicle = form(async (data) => {
+export let updateVehicle = form(async (formData) => {
 	const { locals } = getRequestEvent();
 
 	if (!locals.user) {
 		return { success: false, error: 'Authentication required' };
 	}
 
-	let id = data.get('id');
-	let make = data.get('make');
-	let model = data.get('model');
-	let year = data.get('year');
+	// Validate form data
+	const { data, errors } = validate(formData, updateVehicleSchema);
 
-	if (typeof id !== 'string' || typeof make !== 'string' || typeof model !== 'string' || !year) {
-		return { success: false, error: 'Invalid vehicle data' };
-	}
-
-	let parsedYear = parseInt(year.toString(), 10);
-	if (isNaN(parsedYear) || parsedYear < 1900 || parsedYear > new Date().getFullYear() + 1) {
-		return { success: false, error: 'Invalid year' };
+	if (errors) {
+		return {
+			success: false,
+			errors
+		};
 	}
 
 	try {
-		let [existingVehicle] = await db.select().from(schema.vehicle).where(eq(schema.vehicle.id, id));
+		let [existingVehicle] = await db
+			.select()
+			.from(schema.vehicle)
+			.where(eq(schema.vehicle.id, data!.id));
 
 		if (!existingVehicle) {
 			return { success: false, error: 'Vehicle not found' };
@@ -107,41 +105,49 @@ export let updateVehicle = form(async (data) => {
 		await db
 			.update(schema.vehicle)
 			.set({
-				make: make.trim(),
-				model: model.trim(),
-				year: parsedYear,
-				vin: data.get('vin')?.toString()?.trim() || null,
-				registration: data.get('registration')?.toString()?.trim() || null,
-				color: data.get('color')?.toString()?.trim() || null,
-				mileage: data.get('mileage') ? parseInt(data.get('mileage')!.toString(), 10) : null,
+				make: data!.make,
+				model: data!.model,
+				year: data!.year,
+				vin: data!.vin || null,
+				registration: data!.registration || null,
+				color: data!.color || null,
+				mileage: data!.mileage || null,
 				updatedAt: new Date()
 			})
-			.where(eq(schema.vehicle.id, id));
+			.where(eq(schema.vehicle.id, data!.id));
 
 		await getUserVehicles().refresh();
 
-		return { success: true, id };
+		return { success: true, id: data!.id };
 	} catch (err) {
 		console.error('Error updating vehicle:', err);
 		return { success: false, error: 'Failed to update vehicle' };
 	}
 });
 
-export let deleteVehicle = form(async (data) => {
+export let deleteVehicle = form(async (formData) => {
 	const { locals } = getRequestEvent();
 
 	if (!locals.user) {
 		return { success: false, error: 'Authentication required' };
 	}
 
-	let id = data.get('id');
+	// Validate form data
+	const { data, errors } = validate(formData, deleteVehicleSchema);
 
-	if (typeof id !== 'string') {
-		return { success: false, error: 'Invalid vehicle ID' };
+	if (errors || !data) {
+		console.log('Validation errors:', errors);
+		return {
+			success: false,
+			errors
+		};
 	}
 
 	try {
-		let [existingVehicle] = await db.select().from(schema.vehicle).where(eq(schema.vehicle.id, id));
+		let [existingVehicle] = await db
+			.select()
+			.from(schema.vehicle)
+			.where(eq(schema.vehicle.id, data!.id));
 
 		if (!existingVehicle) {
 			return { success: false, error: 'Vehicle not found' };
@@ -151,7 +157,7 @@ export let deleteVehicle = form(async (data) => {
 			return { success: false, error: 'Access denied' };
 		}
 
-		await db.delete(schema.vehicle).where(eq(schema.vehicle.id, id));
+		await db.delete(schema.vehicle).where(eq(schema.vehicle.id, data!.id));
 
 		await getUserVehicles().refresh();
 

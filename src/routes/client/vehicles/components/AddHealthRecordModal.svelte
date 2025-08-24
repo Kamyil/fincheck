@@ -104,6 +104,7 @@
 							name="title"
 							id="title"
 							required
+							form={addHealthRecord}
 							placeholder="np. Wymiana oleju silnikowego"
 							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 						/>
@@ -116,6 +117,7 @@
 							id="serviceDate"
 							type="date"
 							required
+							form={addHealthRecord}
 							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 						/>
 					</div>
@@ -140,6 +142,7 @@
 							id="mileage"
 							type="number"
 							min={0}
+							form={addHealthRecord}
 							placeholder="np. 75000"
 							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 						/>
@@ -151,6 +154,7 @@
 					<Input
 						name="serviceProvider"
 						id="serviceProvider"
+						form={addHealthRecord}
 						placeholder="np. AutoSerwis Kowalski lub DIY"
 						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 					/>
@@ -275,6 +279,7 @@
 						name="receiptUrl"
 						id="receiptUrl"
 						type="url"
+						form={addHealthRecord}
 						placeholder="https://..."
 						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 					/>
@@ -306,6 +311,12 @@
 			{:else if addHealthRecord.result?.error}
 				<div class="mt-6 rounded-lg border border-red-700 bg-red-900/20 p-4">
 					<p class="text-sm text-red-300">{addHealthRecord.result.error}</p>
+				</div>
+			{:else if addHealthRecord.result?.errors}
+				<div class="mt-6 rounded-lg border border-red-700 bg-red-900/20 p-4">
+					<p class="text-sm text-red-300">
+						Proszę sprawdzić podane dane - znajdują się błędy w formularzu.
+					</p>
 				</div>
 			{/if}
 		</form>

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { getUserProfile, updateUserProfile, logoutUser } from '$lib/user/data.remote';
 	import Button from '$lib/components/common/Button.svelte';
+	import Input from '$lib/components/common/Input.svelte';
+	import Label from '$lib/components/common/Label.svelte';
 </script>
 
 <svelte:boundary>
@@ -12,26 +14,26 @@
 
 			<form {...updateUserProfile}>
 				<div class="mb-4">
-					<label class="mb-2 block">
-						Username
-						<input
-							name="username"
-							class="w-full rounded border px-4 py-2"
-							value={profile.username}
-						/>
-					</label>
+					<Label htmlFor="username">Username</Label>
+					<Input
+						name="username"
+						id="username"
+						form={updateUserProfile}
+						value={profile.username}
+						classes="w-full rounded border px-4 py-2"
+					/>
 				</div>
 
 				<div class="mb-6">
-					<label class="mb-2 block">
-						Email
-						<input
-							name="email"
-							type="email"
-							class="w-full rounded border px-4 py-2"
-							value={profile.email}
-						/>
-					</label>
+					<Label htmlFor="email">Email</Label>
+					<Input
+						name="email"
+						id="email"
+						type="email"
+						form={updateUserProfile}
+						value={profile.email}
+						classes="w-full rounded border px-4 py-2"
+					/>
 				</div>
 
 				<div class="flex gap-4">
@@ -45,9 +47,13 @@
 				<div class="mt-4 rounded bg-green-100 p-3 text-green-800">
 					Profile successfully updated!
 				</div>
-			{:else if updateUserProfile.result?.invalid}
+			{:else if updateUserProfile.result?.error}
 				<div class="mt-4 rounded bg-red-100 p-3 text-red-800">
-					{updateUserProfile.result.message}
+					{updateUserProfile.result.error}
+				</div>
+			{:else if updateUserProfile.result?.errors}
+				<div class="mt-4 rounded bg-red-100 p-3 text-red-800">
+					Please check the form fields - there are validation errors.
 				</div>
 			{/if}
 		{/key}
@@ -55,7 +61,7 @@
 
 	{#snippet pending()}
 		<div class="container mx-auto flex items-center justify-center p-8">
-			<div class="h-12 w-12 animate-spin rounded-full border-t-2 border-b-2 border-blue-600"></div>
+			<div class="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-blue-600"></div>
 		</div>
 	{/snippet}
 </svelte:boundary>

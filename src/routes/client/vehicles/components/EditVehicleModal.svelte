@@ -42,6 +42,7 @@
 							name="make"
 							id="edit-make"
 							required
+							form={updateVehicle}
 							value={vehicle.make}
 							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 						/>
@@ -53,6 +54,7 @@
 							name="model"
 							id="edit-model"
 							required
+							form={updateVehicle}
 							value={vehicle.model}
 							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 						/>
@@ -65,6 +67,7 @@
 							id="edit-year"
 							type="number"
 							required
+							form={updateVehicle}
 							min={1900}
 							max={new Date().getFullYear() + 1}
 							value={vehicle.year}
@@ -77,6 +80,7 @@
 						<Input
 							name="registration"
 							id="edit-registration"
+							form={updateVehicle}
 							value={vehicle.registration || ''}
 							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 						/>
@@ -87,6 +91,7 @@
 						<Input
 							name="vin"
 							id="edit-vin"
+							form={updateVehicle}
 							maxlength={17}
 							value={vehicle.vin || ''}
 							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
@@ -98,6 +103,7 @@
 						<Input
 							name="color"
 							id="edit-color"
+							form={updateVehicle}
 							value={vehicle.color || ''}
 							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 						/>
@@ -109,6 +115,7 @@
 							name="mileage"
 							id="edit-mileage"
 							type="number"
+							form={updateVehicle}
 							min={0}
 							value={vehicle.mileage || ''}
 							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"

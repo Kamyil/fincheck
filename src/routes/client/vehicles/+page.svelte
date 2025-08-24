@@ -29,9 +29,6 @@
 	}
 
 	function closeModals() {
-		addModal?.closeModal();
-		editModal?.closeModal();
-		deleteModal?.closeModal();
 		selectedVehicle = null;
 	}
 
