@@ -32,6 +32,7 @@
 		medium: 'w-60 h-14 text-sm p-2',
 		medium_square: 'w-14 h-14 text-sm p-2',
 		large: 'w-80 h-20 p-2',
+		error_button: 'px-8 py-4 text-lg min-h-[60px]',
 		icon_small: 'w-8 h-8 p-2 rounded-full',
 		icon_medium: 'w-10 h-10 p-2 rounded-full',
 		full_width: 'w-full h-12 px-4 py-3'
@@ -138,22 +139,30 @@
 		class:scale-95={isLoading}
 	>
 		{#if Icon && iconPosition === 'left'}
-			<Icon {STANDARD_ICON_STROKE_WIDTH} size={STANDARD_ICON_SIZE} class={twMerge(iconClasses)} />
+			<Icon
+				{STANDARD_ICON_STROKE_WIDTH}
+				size={size === 'error_button' ? 20 : STANDARD_ICON_SIZE}
+				class={twMerge('flex-shrink-0', iconClasses)}
+			/>
 		{/if}
-		<span class="mx-1 group-disabled:opacity-70">
+		<span class="mx-2 flex items-center group-disabled:opacity-70">
 			{#if Icon && iconPosition === 'center'}
 				<span>
 					<Icon
 						{STANDARD_ICON_STROKE_WIDTH}
-						size={STANDARD_ICON_SIZE}
-						class={twMerge(iconClasses)}
+						size={size === 'error_button' ? 20 : STANDARD_ICON_SIZE}
+						class={twMerge('flex-shrink-0', iconClasses)}
 					/>
 				</span>
 			{/if}
 			{@render children?.()}
 		</span>
 		{#if Icon && iconPosition === 'right'}
-			<Icon {STANDARD_ICON_STROKE_WIDTH} size={STANDARD_ICON_SIZE} class={twMerge(iconClasses)} />
+			<Icon
+				{STANDARD_ICON_STROKE_WIDTH}
+				size={size === 'error_button' ? 20 : STANDARD_ICON_SIZE}
+				class={twMerge('flex-shrink-0', iconClasses)}
+			/>
 		{/if}
 	</div>
 
