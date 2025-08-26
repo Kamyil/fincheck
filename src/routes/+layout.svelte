@@ -9,7 +9,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<main class="relative z-10 min-h-screen">
+<main class="relative z-10 min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
 	<!-- Asphalt texture overlay -->
 	<div
 		class="absolute inset-0 opacity-10"

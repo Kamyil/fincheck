@@ -174,7 +174,7 @@
 								{#if vehicle.vin}
 									<div class="flex items-center space-x-3">
 										<HashIcon class="h-5 w-5 text-red-400" />
-										<div>
+									<div>
 											<p class="text-sm text-gray-400">Numer VIN</p>
 											<p class="break-all font-medium text-white">{vehicle.vin}</p>
 										</div>

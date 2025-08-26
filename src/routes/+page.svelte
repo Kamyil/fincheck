@@ -1,4 +1,3 @@
-<!-- +page.svelte -->
 <script>
 	import { onMount } from 'svelte';
 	import BookOpenIcon from 'lucide-svelte/icons/book-open';
@@ -262,7 +261,14 @@
 						i
 							? 'scale-105 border-red-600 bg-gradient-to-br from-red-900/50 to-red-800/50 shadow-xl shadow-red-600/20'
 							: 'border-gray-700 bg-gray-800/50 hover:bg-red-900/30'}"
+						role="button"
+						tabindex="0"
 						on:mouseenter={() => (activeFeature = i)}
+						on:keydown={(e) => {
+							if (e.key === 'Enter' || e.key === ' ') {
+								activeFeature = i;
+							}
+						}}
 					>
 						<div
 							class="mb-4 transform transition-transform duration-300 group-hover:scale-110 sm:mb-6"
@@ -403,32 +409,27 @@
 
 			<!-- Direct Communication Feature -->
 			<div class="mb-20 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-				<div
-					class="order-2 rounded-2xl bg-gradient-to-br from-green-50 to-green-100 p-8 lg:order-1"
-				>
-					<div class="space-y-4 rounded-xl bg-white p-6 shadow-lg">
-						<div class="flex items-center space-x-3">
-							<div class="h-10 w-10 rounded-full bg-red-600"></div>
-							<div>
-								<div class="font-semibold text-gray-800">Mechanik Kowalski</div>
-								<div class="text-sm text-green-600">● Online</div>
-							</div>
+				<div class="order-2 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-700 p-8 lg:order-1">
+					<div class="space-y-4 rounded-xl bg-gray-900 p-6 shadow-lg">
+						<div class="border-b border-gray-600 pb-3">
+							<div class="font-semibold text-white">Chat z mechanikiem</div>
 						</div>
 						<div class="space-y-3">
-							<div class="rounded-lg bg-gray-100 p-3 text-sm">
+							<div class="rounded-lg bg-gray-700 p-3 text-sm text-gray-200">
 								Sprawdziłem Twoje zdjęcia. To problem z klockami hamulcowymi.
 							</div>
-							<div class="rounded-lg bg-red-50 p-3 text-right text-sm">
+							<div class="rounded-lg bg-red-900/50 p-3 text-right text-sm text-gray-200">
 								Ile będzie kosztować naprawa?
 							</div>
-							<div class="rounded-lg bg-gray-100 p-3 text-sm">
+							<div class="rounded-lg bg-gray-700 p-3 text-sm text-gray-200">
 								Około 300-400 zł z robocizną. Mogę zacząć jutro rano.
 							</div>
 						</div>
 						<div class="flex items-center space-x-2">
 							<input
-								class="flex-1 rounded-full border px-4 py-2 text-sm"
+								class="flex-1 rounded-full border border-gray-600 bg-gray-800 px-4 py-2 text-sm text-gray-200 placeholder-gray-400"
 								placeholder="Napisz wiadomość..."
+								aria-label="Napisz wiadomość do mechanika"
 							/>
 							<Button variant="red" size="icon_small" icon={SendIcon} />
 						</div>
@@ -436,12 +437,12 @@
 				</div>
 				<div class="order-1 space-y-6 lg:order-2">
 					<div class="flex items-center space-x-3">
-						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-							<MessageCircleIcon class="h-6 w-6 text-green-600" />
+						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-600/20">
+							<MessageCircleIcon class="h-6 w-6 text-green-400" />
 						</div>
-						<h3 class="text-3xl font-bold text-gray-800">Bezpośrednia Komunikacja</h3>
+						<h3 class="text-3xl font-bold text-white">Bezpośrednia Komunikacja</h3>
 					</div>
-					<p class="text-lg leading-relaxed text-gray-600">
+					<p class="text-lg leading-relaxed text-gray-300">
 						Czat w czasie rzeczywistym z mechanikami. Wysyłaj zdjęcia problemów, otrzymuj porady i
 						śledź postęp napraw bez wychodzenia z domu.
 					</p>
@@ -450,127 +451,55 @@
 							<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
 								<CheckCircleIcon class="h-5 w-5 text-white" />
 							</div>
-							<span class="text-gray-700">Instant messaging z mechanikami</span>
+							<span class="text-gray-300">Instant messaging z mechanikami</span>
 						</div>
 						<div class="flex items-center space-x-3">
 							<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
 								<CheckCircleIcon class="h-5 w-5 text-white" />
 							</div>
-							<span class="text-gray-700">Wysyłanie zdjęć problemów</span>
+							<span class="text-gray-300">Wysyłanie zdjęć problemów</span>
 						</div>
 						<div class="flex items-center space-x-3">
 							<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
 								<CheckCircleIcon class="h-5 w-5 text-white" />
 							</div>
-							<span class="text-gray-700">Śledzenie statusu napraw</span>
+							<span class="text-gray-300">Śledzenie statusu napraw</span>
 						</div>
 						<div class="flex items-center space-x-3">
 							<div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-600">
 								<CheckCircleIcon class="h-5 w-5 text-white" />
 							</div>
-							<span class="text-gray-700">Historie wszystkich rozmów</span>
+							<span class="text-gray-300">Historie wszystkich rozmów</span>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+	</section>
 
-			<!-- Tenders/Bidding System Feature -->
+	<!-- Forum Feature -->
+	<section
+		class="mx-4 my-8 border border-gray-800 bg-gray-900 px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
+	>
+		<div class="mx-auto max-w-6xl">
 			<div class="mb-20 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-				<div class="space-y-6">
-					<div class="flex items-center space-x-3">
-						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-purple-100">
-							<TagIcon class="h-6 w-6 text-purple-600" />
-						</div>
-						<h3 class="text-3xl font-bold text-gray-800">System Ofert</h3>
-					</div>
-					<p class="text-lg leading-relaxed text-gray-600">
-						Opisz problem swojego auta i otrzymaj konkurencyjne oferty od sprawdzonych mechaników w
-						Twojej okolicy. Porównuj ceny i wybieraj najlepszą opcję.
-					</p>
-					<div class="space-y-4">
-						<div class="rounded-lg border-l-4 border-purple-500 bg-purple-50 p-4">
-							<div class="font-semibold text-purple-800">1. Opisz problem</div>
-							<p class="text-sm text-purple-700">Dodaj opis, zdjęcia i lokalizację</p>
-						</div>
-						<div class="rounded-lg border-l-4 border-purple-500 bg-purple-50 p-4">
-							<div class="font-semibold text-purple-800">2. Otrzymaj oferty</div>
-							<p class="text-sm text-purple-700">Mechanicy składają konkurencyjne propozycje</p>
-						</div>
-						<div class="rounded-lg border-l-4 border-purple-500 bg-purple-50 p-4">
-							<div class="font-semibold text-purple-800">3. Wybierz najlepszą</div>
-							<p class="text-sm text-purple-700">Porównaj ceny, opinie i lokalizacje</p>
-						</div>
-					</div>
-				</div>
-				<div class="rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 p-8">
-					<div class="space-y-4 rounded-xl bg-white p-6 shadow-lg">
-						<div class="border-b pb-3">
-							<div class="font-semibold text-gray-800">Problem z silnikiem - BMW 320i</div>
-							<div class="text-sm text-gray-600">3 oferty otrzymane</div>
-						</div>
-						<div class="space-y-3">
-							<div class="rounded-lg border p-3">
-								<div class="flex items-center justify-between">
-									<div>
-										<div class="font-medium text-gray-800">AutoSerwis Nowak</div>
-										<div class="text-sm text-gray-600">⭐ 4.8 • 2.5 km</div>
-									</div>
-									<div class="text-right">
-										<div class="font-bold text-green-600">450 zł</div>
-										<div class="text-xs text-gray-500">+ części</div>
-									</div>
-								</div>
-							</div>
-							<div class="rounded-lg border p-3">
-								<div class="flex items-center justify-between">
-									<div>
-										<div class="font-medium text-gray-800">Mechanik Kowalski</div>
-										<div class="text-sm text-gray-600">⭐ 4.9 • 1.8 km</div>
-									</div>
-									<div class="text-right">
-										<div class="font-bold text-green-600">380 zł</div>
-										<div class="text-xs text-gray-500">+ części</div>
-									</div>
-								</div>
-							</div>
-							<div class="rounded-lg border p-3">
-								<div class="flex items-center justify-between">
-									<div>
-										<div class="font-medium text-gray-800">BMW Serwis Pro</div>
-										<div class="text-sm text-gray-600">⭐ 4.7 • 3.2 km</div>
-									</div>
-									<div class="text-right">
-										<div class="font-bold text-green-600">520 zł</div>
-										<div class="text-xs text-gray-500">z częściami</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Forum Feature -->
-			<div class="mb-20 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-				<div
-					class="order-2 rounded-2xl bg-gradient-to-br from-orange-50 to-orange-100 p-8 lg:order-1"
-				>
-					<div class="space-y-4 rounded-xl bg-white p-6 shadow-lg">
-						<div class="border-b pb-3">
-							<div class="font-semibold text-gray-800">Najnowsze posty na forum</div>
+				<div class="order-2 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-700 p-8 lg:order-1">
+					<div class="space-y-4 rounded-xl bg-gray-900 p-6 shadow-lg">
+						<div class="border-b border-gray-600 pb-3">
+							<div class="font-semibold text-white">Najnowsze posty na forum</div>
 						</div>
 						<div class="space-y-4">
 							<div class="border-l-4 border-orange-500 pl-4">
-								<div class="font-medium text-gray-800">Jak wymienić olej w Golf VII?</div>
-								<div class="text-sm text-gray-600">15 odpowiedzi • Dodano 2h temu</div>
+								<div class="font-medium text-white">Jak wymienić olej w Golf VII?</div>
+								<div class="text-sm text-gray-400">15 odpowiedzi • Dodano 2h temu</div>
 							</div>
 							<div class="border-l-4 border-orange-500 pl-4">
-								<div class="font-medium text-gray-800">Problem z klimatyzacją Audi A4</div>
-								<div class="text-sm text-gray-600">8 odpowiedzi • Dodano 5h temu</div>
+								<div class="font-medium text-white">Problem z klimatyzacją Audi A4</div>
+								<div class="text-sm text-gray-400">8 odpowiedzi • Dodano 5h temu</div>
 							</div>
 							<div class="border-l-4 border-orange-500 pl-4">
-								<div class="font-medium text-gray-800">Polecane opony zimowe 2025</div>
-								<div class="text-sm text-gray-600">23 odpowiedzi • Dodano wczoraj</div>
+								<div class="font-medium text-white">Polecane opony zimowe 2025</div>
+								<div class="text-sm text-gray-400">23 odpowiedzi • Dodano wczoraj</div>
 							</div>
 						</div>
 						<Button variant="orange" size="full_width">Zadaj pytanie</Button>
@@ -578,131 +507,137 @@
 				</div>
 				<div class="order-1 space-y-6 lg:order-2">
 					<div class="flex items-center space-x-3">
-						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
-							<UsersIcon class="h-6 w-6 text-orange-600" />
+						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-orange-600/20">
+							<UsersIcon class="h-6 w-6 text-orange-400" />
 						</div>
-						<h3 class="text-3xl font-bold text-gray-800">Forum Motoryzacyjne</h3>
+						<h3 class="text-3xl font-bold text-white">Forum Motoryzacyjne</h3>
 					</div>
-					<p class="text-lg leading-relaxed text-gray-600">
+					<p class="text-lg leading-relaxed text-gray-300">
 						Dołącz do największej społeczności motoryzacyjnej w Polsce. Zadawaj pytania, dziel się
 						doświadczeniem i pomagaj innym kierowcom.
 					</p>
 					<div class="grid grid-cols-2 gap-4">
-						<div class="rounded-lg bg-orange-50 p-4 text-center">
-							<div class="text-2xl font-bold text-orange-600">50k+</div>
-							<div class="text-sm text-gray-600">Aktywnych użytkowników</div>
+						<div class="rounded-lg bg-gray-800 p-4 text-center">
+							<div class="text-2xl font-bold text-orange-400">50k+</div>
+							<div class="text-sm text-gray-400">Aktywnych użytkowników</div>
 						</div>
-						<div class="rounded-lg bg-orange-50 p-4 text-center">
-							<div class="text-2xl font-bold text-orange-600">15k+</div>
-							<div class="text-sm text-gray-600">Rozwiązanych problemów</div>
+						<div class="rounded-lg bg-gray-800 p-4 text-center">
+							<div class="text-2xl font-bold text-orange-400">15k+</div>
+							<div class="text-sm text-gray-400">Rozwiązanych problemów</div>
 						</div>
 					</div>
 					<div class="space-y-3">
 						<div class="flex items-center space-x-3">
 							<WrenchIcon class="h-6 w-6 text-orange-600" />
-							<span class="text-gray-700">Porady od ekspertów</span>
+							<span class="text-gray-300">Porady od ekspertów</span>
 						</div>
 						<div class="flex items-center space-x-3">
 							<CarIcon class="h-6 w-6 text-orange-600" />
-							<span class="text-gray-700">Wszystkie marki aut</span>
+							<span class="text-gray-300">Wszystkie marki aut</span>
 						</div>
 						<div class="flex items-center space-x-3">
 							<SmartphoneIcon class="h-6 w-6 text-orange-600" />
-							<span class="text-gray-700">Mobilna aplikacja</span>
+							<span class="text-gray-300">Mobilna aplikacja</span>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+	</section>
 
-			<!-- Parts Ordering Feature -->
+	<!-- Parts Ordering Feature -->
+	<section
+		class="mx-4 my-8 border border-gray-800 bg-gray-900 px-4 py-16 sm:mx-6 sm:my-12 sm:px-6 sm:py-20 lg:mx-8 lg:my-16 lg:px-8 lg:py-24"
+	>
+		<div class="mx-auto max-w-6xl">
 			<div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 				<div class="space-y-6">
 					<div class="flex items-center space-x-3">
-						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
-							<SettingsIcon class="h-6 w-6 text-red-600" />
+						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-600/20">
+							<SettingsIcon class="h-6 w-6 text-red-400" />
 						</div>
-						<h3 class="text-3xl font-bold text-gray-800">Zamawianie Części</h3>
+						<h3 class="text-3xl font-bold text-white">Zamawianie Części</h3>
 					</div>
-					<p class="text-lg leading-relaxed text-gray-600">
+					<p class="text-lg leading-relaxed text-gray-300">
 						Największy katalog części samochodowych online. Oryginalne i zamienniki w najlepszych
 						cenach z szybką dostawą nawet w 24h.
 					</p>
 					<div class="grid grid-cols-2 gap-4">
 						<div class="space-y-2">
-							<div class="flex items-center gap-2 font-semibold text-gray-800">
+							<div class="flex items-center gap-2 font-semibold text-white">
 								<TruckIcon class="h-4 w-4 text-red-600" />
 								Szybka dostawa
 							</div>
-							<p class="text-sm text-gray-600">24-48h w całej Polsce</p>
+							<p class="text-sm text-gray-400">24-48h w całej Polsce</p>
 						</div>
 						<div class="space-y-2">
-							<div class="flex items-center gap-2 font-semibold text-gray-800">
+							<div class="flex items-center gap-2 font-semibold text-white">
 								<GemIcon class="h-4 w-4 text-red-600" />
 								Oryginały
 							</div>
-							<p class="text-sm text-gray-600">Części OEM i zamienniki</p>
+							<p class="text-sm text-gray-400">Części OEM i zamienniki</p>
 						</div>
 						<div class="space-y-2">
-							<div class="flex items-center gap-2 font-semibold text-gray-800">
+							<div class="flex items-center gap-2 font-semibold text-white">
 								<SearchIcon class="h-4 w-4 text-red-600" />
 								Wyszukiwarka
 							</div>
-							<p class="text-sm text-gray-600">Znajdź po VIN lub modelu</p>
+							<p class="text-sm text-gray-400">Znajdź po VIN lub modelu</p>
 						</div>
 						<div class="space-y-2">
-							<div class="flex items-center gap-2 font-semibold text-gray-800">
+							<div class="flex items-center gap-2 font-semibold text-white">
 								<ShieldIcon class="h-4 w-4 text-red-600" />
 								Gwarancja
 							</div>
-							<p class="text-sm text-gray-600">Pełna gwarancja na części</p>
+							<p class="text-sm text-gray-400">Pełna gwarancja na części</p>
 						</div>
 					</div>
-					<div class="rounded-lg bg-red-50 p-4">
-						<div class="flex items-center gap-2 font-semibold text-red-800">
+					<div class="rounded-lg bg-gray-800 p-4">
+						<div class="flex items-center gap-2 font-semibold text-red-300">
 							<PartyPopperIcon class="h-4 w-4 text-red-600" />
 							Promocja dla nowych użytkowników
 						</div>
-						<p class="text-sm text-red-700">-15% na pierwsze zamówienie powyżej 200 zł</p>
+						<p class="text-sm text-red-300">-15% na pierwsze zamówienie powyżej 200 zł</p>
 					</div>
 				</div>
-				<div class="rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-8">
-					<div class="space-y-4 rounded-xl bg-white p-6 shadow-lg">
-						<div class="flex items-center justify-between border-b pb-3">
-							<div class="font-semibold text-gray-800">Koszyk</div>
-							<div class="text-sm text-gray-600">3 pozycje</div>
+				<div class="rounded-2xl bg-gradient-to-br from-gray-800 to-gray-700 p-8">
+					<div class="space-y-4 rounded-xl bg-gray-900 p-6 shadow-lg">
+						<div class="flex items-center justify-between border-b border-gray-600 pb-3">
+							<div class="font-semibold text-white">Koszyk</div>
+							<div class="text-sm text-gray-400">3 pozycje</div>
 						</div>
 						<div class="space-y-3">
 							<div class="flex items-center justify-between">
 								<div class="flex items-center space-x-3">
-									<div class="h-12 w-12 rounded bg-gray-100"></div>
+									<div class="h-12 w-12 rounded bg-gray-700"></div>
 									<div>
-										<div class="font-medium text-gray-800">Klocki hamulcowe</div>
-										<div class="text-sm text-gray-600">BMW 320i E90</div>
+										<div class="font-medium text-white">Klocki hamulcowe</div>
+										<div class="text-sm text-gray-400">BMW 320i E90</div>
 									</div>
 								</div>
 								<div class="text-right">
-									<div class="font-bold text-gray-800">149 zł</div>
-									<div class="text-xs text-green-600">✓ Dostępny</div>
+									<div class="font-bold text-white">149 zł</div>
+									<div class="text-xs text-green-400">✓ Dostępny</div>
 								</div>
 							</div>
 							<div class="flex items-center justify-between">
 								<div class="flex items-center space-x-3">
-									<div class="h-12 w-12 rounded bg-gray-100"></div>
+									<div class="h-12 w-12 rounded bg-gray-700"></div>
 									<div>
-										<div class="font-medium text-gray-800">Filtr oleju</div>
-										<div class="text-sm text-gray-600">BMW 320i E90</div>
+										<div class="font-medium text-white">Filtr oleju</div>
+										<div class="text-sm text-gray-400">BMW 320i E90</div>
 									</div>
 								</div>
 								<div class="text-right">
-									<div class="font-bold text-gray-800">35 zł</div>
-									<div class="text-xs text-green-600">✓ Dostępny</div>
+									<div class="font-bold text-white">35 zł</div>
+									<div class="text-xs text-green-400">✓ Dostępny</div>
 								</div>
 							</div>
 						</div>
-						<div class="border-t pt-3">
+						<div class="border-t border-gray-600 pt-3">
 							<div class="flex items-center justify-between text-lg font-bold">
-								<span>Razem:</span>
-								<span class="text-red-600">184 zł</span>
+								<span class="text-white">Razem:</span>
+								<span class="text-red-400">184 zł</span>
 							</div>
 							<Button variant="red" size="full_width" classes="mt-3">Zamów teraz</Button>
 						</div>
@@ -816,8 +751,6 @@
 			</div>
 		</div>
 	</section>
-
-	<section></section>
 
 	<!-- Footer -->
 	<footer
