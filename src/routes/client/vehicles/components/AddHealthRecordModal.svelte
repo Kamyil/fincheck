@@ -106,7 +106,7 @@
 							required
 							form={addHealthRecord}
 							placeholder="np. Wymiana oleju silnikowego"
-							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							
 						/>
 					</div>
 
@@ -118,7 +118,7 @@
 							type="date"
 							required
 							form={addHealthRecord}
-							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							
 						/>
 					</div>
 				</div>
@@ -144,7 +144,7 @@
 							min={0}
 							form={addHealthRecord}
 							placeholder="np. 75000"
-							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							
 						/>
 					</div>
 				</div>
@@ -156,7 +156,7 @@
 						label="Dostawca Usług"
 						form={addHealthRecord}
 						placeholder="np. AutoSerwis Kowalski lub DIY"
-						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+						
 					/>
 				</div>
 
@@ -166,7 +166,7 @@
 						id="description"
 						label="Opis"
 						placeholder="Szczegółowy opis wykonanych prac..."
-						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+						
 						rows={3}
 					/>
 				</div>
@@ -251,7 +251,7 @@
 								type="number"
 								step="0.01"
 								placeholder="0.00"
-								classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+								
 							/>
 						</div>
 
@@ -281,7 +281,7 @@
 						type="url"
 						form={addHealthRecord}
 						placeholder="https://..."
-						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+						
 					/>
 				</div>
 			</div>

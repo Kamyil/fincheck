@@ -43,7 +43,7 @@
 							required
 							form={updateVehicle}
 							value={vehicle.make}
-							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							
 						/>
 					</div>
 
@@ -55,7 +55,7 @@
 							required
 							form={updateVehicle}
 							value={vehicle.model}
-							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							
 						/>
 					</div>
 
@@ -70,7 +70,7 @@
 							min={1900}
 							max={new Date().getFullYear() + 1}
 							value={vehicle.year}
-							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							
 						/>
 					</div>
 
@@ -81,7 +81,7 @@
 							label="Numer Rejestracyjny (opcjonalnie)"
 							form={updateVehicle}
 							value={vehicle.registration || ''}
-							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							
 						/>
 					</div>
 
@@ -93,7 +93,7 @@
 							form={updateVehicle}
 							maxlength={17}
 							value={vehicle.vin || ''}
-							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							
 						/>
 					</div>
 
@@ -104,7 +104,7 @@
 							label="Kolor (opcjonalnie)"
 							form={updateVehicle}
 							value={vehicle.color || ''}
-							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							
 						/>
 					</div>
 
@@ -117,7 +117,7 @@
 							form={updateVehicle}
 							min={0}
 							value={vehicle.mileage || ''}
-							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							
 						/>
 					</div>
 				</div>

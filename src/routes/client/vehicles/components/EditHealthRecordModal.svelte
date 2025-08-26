@@ -123,7 +123,7 @@
 								placeholder="np. Wymiana oleju i filtra"
 								required
 								value={record?.title || ''}
-								classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+								
 							/>
 						</div>
 
@@ -135,7 +135,7 @@
 								type="date"
 								required
 								value={record ? formatDateForInput(record.serviceDate) : ''}
-								classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+								
 							/>
 						</div>
 
@@ -147,7 +147,7 @@
 								type="number"
 								placeholder="75000"
 								value={record?.mileage || ''}
-								classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+								
 							/>
 						</div>
 
@@ -169,7 +169,7 @@
 								label="Serwis / Warsztat"
 								placeholder="np. AutoSerwis Kowalski"
 								value={record?.serviceProvider || ''}
-								classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+								
 							/>
 						</div>
 					</div>
@@ -182,7 +182,7 @@
 							rows={3}
 							placeholder="Dodatkowe informacje o wykonanych pracach..."
 							value={record?.description || ''}
-							classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+							
 						/>
 					</div>
 				</div>
@@ -268,7 +268,7 @@
 								type="number"
 								step="0.01"
 								placeholder="0.00"
-								classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+								
 							/>
 						</div>
 
@@ -298,7 +298,7 @@
 						type="url"
 						placeholder="https://example.com/receipt.pdf"
 						value={record?.receiptUrl || ''}
-						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+						
 					/>
 				</div>
 

@@ -46,7 +46,6 @@
 						required
 						form={addVehicle}
 						placeholder="np. Toyota"
-						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
 					/>
 				</div>
 
@@ -58,7 +57,69 @@
 						required
 						form={addVehicle}
 						placeholder="np. Corolla"
-						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+					/>
+				</div>
+
+				<div class="grid grid-cols-2 gap-4">
+					<Input
+						name="year"
+						id="year"
+						label="Rok Produkcji"
+						type="number"
+						required
+						form={addVehicle}
+						placeholder="2023"
+					/>
+					<Input
+						name="vin"
+						id="vin"
+						label="Numer VIN"
+						required
+						form={addVehicle}
+						placeholder="WBA3A5G50ENP26082"
+					/>
+				</div>
+
+				<div class="grid grid-cols-2 gap-4">
+					<Input
+						name="licensePlate"
+						id="licensePlate"
+						label="Numer Rejestracyjny"
+						required
+						form={addVehicle}
+						placeholder="KR 12345"
+					/>
+					<Input
+						name="mileage"
+						id="mileage"
+						label="Przebieg (km)"
+						type="number"
+						required
+						form={addVehicle}
+						placeholder="50000"
+					/>
+				</div>
+
+				<div>
+					<Input
+						name="color"
+						id="color"
+						label="Kolor"
+						required
+						form={addVehicle}
+						placeholder="np. Czerwony"
+					/>
+				</div>
+
+				<div>
+					<Input
+						name="model"
+						id="model"
+						label="Model"
+						required
+						form={addVehicle}
+						placeholder="np. Corolla"
+						
 					/>
 				</div>
 
@@ -73,7 +134,7 @@
 						min={1900}
 						max={new Date().getFullYear() + 1}
 						placeholder={new Date().getFullYear().toString()}
-						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+						
 					/>
 				</div>
 
@@ -84,7 +145,7 @@
 						label="Numer Rejestracyjny (opcjonalnie)"
 						form={addVehicle}
 						placeholder="np. KR ABC123"
-						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+						
 					/>
 				</div>
 
@@ -96,7 +157,7 @@
 						form={addVehicle}
 						placeholder="17-znakowy numer VIN"
 						maxlength={17}
-						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+						
 					/>
 				</div>
 
@@ -107,7 +168,7 @@
 						label="Kolor (opcjonalnie)"
 						form={addVehicle}
 						placeholder="np. Niebieski"
-						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+						
 					/>
 				</div>
 
@@ -120,7 +181,7 @@
 						form={addVehicle}
 						min={0}
 						placeholder="np. 50000 km"
-						classes="focus:ring-opacity-20 mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+						
 					/>
 				</div>
 			</div>

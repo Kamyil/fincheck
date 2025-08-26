@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import CarIcon from 'lucide-svelte/icons/car';
 	import Button from '$lib/components/common/Button.svelte';
+	import Input from '$lib/components/common/Input.svelte';
 
 	let { form } = $props();
 	let isRegistering = $state(false);
@@ -67,27 +68,23 @@
 					}}
 					class="space-y-6"
 				>
-					<div>
-						<label class="block text-sm font-medium text-gray-300"> Nazwa użytkownika </label>
-						<input
-							name="username"
-							type="text"
-							required
-							class="mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-20"
-							placeholder="Wprowadź swoją nazwę użytkownika"
-						/>
-					</div>
+					<Input
+						name="username"
+						id="username"
+						type="text"
+						required
+						label="Nazwa użytkownika"
+						placeholder="Wprowadź swoją nazwę użytkownika"
+					/>
 
-					<div>
-						<label class="block text-sm font-medium text-gray-300"> Hasło </label>
-						<input
-							type="password"
-							name="password"
-							required
-							class="mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-20"
-							placeholder="Wprowadź swoje hasło"
-						/>
-					</div>
+					<Input
+						name="password"
+						id="password"
+						type="password"
+						required
+						label="Hasło"
+						placeholder="Wprowadź swoje hasło"
+					/>
 
 					{#if isRegistering}
 						<div>

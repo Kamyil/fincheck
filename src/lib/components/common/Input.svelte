@@ -1,5 +1,9 @@
 <script lang="ts" module>
 	export let variants = {
+		default:
+			'mt-2 w-full rounded-xl border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-500 shadow-sm transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:ring-opacity-20 focus:outline-none',
+		light:
+			'mt-2 w-full rounded-md border border-stone-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 focus:outline-none',
 		'with-shadow': 'shadow-md',
 		'with-border': 'border-stone-200'
 	} as const;
@@ -88,7 +92,7 @@
 		autocomplete = undefined,
 		readonly = false,
 		type = 'text',
-		variant = 'with-border',
+		variant = 'default',
 		min = undefined,
 		max = undefined,
 		minlength = undefined,
@@ -125,7 +129,7 @@
 	bind:this={inputInstance}
 	bind:value
 	class={twMerge(
-		'md:text-md border-1 relative w-full rounded-md border-transparent p-4 text-gray-900 transition-all duration-150 read-only:cursor-not-allowed read-only:bg-stone-100 sm:text-sm',
+		'relative transition-all duration-150 read-only:cursor-not-allowed read-only:bg-stone-100',
 		variants[variant],
 		classes
 	)}
