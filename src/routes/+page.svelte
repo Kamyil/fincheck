@@ -227,13 +227,19 @@
 						</div>
 					</div>
 
-					<!-- Floating elements -->
-					<div
-						class="absolute -right-6 -top-6 h-20 w-20 animate-bounce rounded-full bg-gradient-to-r from-red-500 to-red-600 opacity-30"
-					></div>
-					<div
-						class="absolute -bottom-10 -left-10 h-32 w-32 animate-pulse rounded-full bg-gradient-to-r from-gray-600 to-gray-700 opacity-20"
-					></div>
+					<!-- Floating automotive elements -->
+					<div class="animate-float-slow absolute -right-4 -top-4 opacity-20">
+						<WrenchIcon class="h-16 w-16 rotate-12 transform text-red-500" />
+					</div>
+					<div class="animate-float-medium absolute -bottom-8 -left-8 opacity-15">
+						<SettingsIcon class="animate-spin-slow h-12 w-12 text-gray-400" />
+					</div>
+					<div class="animate-float-fast absolute -right-8 top-1/4 opacity-25">
+						<CarIcon class="h-10 w-10 text-red-600" />
+					</div>
+					<div class="animate-float-reverse absolute -left-6 bottom-1/3 opacity-20">
+						<WrenchIcon class="h-8 w-8 -rotate-45 transform text-gray-500" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -814,6 +820,64 @@
 		}
 	}
 
+	@keyframes float-slow {
+		0%,
+		100% {
+			transform: translateY(0px) rotate(12deg);
+		}
+		50% {
+			transform: translateY(-20px) rotate(12deg);
+		}
+	}
+
+	@keyframes float-medium {
+		0%,
+		100% {
+			transform: translateY(0px) scale(1);
+		}
+		33% {
+			transform: translateY(-15px) scale(1.05);
+		}
+		66% {
+			transform: translateY(-8px) scale(0.95);
+		}
+	}
+
+	@keyframes float-fast {
+		0%,
+		100% {
+			transform: translateY(0px) translateX(0px);
+		}
+		25% {
+			transform: translateY(-10px) translateX(5px);
+		}
+		50% {
+			transform: translateY(-5px) translateX(-3px);
+		}
+		75% {
+			transform: translateY(-12px) translateX(2px);
+		}
+	}
+
+	@keyframes float-reverse {
+		0%,
+		100% {
+			transform: translateY(0px) rotate(-45deg);
+		}
+		50% {
+			transform: translateY(15px) rotate(-45deg);
+		}
+	}
+
+	@keyframes spin-slow {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
 	.animate-bounce {
 		animation: bounce 2s infinite;
 	}
@@ -824,5 +888,25 @@
 
 	.animate-expand {
 		animation: expand 2s ease-out forwards;
+	}
+
+	.animate-float-slow {
+		animation: float-slow 6s ease-in-out infinite;
+	}
+
+	.animate-float-medium {
+		animation: float-medium 4s ease-in-out infinite;
+	}
+
+	.animate-float-fast {
+		animation: float-fast 3s ease-in-out infinite;
+	}
+
+	.animate-float-reverse {
+		animation: float-reverse 5s ease-in-out infinite;
+	}
+
+	.animate-spin-slow {
+		animation: spin-slow 8s linear infinite;
 	}
 </style>
