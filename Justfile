@@ -27,10 +27,14 @@ start:
     # just db-studio
     
     @echo "🚀 Application is running!"
-    @echo "  - http://pan-samochodzik.test (with DNS resolution via dnsmasq)"
-    @echo "  - http://pan-samochodzik.local (automatic on macOS/Linux with mDNS)"
-    @echo "  - http://localhost (works everywhere)"
+    @echo "  - https://pan-samochodzik.test (with DNS resolution via dnsmasq) 🔒"
+    @echo "  - https://pan-samochodzik.local (automatic on macOS/Linux with mDNS) 🔒"
+    @echo "  - https://localhost (works everywhere) 🔒"
+    @echo "  - HTTP URLs will redirect to HTTPS automatically"
     @echo "📊 Traefik dashboard is available at http://localhost:8080"
+    @echo ""
+    @echo "⚠️  Your browser will show a security warning for self-signed certificates"
+    @echo "   Click 'Advanced' → 'Proceed to localhost (unsafe)' to continue"
     # @echo "💾 Database is accessible at localhost:5432"
     # @echo "💾 Drizzle studio is accessible at https://local.drizzle.studio/"
     # @echo ""
