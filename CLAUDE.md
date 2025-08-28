@@ -37,8 +37,8 @@ npm run check       # TypeScript + Svelte checking
 ```bash
 npm run db:push     # Push schema changes to database
 npm run db:migrate  # Run pending migrations
-npm run db:studio   # Open Drizzle Studio GUI
 just db-migrate     # Container version
+just db-gateway     # Show Drizzle Gateway access info
 ```
 
 ### Testing
@@ -344,9 +344,19 @@ Username: demo / Email: demo@pan-samochodzik.local / Password: pansamochodzik
 
 ## Access URLs
 
-- `http://pan-samochodzik.test` (dnsmasq DNS)
-- `http://pan-samochodzik.local` (mDNS)
-- `http://localhost` (standard port mapping)
+### Main Application
+
+- `https://pan-samochodzik.test` (dnsmasq DNS)
+- `https://pan-samochodzik.local` (mDNS)
+- `https://localhost` (standard port mapping)
+
+### Drizzle Gateway (Database Management)
+
+- `https://drizzle.pan-samochodzik.test`
+- `https://drizzle.pan-samochodzik.local`
+- `https://drizzle.localhost`
+- `http://localhost:4983` (direct access)
+- **Master password**: `pansamochodzik123`
 
 ## Critical Implementation Notes
 
@@ -377,4 +387,4 @@ Username: demo / Email: demo@pan-samochodzik.local / Password: pansamochodzik
 - **Use `just restart-app` instead of `npm run dev`** when you need to restart the development server
 - Database migrations auto-run on container startup
 - Hot reloading works in both container and local modes
-- Use Drizzle Studio for database inspection
+- Use Drizzle Gateway for enhanced database management (replaces Drizzle Studio)

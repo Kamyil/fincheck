@@ -72,6 +72,29 @@ services:
     depends_on:
       - dnsmasq
 
+  drizzle-gateway:
+    image: ghcr.io/drizzle-team/gateway:latest
+    platform: ${DOCKER_DEFAULT_PLATFORM}
+    restart: unless-stopped
+    ports:
+      - '4983:4983'
+    environment:
+      - PORT=4983
+      - STORE_PATH=/app
+      - MASTERPASS=pansamochodzik123
+    volumes:
+      - drizzle_gateway_data:/app
+    depends_on:
+      - db
+    networks:
+      - pan-samochodzik-network
+    labels:
+      - 'traefik.enable=true'
+      # Direct port access (simplified for debugging)
+      - 'traefik.http.routers.drizzle-gateway.rule=Host(`drizzle.localhost`) || Host(`localhost`)'
+      - 'traefik.http.routers.drizzle-gateway.entrypoints=web'
+      - 'traefik.http.services.drizzle-gateway.loadbalancer.server.port=4983'
+
   dnsmasq:
     image: strm/dnsmasq
     platform: ${DOCKER_DEFAULT_PLATFORM}
@@ -88,6 +111,7 @@ services:
 volumes:
   postgres_data:
   app_node_modules:
+  drizzle_gateway_data:
 
 networks:
   pan-samochodzik-network:

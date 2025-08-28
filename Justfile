@@ -23,8 +23,7 @@ start:
     @echo "📦 Running DB migrations..."
     just db-migrate
 
-    # @echo "💾 Running Drizzle Studio to manage your database:"
-    # just db-studio
+    @echo "💾 Drizzle Gateway will be available shortly for database management..."
     
     @echo "🚀 Application is running!"
     @echo "  - https://pan-samochodzik.test (with DNS resolution via dnsmasq) 🔒"
@@ -32,12 +31,14 @@ start:
     @echo "  - https://localhost (works everywhere) 🔒"
     @echo "  - HTTP URLs will redirect to HTTPS automatically"
     @echo "📊 Traefik dashboard is available at http://localhost:8080"
+    @echo "💾 Drizzle Gateway is available at:"
+    @echo "  - https://drizzle.pan-samochodzik.test"
+    @echo "  - https://drizzle.pan-samochodzik.local"
+    @echo "  - https://drizzle.localhost"
+    @echo "  - Direct access: http://localhost:4983"
     @echo ""
     @echo "⚠️  Your browser will show a security warning for self-signed certificates"
     @echo "   Click 'Advanced' → 'Proceed to localhost (unsafe)' to continue"
-    # @echo "💾 Database is accessible at localhost:5432"
-    # @echo "💾 Drizzle studio is accessible at https://local.drizzle.studio/"
-    # @echo ""
     @echo "Use 'just logs' to view application logs"
     @echo "Use 'just logs-app' to view only app logs"
 
@@ -79,8 +80,14 @@ db-migrate:
 db-push:
     docker compose exec app bun run db:push
 
-db-studio:
-    DATABASE_URL="postgres://admin:pansamochodzik123@localhost:5432/local" bun run db:studio
+db-gateway:
+    @echo "💾 Drizzle Gateway is running at:"
+    @echo "  - https://drizzle.pan-samochodzik.test"
+    @echo "  - https://drizzle.pan-samochodzik.local"  
+    @echo "  - https://drizzle.localhost"
+    @echo "  - Direct access: http://localhost:4983"
+    @echo ""
+    @echo "Master password: pansamochodzik123"
 
 db-generate-migration:
     docker compose exec app bun run db:generate:migration
