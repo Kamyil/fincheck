@@ -8,9 +8,13 @@
 	<div class="container mx-auto p-8">
 		<h1 class="mb-6 text-3xl font-bold">Your Profile</h1>
 
-		{#key getUserProfile().current}
-			{@const profile = await getUserProfile()}
-
+		{#await getUserProfile()}
+			<div class="container mx-auto flex items-center justify-center p-8">
+				<div
+					class="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-blue-600"
+				></div>
+			</div>
+		{:then profile}
 			<form {...updateUserProfile}>
 				<div class="mb-4">
 					<Input
@@ -55,7 +59,7 @@
 					Please check the form fields - there are validation errors.
 				</div>
 			{/if}
-		{/key}
+		{/await}
 	</div>
 
 	{#snippet pending()}

@@ -21,8 +21,8 @@
 		"db:migrate": "drizzle-kit migrate"
 	},
 	"devDependencies": {
+		"@eslym/sveltekit-adapter-bun": "^2.0.5",
 		"@playwright/test": "^1.49.1",
-		"@sveltejs/adapter-node": "^5.2.12",
 		"@sveltejs/kit": "^2.22.0",
 		"@sveltejs/vite-plugin-svelte": "^6.0.0",
 		"@tailwindcss/container-queries": "^0.1.1",

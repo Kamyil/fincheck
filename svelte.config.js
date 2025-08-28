@@ -1,5 +1,5 @@
 import { mdsvex } from 'mdsvex';
-import adapter from '@sveltejs/adapter-node';
+import adapter from '@eslym/sveltekit-adapter-bun';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -8,7 +8,13 @@ const config = {
 	// for more information about preprocessors
 	preprocess: [vitePreprocess(), mdsvex()],
 	kit: {
-		adapter: adapter(),
+		adapter: adapter({
+			out: './build',
+			bundler: 'bun',
+			serveStatic: true,
+			sourceMap: true
+		}),
+
 		experimental: {
 			remoteFunctions: true
 		}

@@ -52,6 +52,13 @@ npm run test               # All tests
 
 ## Architecture
 
+### Build System
+
+- **@eslym/sveltekit-adapter-bun**: Production builds optimized for Bun runtime instead of Node.js
+- **Bun bundler**: Uses Bun's native bundler for faster builds and better performance
+- **Static asset handling**: Built-in static file serving with proper caching headers
+- **Single executable ready**: Build output compatible with `bun build --compile` for deployment
+
 ### Authentication System
 
 - **Custom session-based auth** (not Auth.js) with Argon2 password hashing
