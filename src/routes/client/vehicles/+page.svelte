@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/components/common/Button.svelte';
+	import Loader from '$lib/components/common/Loader.svelte';
 	import VehicleCard from '$lib/components/VehicleCard.svelte';
 	import AddVehicleModal from './components/AddVehicleModal.svelte';
 	import EditVehicleModal from './components/EditVehicleModal.svelte';
@@ -117,10 +118,28 @@
 		</section>
 
 		{#snippet pending()}
-			<div class="container mx-auto flex items-center justify-center p-8">
-				<div
-					class="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-blue-600"
-				></div>
+			<div class="relative z-10 mx-4 px-4 py-8 sm:mx-6 sm:px-6 lg:mx-8 lg:px-8">
+				<div class="mx-auto max-w-6xl">
+					<div class="mb-8 flex items-center justify-between">
+						<div class="flex items-center space-x-4">
+							<div
+								class="flex h-16 w-16 items-center justify-center rounded-full border border-red-600 bg-red-600/20"
+							>
+								<CarIcon class="h-8 w-8 text-red-400" />
+							</div>
+							<div>
+								<h1 class="text-3xl font-bold text-white">Twoje Pojazdy</h1>
+								<p class="text-gray-400">Zarządzaj swoimi samochodami i ich historią serwisową</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="flex min-h-[400px] items-center justify-center">
+						<Loader
+							size="xl"
+						/>
+					</div>
+				</div>
 			</div>
 		{/snippet}
 	</svelte:boundary>
