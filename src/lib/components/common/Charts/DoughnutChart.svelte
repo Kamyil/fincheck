@@ -3,11 +3,16 @@
 <!-- ^ comment, it's now actually easier to abstract charts by ourselves rather than depending on another wrapper library -->
 <!-- so this componenet is doing exactly that :) -->
 <script lang="ts">
-	import { Chart, Tooltip, type ChartData, type ChartOptions } from 'chart.js';
+	import {
+		Chart,
+		ArcElement,
+		Title,
+		Tooltip,
+		Legend,
+		type ChartData,
+		type ChartOptions
+	} from 'chart.js';
 	import type { HTMLCanvasAttributes } from 'svelte/elements';
-
-	import 'chart.js/auto';
-	import 'chartjs-adapter-date-fns';
 
 	interface Props extends HTMLCanvasAttributes {
 		data: ChartData<'doughnut', number[], string>;
@@ -16,7 +21,7 @@
 
 	const { data, options, ...rest }: Props = $props();
 
-	Chart.register(Tooltip);
+	Chart.register(ArcElement, Title, Tooltip, Legend);
 
 	let canvasElem: HTMLCanvasElement;
 	let chart: Chart;

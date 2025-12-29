@@ -4,6 +4,7 @@
 	import CalendarIcon from 'lucide-svelte/icons/calendar';
 	import MapPinIcon from 'lucide-svelte/icons/map-pin';
 	import Button from '$lib/components/common/Button.svelte';
+	import { goto } from '$app/navigation';
 
 	let { data } = $props();
 </script>
@@ -66,21 +67,10 @@
 				variant="orange"
 				size="full_width"
 				classes="mt-4"
-				onClick={() => (window.location.href = '/client/vehicles')}>Zobacz</Button
+				onClick={() => goto('/client/vehicles')}
 			>
-		</div>
-
-		<div class="rounded-lg border border-gray-700 bg-gray-900 p-6">
-			<div class="flex items-center">
-				<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-600">
-					<MapPinIcon class="h-6 w-6 text-white" />
-				</div>
-				<div class="ml-4">
-					<h3 class="text-lg font-medium text-white">Moja Lokalizacja</h3>
-					<p class="text-gray-400">Zaktualizuj lokalizację</p>
-				</div>
-			</div>
-			<Button variant="purple" size="full_width" classes="mt-4">Aktualizuj</Button>
+				Zobacz
+			</Button>
 		</div>
 	</div>
 

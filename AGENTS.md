@@ -345,3 +345,29 @@ The application uses Svelte's experimental async feature, which allows using `aw
    ```typescript
    await addItem(id).updates(getItems().withOverride((items) => [...items, newItem]));
    ```
+
+## Task Management
+
+The project uses a simple TODO system located at `docs/TODO.md`:
+
+```markdown
+## TODO
+
+- Vehicle Health Dashboard Implementation
+- Smart Maintenance Reminders System
+- Enhanced Mechanic Dashboard with Real Data
+
+## IN PROGRESS
+
+(move tasks here when starting work)
+
+## COMPLETED
+
+- TODO system setup ✅ 2025-01-29
+
+## IDEAS / Backlog
+
+(future feature considerations)
+```
+
+**Usage**: Move tasks between sections by cut/paste. No IDs, estimates, or complex tracking - just pure simplicity for managing development tasks.

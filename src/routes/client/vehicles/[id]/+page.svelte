@@ -15,6 +15,7 @@
 	import AddHealthRecordModal from '../components/AddHealthRecordModal.svelte';
 	import EditHealthRecordModal from '../components/EditHealthRecordModal.svelte';
 	import HealthRecordsList from '../components/HealthRecordsList.svelte';
+	import VehicleHealthAnalytics from '$lib/components/VehicleHealthAnalytics.svelte';
 	import {
 		getHealthRecordsForVehicle,
 		deleteHealthRecord
@@ -112,6 +113,36 @@
 			</div>
 
 			<div class="grid grid-cols-1 gap-8">
+				<!-- Vehicle Health Analytics -->
+				<div>
+					<svelte:boundary>
+						{#await healthRecordsQuery}
+							<div
+								class="rounded-2xl border border-gray-700 bg-gray-900/50 p-6 shadow-2xl shadow-red-600/10"
+							>
+								<div class="py-8 text-center">
+									<div
+										class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-red-400"
+									></div>
+									<p class="mt-4 text-gray-400">Ładowanie analiz...</p>
+								</div>
+							</div>
+						{:then result}
+							{#if result.success && result.records && result.records.length > 0}
+								<div
+									class="rounded-2xl border border-gray-700 bg-gray-900/50 p-6 shadow-2xl shadow-red-600/10"
+								>
+									<h2 class="mb-6 text-xl font-semibold text-white">Analizy zdrowia pojazdu</h2>
+									<div class="mb-4 rounded bg-gray-800 p-2 text-sm text-white">
+										Debug: Passing {result.records.length} records to analytics
+									</div>
+									<VehicleHealthAnalytics records={result.records} />
+								</div>
+							{/if}
+						{/await}
+					</svelte:boundary>
+				</div>
+
 				<!-- Vehicle Information -->
 				<div>
 					<div
@@ -174,7 +205,7 @@
 								{#if vehicle.vin}
 									<div class="flex items-center space-x-3">
 										<HashIcon class="h-5 w-5 text-red-400" />
-									<div>
+										<div>
 											<p class="text-sm text-gray-400">Numer VIN</p>
 											<p class="break-all font-medium text-white">{vehicle.vin}</p>
 										</div>

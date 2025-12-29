@@ -395,3 +395,44 @@ Username: demo / Email: demo@pan-samochodzik.local / Password: pansamochodzik
 - Database migrations auto-run on container startup
 - Hot reloading works in both container and local modes
 - Use Drizzle Gateway for enhanced database management (replaces Drizzle Studio)
+
+## Task Management System
+
+The project uses a minimalist TODO system at `docs/TODO.md` with four simple sections:
+
+```markdown
+## TODO
+
+- Vehicle Health Dashboard Implementation
+- Smart Maintenance Reminders System
+- Enhanced Mechanic Dashboard with Real Data
+
+## IN PROGRESS
+
+(Currently empty - move tasks here when starting work)
+
+## COMPLETED
+
+- TODO system setup ✅ 2025-01-29
+
+## IDEAS / Backlog
+
+(Future feature considerations organized by category)
+```
+
+**Key principles:**
+
+- **No task IDs** - avoids overhead of tracking sequential numbers
+- **No estimates or status metadata** - reduces administrative burden
+- **Status via section placement** - move tasks between sections by cut/paste
+- **Single file management** - everything in one place for easy access
+- **Git-friendly** - simple text changes that diff well
+
+**Workflow:**
+
+1. Add new tasks to appropriate TODO priority section
+2. Move task to IN PROGRESS when starting work (keep only 1-2 active)
+3. Move to COMPLETED when finished (with ✅ date)
+4. Add future ideas to IDEAS/Backlog section
+
+This system prioritizes developer productivity over process complexity.
