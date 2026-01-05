@@ -26,14 +26,12 @@ start:
     @echo "💾 Drizzle Gateway will be available shortly for database management..."
     
     @echo "🚀 Application is running!"
-    @echo "  - https://pan-samochodzik.test (with DNS resolution via dnsmasq) 🔒"
-    @echo "  - https://pan-samochodzik.local (automatic on macOS/Linux with mDNS) 🔒"
+    @echo "  - https://app.test (with DNS resolution via dnsmasq) 🔒"
+    @echo "  - https://app.local (automatic on macOS/Linux with mDNS) 🔒"
     @echo "  - https://localhost (works everywhere) 🔒"
     @echo "  - HTTP URLs will redirect to HTTPS automatically"
     @echo "📊 Traefik dashboard is available at http://localhost:8080"
     @echo "💾 Drizzle Gateway is available at:"
-    @echo "  - https://drizzle.pan-samochodzik.test"
-    @echo "  - https://drizzle.pan-samochodzik.local"
     @echo "  - https://drizzle.localhost"
     @echo "  - Direct access: http://localhost:4983"
     @echo ""
@@ -54,10 +52,10 @@ local-dev:
     done
 
     @echo "📦 Running DB migrations locally..."
-    DATABASE_URL="postgres://admin:pansamochodzik123@localhost:5432/local" bun run db:push
+    DATABASE_URL="postgres://admin:devpassword123@localhost:5432/local" bun run db:push
     
     @echo "🚀 Starting SvelteKit dev server..."
-    DATABASE_URL="postgres://admin:pansamochodzik123@localhost:5432/local" bun run dev
+    DATABASE_URL="postgres://admin:devpassword123@localhost:5432/local" bun run dev
 
 # Stop all containers
 stop:
@@ -82,17 +80,13 @@ db-push:
 
 db-gateway:
     @echo "💾 Drizzle Gateway is running at:"
-    @echo "  - https://drizzle.pan-samochodzik.test"
-    @echo "  - https://drizzle.pan-samochodzik.local"  
     @echo "  - https://drizzle.localhost"
     @echo "  - Direct access: http://localhost:4983"
     @echo ""
-    @echo "Master password: pansamochodzik123"
+    @echo "Master password: devpassword123"
 
 db-generate-migration:
     docker compose exec app bun run db:generate:migration
-
-# This functionality has been moved to database migrations
 
 # Show logs
 logs:

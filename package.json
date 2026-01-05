@@ -1,5 +1,5 @@
 {
-	"name": "pan-samochodzik",
+	"name": "sveltekit-app-starter",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",

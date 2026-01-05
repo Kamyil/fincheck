@@ -104,13 +104,8 @@
 		onChange = () => {}
 	}: Props = $props();
 
-	// Simple and clean error handling
 	const errorMessage = $derived(
-		// Handle direct error prop (string)
-		typeof error === 'string'
-			? error
-			: // Handle remote form errors (simple object format)
-				form?.result?.errors?.[name] || null
+		typeof error === 'string' ? error : name ? form?.result?.errors?.[name] || null : null
 	);
 	const hasError = $derived(!!errorMessage || error === true);
 </script>

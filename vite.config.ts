@@ -7,7 +7,7 @@ export default defineConfig({
 	server: {
 		host: '0.0.0.0',
 		port: 6969,
-		allowedHosts: ['pan-samochodzik.local', 'pan-samochodzik.test']
+		allowedHosts: ['localhost', 'app.local', 'app.test']
 	},
 	test: {
 		expect: { requireAssertions: true },

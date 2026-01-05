@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=postgres://admin:pansamochodzik123@db:5432/local
+      - DATABASE_URL=postgres://admin:devpassword123@db:5432/local
       - HOST=0.0.0.0
     volumes:
       - .:/app:cached
@@ -15,19 +15,16 @@ services:
     depends_on:
       - db
     networks:
-      - pan-samochodzik-network
+      - app-network
     labels:
       - 'traefik.enable=true'
-      # HTTP router (redirect to HTTPS)
-      - 'traefik.http.routers.app.rule=Host(`pan-samochodzik.test`) || Host(`pan-samochodzik.local`) || Host(`localhost`)'
+      - 'traefik.http.routers.app.rule=Host(`app.test`) || Host(`app.local`) || Host(`localhost`)'
       - 'traefik.http.routers.app.entrypoints=web'
       - 'traefik.http.routers.app.middlewares=redirect-to-https'
-      # HTTPS router
-      - 'traefik.http.routers.app-secure.rule=Host(`pan-samochodzik.test`) || Host(`pan-samochodzik.local`) || Host(`localhost`)'
+      - 'traefik.http.routers.app-secure.rule=Host(`app.test`) || Host(`app.local`) || Host(`localhost`)'
       - 'traefik.http.routers.app-secure.entrypoints=websecure'
       - 'traefik.http.routers.app-secure.tls=true'
       - 'traefik.http.services.app.loadbalancer.server.port=6969'
-      # Redirect middleware
       - 'traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https'
       - 'traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true'
 
@@ -39,12 +36,12 @@ services:
       - 5432:5432
     environment:
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: pansamochodzik123
+      POSTGRES_PASSWORD: devpassword123
       POSTGRES_DB: local
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - pan-samochodzik-network
+      - app-network
 
   traefik:
     image: traefik:v2.10
@@ -68,7 +65,7 @@ services:
       - './certs:/etc/traefik/certs:ro'
       - './traefik:/etc/traefik/dynamic:ro'
     networks:
-      - pan-samochodzik-network
+      - app-network
     depends_on:
       - dnsmasq
 
@@ -81,16 +78,15 @@ services:
     environment:
       - PORT=4983
       - STORE_PATH=/app
-      - MASTERPASS=pansamochodzik123
+      - MASTERPASS=devpassword123
     volumes:
       - drizzle_gateway_data:/app
     depends_on:
       - db
     networks:
-      - pan-samochodzik-network
+      - app-network
     labels:
       - 'traefik.enable=true'
-      # Direct port access (simplified for debugging)
       - 'traefik.http.routers.drizzle-gateway.rule=Host(`drizzle.localhost`) || Host(`localhost`)'
       - 'traefik.http.routers.drizzle-gateway.entrypoints=web'
       - 'traefik.http.services.drizzle-gateway.loadbalancer.server.port=4983'
@@ -104,7 +100,7 @@ services:
     cap_add:
       - NET_ADMIN
     networks:
-      - pan-samochodzik-network
+      - app-network
     ports:
       - '53:53/udp'
 
@@ -114,5 +110,5 @@ volumes:
   drizzle_gateway_data:
 
 networks:
-  pan-samochodzik-network:
+  app-network:
     driver: bridge

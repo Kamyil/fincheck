@@ -1,12 +1,12 @@
-# Agent Guidelines for pan-samochodzik
+# Agent Guidelines
 
-**Pan Samochodzik** is a Polish automotive platform built with SvelteKit 2.0 + Svelte 5, showcasing experimental remote functions and async features.
+A SvelteKit 2.0 application with Svelte 5, showcasing experimental remote functions and async features.
 
 ## Commands
 
 ### ALWAYS USE: Container Development
 
-**⚠️ CRITICAL: This is a containerized application. NEVER run `npm run dev` directly. Always use `just` commands.**
+**CRITICAL: This is a containerized application. NEVER run `npm run dev` directly. Always use `just` commands.**
 
 - Start: `just start` (full containerized startup with migrations)
 - Restart: `just restart-app` (use this instead of npm run dev)
@@ -25,7 +25,7 @@
 - E2E Tests: `npm run test:e2e`
 - DB Commands: `npm run db:push`, `npm run db:migrate`, `npm run db:studio`
 
-**❌ DO NOT USE `npm run dev` - use `just restart-app` instead**
+**DO NOT USE `npm run dev` - use `just restart-app` instead**
 
 ## Code Style
 
@@ -38,14 +38,13 @@
 - Use Svelte 5 with SvelteKit 2.0
 - Component files use `.svelte` extension
 - Follow TailwindCSS conventions for styling
-- **Icons**: Always import Lucide icons with "Icon" suffix (e.g., `import CarIcon from 'lucide-svelte/icons/car'` instead of `import Car from 'lucide-svelte/icons/car'`) for clarity
+- **Icons**: Always import Lucide icons with "Icon" suffix (e.g., `import UserIcon from 'lucide-svelte/icons/user'`) for clarity
 
 ## Architecture
 
 - **Custom session-based auth** (not Auth.js) with 30-day sessions and auto-renewal
 - **Database schema note**: `username` maps to `login` column in database
-- **Multi-domain setup**: `.test` (dnsmasq), `.local` (mDNS), `localhost`
-- **Test users**: `testuser/testuser123`, `demo/pansamochodzik`
+- **Test users**: `testuser/testuser123`, `demo/demopassword`
 
 ## Structure
 
@@ -67,17 +66,10 @@
 
 ### File Organization Preferences
 
-- **Route-specific components**: Keep components that are only used by a specific route in a `components/` folder next to the route page (e.g., `src/routes/client/vehicles/components/AddVehicleModal.svelte`) rather than in `$lib/components/`
+- **Route-specific components**: Keep components that are only used by a specific route in a `components/` folder next to the route page rather than in `$lib/components/`
 - **Component organization**: `$lib/components/common/` should only contain ultra-reusable UI primitives (Button, Modal, Input, etc.) - thin HTML abstractions. Application-specific components go in `$lib/components/` directly
 - **HTTP Status Codes**: Use `$lib/httpStatusCodes.ts` enum instead of hardcoding status code numbers
-- **File Access**: Prefer accessing files directly inside Docker container over network requests (unless debugging network issues)
-- **Database Operations**: Always use conditional creation patterns like `CREATE TABLE IF NOT EXISTS`, `CREATE TYPE IF NOT EXISTS`, and wrap `ALTER TABLE` statements in `DO $$ BEGIN ... END $$` blocks with existence checks to make all database operations idempotent and safe to re-run
-
-## User Testing & Feedback
-
-- **Ask users to test**: When implementing UI features, authentication flows, or user-facing functionality, ask the user to test the changes in their browser rather than trying to verify through curl or logs
-- **Delegate browser testing**: Users can quickly verify if features work as expected, saving time on complex debugging
-- **Request specific feedback**: Ask users to perform specific actions (e.g., "Can you login as client_example and check if the vehicle shows up?") for targeted validation
+- **Database Operations**: Always use conditional creation patterns like `CREATE TABLE IF NOT EXISTS` and wrap `ALTER TABLE` statements in `DO $$ BEGIN ... END $$` blocks with existence checks to make all database operations idempotent
 
 ## Error Handling
 
@@ -95,24 +87,17 @@ The application uses SvelteKit's experimental remote functions for data handling
 
    ```typescript
    import { query } from '$app/server';
-   import * as v from 'valibot'; // For validation
+   import * as v from 'valibot';
 
-   // Basic query (no arguments)
    export const getPosts = query(async () => {
    	const posts = await db.sql`SELECT * FROM post ORDER BY created_at DESC`;
    	return posts;
    });
 
-   // Query with validation
    export const getPost = query(v.string(), async (slug) => {
    	const [post] = await db.sql`SELECT * FROM post WHERE slug = ${slug}`;
    	if (!post) error(404, 'Not found');
    	return post;
-   });
-
-   // Unchecked query (skip validation - use carefully)
-   export const getHealthRecords = query('unchecked', async (vehicleId: string) => {
-   	return await db.select().from(healthRecords).where(eq(healthRecords.vehicleId, vehicleId));
    });
    ```
 
@@ -133,10 +118,7 @@ The application uses SvelteKit's experimental remote functions for data handling
    	}
 
    	await db.sql`INSERT INTO post (title, content) VALUES (${title}, ${content})`;
-
-   	// Refresh related queries on server (single-flight mutation)
    	await getPosts().refresh();
-
    	redirect(303, `/blog/${slug}`);
    });
    ```
@@ -149,32 +131,8 @@ The application uses SvelteKit's experimental remote functions for data handling
 
    export const addLike = command(v.string(), async (id) => {
    	await db.sql`UPDATE item SET likes = likes + 1 WHERE id = ${id}`;
-
-   	// Refresh related data
    	await getLikes(id).refresh();
    });
-   ```
-
-4. **Prerender Functions** - For static data that changes infrequently:
-
-   ```typescript
-   import { prerender } from '$app/server';
-
-   export const getStaticPosts = prerender(async () => {
-   	return await db.sql`SELECT * FROM featured_posts`;
-   });
-
-   // With inputs for build-time prerendering
-   export const getPost = prerender(
-   	v.string(),
-   	async (slug) => {
-   		/* ... */
-   	},
-   	{
-   		inputs: () => ['first-post', 'second-post', 'third-post'],
-   		dynamic: true // Allow runtime calls to non-prerendered inputs
-   	}
-   );
    ```
 
 ### File Structure
@@ -187,28 +145,19 @@ The application uses SvelteKit's experimental remote functions for data handling
 
 ```svelte
 <script>
-	// Import remote functions
 	import { getPosts, createPost, addLike } from './data.remote';
 
-	// Query usage with await
 	const posts = await getPosts();
-
-	// Or with reactive properties
-	const query = getPosts();
-	// query.loading, query.error, query.current available
 </script>
 
-<!-- Form usage -->
 <form {...createPost}>
 	<input name="title" />
 	<textarea name="content"></textarea>
 	<button>Create Post</button>
 </form>
 
-<!-- Command usage -->
 <button onclick={() => addLike(post.id).updates(getPosts())}> Like </button>
 
-<!-- Query with arguments -->
 <svelte:boundary>
 	{#each await getPosts() as post}
 		<article>{post.title}</article>
@@ -218,74 +167,6 @@ The application uses SvelteKit's experimental remote functions for data handling
 		<div>Loading posts...</div>
 	{/snippet}
 </svelte:boundary>
-
-<!-- Handle form results -->
-{#if createPost.result?.success}
-	<p>Post created successfully!</p>
-{:else if createPost.result?.error}
-	<p class="error">{createPost.result.error}</p>
-{/if}
-```
-
-### Advanced Patterns
-
-**Single-Flight Mutations** - Refresh specific queries without full page reload:
-
-```typescript
-// Server-side refresh
-export const createPost = form(async (data) => {
-	// ... create post
-	await getPosts().refresh(); // Refreshed data sent with response
-	redirect(303, `/blog/${slug}`);
-});
-```
-
-```svelte
-<!-- Client-side refresh with optimistic updates -->
-<form {...createPost.enhance(async ({ submit }) => {
-	await submit().updates(
-		getPosts().withOverride(posts => [...posts, newPost])
-	);
-})}>
-```
-
-**Query Refresh Methods:**
-
-```svelte
-<script>
-	// Manual refresh
-	const refreshPosts = () => getPosts().refresh();
-
-	// Queries are cached: getPosts() === getPosts()
-	// No need to store references for refreshing
-</script>
-
-<button onclick={refreshPosts}>Refresh Posts</button>
-```
-
-**Form Enhancement:**
-
-```svelte
-<form {...createPost.enhance(async ({ form, data, submit }) => {
-	try {
-		await submit();
-		form.reset();
-		showToast('Success!');
-	} catch (error) {
-		showToast('Error!');
-	}
-})}>
-```
-
-**Multi-form Actions (buttonProps):**
-
-```svelte
-<form {...login}>
-	<input name="username" />
-	<input name="password" type="password" />
-	<button>Login</button>
-	<button {...register.buttonProps}>Register</button>
-</form>
 ```
 
 ### Key Remote Function Benefits
@@ -296,7 +177,6 @@ export const createPost = form(async (data) => {
 - Automatic state refresh after mutations
 - Progressive enhancement (works without JS)
 - Optimistic updates support
-- Comprehensive error handling
 - Single-flight mutations (no extra round trips)
 
 ## Async Svelte
@@ -334,10 +214,7 @@ The application uses Svelte's experimental async feature, which allows using `aw
 3. To refresh data:
 
    ```typescript
-   // Client-side refresh
    getData().refresh();
-
-   // Server-side refresh in a form or command
    await getData().refresh();
    ```
 
@@ -345,29 +222,3 @@ The application uses Svelte's experimental async feature, which allows using `aw
    ```typescript
    await addItem(id).updates(getItems().withOverride((items) => [...items, newItem]));
    ```
-
-## Task Management
-
-The project uses a simple TODO system located at `docs/TODO.md`:
-
-```markdown
-## TODO
-
-- Vehicle Health Dashboard Implementation
-- Smart Maintenance Reminders System
-- Enhanced Mechanic Dashboard with Real Data
-
-## IN PROGRESS
-
-(move tasks here when starting work)
-
-## COMPLETED
-
-- TODO system setup ✅ 2025-01-29
-
-## IDEAS / Backlog
-
-(future feature considerations)
-```
-
-**Usage**: Move tasks between sections by cut/paste. No IDs, estimates, or complex tracking - just pure simplicity for managing development tasks.
